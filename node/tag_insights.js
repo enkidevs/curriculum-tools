@@ -87,7 +87,9 @@ workouts.forEach(w => {
             const newTags = {
               tags: w.tags.concat(i.tags),
             };
-            fs.writeFileSync(iPath, metadata + yaml.safeDump(newTags) + '\n---' + content.split('---').slice(1).join('---'));
+            if(newTags.tags.length > 0) {
+              fs.writeFileSync(iPath, metadata + yaml.safeDump(newTags) + '---' + content.split('---').slice(1).join('---'));
+            }
           }
         }
       });

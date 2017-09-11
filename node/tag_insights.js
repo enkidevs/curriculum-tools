@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const yaml = require('js-yaml');
 
 let TAGGED;
 let COURSE;
@@ -69,14 +70,25 @@ workouts.forEach(w => {
       const mdfiles = fs.readdirSync(wPath, 'utf8');
       w.insights.forEach(i => {
         const iPath = path.join(wPath, i.slug);
+        // change insight
         if(fs.existsSync(iPath)) {
           const content = fs.readFileSync(iPath, 'utf8');
-          const metadata = content.split('---')[0].split('\n').join('');
-          if(metadata.match(/tags:((\r\n|\r|\n)+\s*-\s.*)*/g)) {
-            
+          let metadata = content.split('---')[0];
+          const tags = metadata.match(/tags:((\r\n|\r|\n)+\s*-\s.*)*/g);
+          // the tag field is present in the current metadata
+          if(tags) {
+            const newTags = {
+              tags: yaml.safeLoad(tags).tags.concat(w.tags).concat(i.tags),
+            };
+            metadata = metadata.replace(/tags:((\r\n|\r|\n)+\s*-\s.*)*/g, yaml.safeDump(newTags));
+            fs.writeFileSync(iPath, metadata + '---' + content.split('---').slice(1).join('---'));
+          } else {
+            // if it has to be added altogether
+            const newTags = {
+              tags: w.tags.concat(i.tags),
+            };
+            fs.writeFileSync(iPath, metadata + yaml.safeDump(newTags) + '\n---' + content.split('---').slice(1).join('---'));
           }
-          console.log(metadata);
-
         }
       });
     }

@@ -13,17 +13,10 @@ if(process.argv.length > 3) {
   console.log('Please specify the path to the local document and the path to the course.');
   process.exit(0);
 }
-const emojis = ['👶', '✨', '💪', '🦑', '🐉'];
-const tokens = ['%introduction%', '%new%', '%workout%', '%deep%', '%novel%'];
-
 
 let taggedCourse;
 if(fs.existsSync(TAGGED)) {
   taggedCourse = fs.readFileSync(TAGGED, 'utf8');
-  for(let i = 0; i < emojis.length; ++i) {
-    taggedCourse = taggedCourse.replace(/emojis[i]/g, tokens[i]);
-  }
-  console.log(taggedCourse);
 } else {
   console.log(`The first path (document) is invalid.`);
   process.exit(0);
@@ -49,7 +42,7 @@ const workouts = taggedCourse.replace(/`/g, '').split('\n').reduce((acc, line) =
   }
   return cp;
 }, []);
-
+console.log('Parsing workouts');
 // parse tags
 workouts.forEach(w => {
   const wTags = w.title.match(/%.*%/g);

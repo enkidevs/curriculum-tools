@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "js-yaml": "^3.10.0"
+    "js-yaml": "^3.10.0",
+    "node-emoji": "^1.8.1"
   }
 }

@@ -10,8 +10,8 @@ const TOPIC_PATH = process.argv[3];
 
 const currentStructure = {};
 const newStructure = {};
+const currentSlugToPath = {};
 const toMove = {};
-let totalInsights = 0;
 
 
 // new structure
@@ -39,7 +39,8 @@ if(fs.existsSync(TOPIC_PATH)) {
     // Get hardcoded workouts, which are directories instead of .md files
     const workouts = allWorkouts.filter(workout => !workout.match('.*\.md'));
     // Get not used insights and games
-    const leftovers = allWorkouts.filter(insight => insight !== 'README.md' && insight.match('.*\.md'));
+    const leftovers = allWorkouts.filter(insight => insight !== 'README.md' && insight.match('.*\.md'))
+      .map(insight => insight.replace('.md', ''));
 
     let order = [];
     currentStructure[course] = {};
@@ -94,20 +95,56 @@ if(fs.existsSync(TOPIC_PATH)) {
   process.exit(0);
 }
 
-console.log(newStructure['Ecmascript 2015'].order[1]);
+
+// map the current structure to an easy insight slug - relative path object
+// this should actually be the main object
+Object.keys(currentStructure).forEach(course => {
+  // get current courses paths
+  if(currentStructure[course].order.length) {
+    currentStructure[course].order.forEach(section => {
+      section.forEach(workout => {
+        workout.insights.forEach(insightSlug => {
+          currentSlugToPath[insightSlug] = path.join(course, workout.slug, insightSlug);
+        });
+      });
+    });
+    // insights not in use
+  }
+  if(currentStructure[course].leftovers.length){
+    currentStructure[course].leftovers.forEach(insightSlug => {
+      currentSlugToPath[insightSlug] = path.join(course, insightSlug);
+    });
+  }
+
+});
+
+// console.log(currentStructure['Npm'].order[1][1].insights);
 
 
-//     console.log(`Course ${courseTitle} not found.`);
-//   } else {
-//     newStructure[courseTitle].forEach(workout => {
-//       if(!currentStructure[courseTitle][workout.]) {
-//         console.log(`Workout "${workout.title}" (${.slug}) in ${courseTitle} not found.`);
-//       } else {
-//         if(currentStructure[courseTitle])
-//       }
-//     });
-//   }
-// });
+Object.keys(newStructure).forEach(courseName => {
+  if(!currentStructure[courseName]) {
+    console.log(`Course ${courseName} not found in the current structure.`);
+  } else {
+    const newCourseLen = newStructure[courseName].order.length;
+    const oldCourseLen = currentStructure[courseName].order.length;
+    // log if there's a difference in the course's number of sections
+    if(newCourseLen !== oldCourseLen) {
+      console.log(`The new structure of ${courseName} has
+        ${newCourseLen > oldCourseLen ? 'more' : 'less'} sections.`);
+    }
+    newStructure[courseName].order.forEach(section => {
+      section.forEach((workout, ind) => {
+        workout.insights.forEach(insight => {
+          if(path.join(courseName, workout.slug, insight) !== currentSlugToPath[insight]) {
+            console.log(`Insight ${insight} is currently in ${currentSlugToPath[insight]}
+    instead of ${path.join(courseName, workout.slug, insight)}`);
+          }
+        });
+      });
+    });
+  }
+});
+
 
 
 function parseNewCourse(course) {
@@ -118,9 +155,10 @@ function parseNewCourse(course) {
     // match section
     const section = line.match(/----------/);
     // match workout title
-    const wTitle = line.match(/-\s+[wW]\d+:\s*(.*)/);
+    const wTitle = line.match(/-\s+[wW]\d+:\s*([\w,\s]*)\[(.*)\]/);
+
     // match insight
-    const iTitle = line.match(/-\s*\w.*/) && !line.match(/-\s*[gG]ame:/);
+    const iTitle = line.match(/-\s(([a-z0-9]+-*)+)/);
 
     // add new section
     if(section) {
@@ -131,7 +169,7 @@ function parseNewCourse(course) {
       const lastSection = acc[acc.length - 1];
       let workout = {
         name: wTitle[1].trim(),
-        slug: slugify(wTitle[1].trim()),
+        slug: wTitle[2].trim(),
         section: acc.length - 1,
         insights: [],
       };
@@ -143,7 +181,7 @@ function parseNewCourse(course) {
       // add new insight
     } else if(iTitle) {
       const lastSection = acc[acc.length - 1];
-      lastSection[lastSection.length - 1].insights.push(line.replace(/-\s*/, '').trim());
+      lastSection[lastSection.length - 1].insights.push(iTitle[1].trim());
       acc[acc.length - 1] = lastSection;
     }
     return acc;

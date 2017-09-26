@@ -3,6 +3,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const readline = require('readline');
 const emoji = require('node-emoji');
+const util = require('util');
 
 
 const NEW_STRUCTURE = process.argv[2];
@@ -120,30 +121,48 @@ Object.keys(currentStructure).forEach(course => {
 
 // console.log(currentStructure['Npm'].order[1][1].insights);
 
-
-Object.keys(newStructure).forEach(courseName => {
-  if(!currentStructure[courseName]) {
-    console.log(`Course ${courseName} not found in the current structure.`);
-  } else {
-    const newCourseLen = newStructure[courseName].order.length;
-    const oldCourseLen = currentStructure[courseName].order.length;
-    // log if there's a difference in the course's number of sections
-    if(newCourseLen !== oldCourseLen) {
-      console.log(`The new structure of ${courseName} has
-        ${newCourseLen > oldCourseLen ? 'more' : 'less'} sections.`);
-    }
-    newStructure[courseName].order.forEach(section => {
-      section.forEach((workout, ind) => {
-        workout.insights.forEach(insight => {
-          if(path.join(courseName, workout.slug, insight) !== currentSlugToPath[insight]) {
-            console.log(`Insight ${insight} is currently in ${currentSlugToPath[insight]}
-    instead of ${path.join(courseName, workout.slug, insight)}`);
-          }
+function checkInsightsLocation() {
+  Object.keys(newStructure).forEach(courseName => {
+    if(!currentStructure[courseName]) {
+      console.log(`Course ${courseName} not found in the current structure.`);
+    } else {
+      const newCourseLen = newStructure[courseName].order.length;
+      const oldCourseLen = currentStructure[courseName].order.length;
+      // log if there's a difference in the course's number of sections
+      if(newCourseLen !== oldCourseLen) {
+        console.log(`The new structure of ${courseName} has
+          ${newCourseLen > oldCourseLen ? 'more' : 'less'} sections.`);
+      }
+      newStructure[courseName].order.forEach(section => {
+        section.forEach((workout, ind) => {
+          workout.insights.forEach(insight => {
+            if(path.join(courseName, workout.slug, insight) !== currentSlugToPath[insight]) {
+              console.log(`Insight ${insight} is currently in ${currentSlugToPath[insight]}
+      instead of ${path.join(courseName, workout.slug, insight)}`);
+            }
+          });
         });
       });
-    });
-  }
-});
+    }
+  });
+}
+
+checkInsightsLocation();
+
+function checkWorkoutLocation() {
+
+}
+
+
+function checkInsightOrder() {
+
+}
+
+function checkWorkoutOrder() {
+
+}
+
+
 
 
 

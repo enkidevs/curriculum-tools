@@ -1,5 +1,5 @@
 These are the topics that currently exist, with planning and discussion boards for each.
-
+todo: fill in with real values, using a script ;)
 
 
 

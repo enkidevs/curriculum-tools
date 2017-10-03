@@ -1,5 +1,3 @@
-# Insights
-
 ## Insight Metadata
 
 ## Insight Content

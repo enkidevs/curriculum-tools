@@ -1,9 +1,8 @@
 
 
-export default class ContentReader {
+module.exports = class ContentReader {
   constructor(text) {
     this.rawText = text;
-    this.parse(text);
   }
 
   setTitle(title) {
@@ -16,6 +15,10 @@ export default class ContentReader {
 
   setContentPath(contentPath) {
     this.contentPath = contentPath;
+  }
+
+  parse(text) {
+    console.log("Parse unimplemented")
   }
 
 

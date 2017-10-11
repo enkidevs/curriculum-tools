@@ -1,13 +1,13 @@
 //** Standards cli helper functions, for ease of creation and statistics **/
-import os
+let os = require('os')
+let ContentReader = require('./contentReader')
 
-export default class Standard {
+module.exports = class Standard extends ContentReader {
   constructor(text) {
-    this.rawText = text;
-    this.parse(text);
+    super(text)
   }
 
   parse() {
-
+    console.log("standard parse unimplemented")
   }
 }

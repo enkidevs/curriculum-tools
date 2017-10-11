@@ -1,8 +1,8 @@
 {
-  "name": "insight-retag",
+  "name": "curriculum-tools",
   "version": "1.0.0",
   "description": "",
-  "main": "tag_insights.js",
+  "main": "./bin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,5 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^3.10.0"
-  },
-  "bin" : {
-    "standards" : "/bin/standards.js"
   }
 }

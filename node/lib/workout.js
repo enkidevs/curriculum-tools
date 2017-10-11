@@ -1,7 +1,9 @@
+let ContentReader = require('./contentReader');
 
-export default class Workout {
-  constructor(){
-    this.rawText = text;
+
+module.exports = class Workout extends ContentReader {
+  constructor(text){
+    super(text)
     this.insights = [];
     this.section = null;
     this.course = null;
@@ -9,10 +11,15 @@ export default class Workout {
     this.practiceQuestions = [];
     this.revisionQuestions = [];
     this.parent = null;
+    this.slug = null;
     this.parse(text);
   }
 
   parse() {
+    console.log("workout parse unimplemented")
+  }
 
+  addInsight() {
+    
   }
 }

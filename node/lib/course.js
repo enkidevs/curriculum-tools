@@ -39,7 +39,7 @@ module.exports = class Course extends ContentReader {
     //    link the filename in markdown to the content path on github
   }
 
-  readCourseTree() {
+  readCourseTree(text, map={}) {
     // rearranges the workouts and insights within the course
     // optionally, take in a hash map of keys and values formatted like so:
     // {

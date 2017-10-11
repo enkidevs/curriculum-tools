@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^3.10.0"
+  },
+  "bin" : {
+    "standards" : "/bin/standards.js"
   }
 }

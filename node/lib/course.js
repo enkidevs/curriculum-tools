@@ -25,7 +25,33 @@ module.exports = class Course extends ContentReader {
   }
 
   sectionAndOrderWorkouts() {
-    console.log("sectionAndOrderWorkouts")
+    console.log("sectionAndOrderWorkouts not implemented")
+    // loop through each workout and attach parents to children
+    // Assign the workout with no parent as this.sections[i].head
+    // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
+  }
+
+  renderCourse() {
+    // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
+    //  The course title as an H1
+    //  each workout title
+    //    the filename of each insight in the workout under each workout
+    //    link the filename in markdown to the content path on github
+  }
+
+  readCourseTree() {
+    // rearranges the workouts and insights within the course
+    // optionally, take in a hash map of keys and values formatted like so:
+    // {
+    //   ":functions:" "tags.functions"
+    // }
+    // that would look for the string ":functions:" next to the insight, and would add the tag "functions" to the "tags" field.
+  }
+
+  writeCourseTree() {
+    // modifies the files to match the current structure in memory by traversing the course and moving files to their correct workouts
+    // put removed insights into the .archived folder
+    // add any metadata that doesn't currently
   }
 
 }

@@ -1,8 +1,4 @@
 "use strict";
-
-const fs = require("fs");
-const path = require("path");
-
 class Insight {
     constructor(insight) {
         var i = this;
@@ -10,7 +6,7 @@ class Insight {
         // Obligatory Getting-rid-of-Windows-line-ending.
         const raw = insight.replace(/\r\n/g, "\n")
         // Sometimes, answer lists are malformed. Ensure that list is propely formatted.
-        .replace(/\n\*\ */g, "\n* ");
+        .replace(/\n *\*\ */g, "\n* ");
 
         i.title = raw.substring(raw.indexOf("#")+1, raw.indexOf("\n")).trim();
 

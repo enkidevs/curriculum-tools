@@ -8,7 +8,7 @@ An insight has some metadata that helps our systems organize and quantify the cu
 
 ## Location-based Metadata
 
-#### **Topic**
+### **Topic**
 
 The **topic** usually refers to the language or framework an insight exists within. **Users** _subscribe_ to **Topics**.
 
@@ -16,7 +16,7 @@ Take a look at our [[List of Topics]]
 
 In this GitHub repository, every directory in the first hierarchy level represents a separate topic. To specify the **topic** of an insight simply ensure the insight’s file is placed within the right **topic** directory.
 
-#### **Course**
+### **Course**
 
 A **course** represents a more specific area of content. Every **course** folder is contained in a **topic** folder. Each topic in the [[List of Topics]] should have it's subtopics listed.
 
@@ -24,7 +24,7 @@ A **course** represents a more specific area of content. Every **course** folder
 
 The metadata at the top of every insight file is parsed using YAML. It's a human-readable, markdown-format data transport language. Below are some of the properties of an insight and what they're used for.
 
-#### **Title**
+### **Title**
 Titles are Mandatory.
 
 The title should indicate to the user what the **Article** and **Questions* cover.
@@ -34,7 +34,7 @@ The title is specified at the top of the insight file preceded with an `#`
 
 *Note*: Keep in mind that the title of the insight is also shown with the **Revise Question**. That being said, you should take care when writing titles such that the title doesn’t directly give away the answer.  
 
-#### **Levels** (deprecated)
+### **Levels** (deprecated)
 
 The **levels** field indicates the target audience of an insight, experience-wise.
 
@@ -53,7 +53,7 @@ This allows different recipes of level combinations such as:
 
 We've deprecated this field in favor of a Standards based approach to quantifying experience. Level now corresponds roughly to Section.
 
-#### **Type**
+### **Type**
 
 Because games are fundamentally insights as well, this field is used to differentiate the type of game.
 
@@ -65,7 +65,7 @@ This field should look like:
     type: normal
 ```
 
-#### Stub
+### Stub
 **Stubs** are insights that have questions but no accompanying text. Setting the `stub` flag to `true` will only show this insight (and it's entire containing workout) to people who have finished the last section of the course the workout is contained in. It will also show up in the [[List of Stubs]] for others to work on. If you've created a set of questions, create an insight for each question set (a PQ, an RQ, and a QQ) and set the `stub` boolean to `true`, like so:
 ```
     stub: true
@@ -73,7 +73,7 @@ This field should look like:
 
 
 
-#### **Category**
+### **Category**
 
 The category field is a mandatory field.
 It is used to indicate the user the type of information they are presented with.
@@ -116,7 +116,7 @@ The **category** field should look like:
     category: good practice
 ```
 
-#### Tags
+### Tags
 Tags are for filtering and analysis, and quantifying learning.
 
 Tags specify what **Aspect** of a course an insight contains. Add one or more of the following to the Tags section:
@@ -128,7 +128,7 @@ Tags specify what **Aspect** of a course an insight contains. Add one or more of
 
 Tags also specify what general area of content the insight belongs in, smaller than the course level. `functions` is a good example, `regex` is another. 
 
-#### **Notes**
+### **Notes**
 
 The notes field is the place where internal observations can be made on an insight.
 These are not shown to the user
@@ -137,7 +137,7 @@ Simply add:
 
     notes: 'here is my note'
 
-#### **Links**
+### **Links**
 
 The Links field is where you can put additional resources. When a user bookmarks an insight, they are sent these links in an email so they can follow up in their learning. These links should:
 - When possible, link to **canonical documentation**
@@ -155,8 +155,6 @@ To attach **links**, the following format must be used:
     //  - >-
     //   [short-name](full-url){resource-type}
 ```
-
-## Insight Content
 
 ## Article
 
@@ -178,6 +176,20 @@ Within the article one can use:
 The maximum permitted column width of the content is `44` chars long. That means no words (or lines within code snippets) should exceed `44` chars.
 If a line of your code is beyond `44` characters, please add a line break at a readable point and continue on the next line with a two-space indent to indicate continuation. This ensures the insight will be readable on a mobile screen.
 
+
+The **content** of the insight is specified like:
+```
+    ---
+    ## Content
+
+    The usage of the `false` keyword in **JSX** and implicitly **React** is worth mentioning because of its volatile behaviour.
+
+    First of all, `false` is widely used to specify that a **React** element has no child:
+    
+ReactDOM.render(<div>{false}</div>,
+                            myNode);
+    
+```
 ## Questions
 
 ### Practice Question

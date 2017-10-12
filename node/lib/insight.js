@@ -11,10 +11,14 @@ module.exports = class Insight extends ContentReader {
     }
 
     parse(text) {
-      
+
       console.log("insight parse unimplemented")
       // get yaml, append to properties
       // get questions
       // analyse questions
+    }
+
+    render() {
+      // this should produce the text of the insight file
     }
 }

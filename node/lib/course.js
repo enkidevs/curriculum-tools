@@ -31,6 +31,10 @@ module.exports = class Course extends ContentReader {
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
   }
 
+  render() {
+    // this should produce the text for the readme file that defines this course
+  }
+
   renderCourse() {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1

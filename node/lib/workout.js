@@ -20,6 +20,10 @@ module.exports = class Workout extends ContentReader {
   }
 
   addInsight() {
-    
+
+  }
+
+  render() {
+    //this should produce the readme.md file that defines the workout
   }
 }

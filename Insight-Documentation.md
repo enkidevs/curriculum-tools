@@ -1,16 +1,24 @@
-
-
 ### What's an Insight?
-An **Insight** is a short article covering a small, well-defined objective. It features metadata for analysis purposes, a practice opportunity, a question designed to test your memory, and a multiple-choice quiz-style question.
+An **Insight** is a short article covering a small, well-defined objective. It features metadata for analysis purposes, a practice opportunity, a question designed to test your memory, and a multiple-choice quiz-style question. If you're going to fill in an insight, check out the [[Filling in Stubs]] article for the process.
 
 
-## Insight Metadata
+# Insight Metadata
 
 An insight has some metadata that helps our systems organize and quantify the curriculum. It also helps us understand how well a user understands a given concept. Any metadata is supported, but there are a few that are required.
 
+## Location-based Metadata
 
+#### **Topic**
 
+The **topic** usually refers to the language or framework an insight exists within. **Users** _subscribe_ to **Topics**.
 
+Take a look at our [[List of Topics]]
+
+In this GitHub repository, every directory in the first hierarchy level represents a separate topic. To specify the **topic** of an insight simply ensure the insight’s file is placed within the right **topic** directory.
+
+#### **Course**
+
+A **course** represents a more specific area of content. Every **course** folder is contained in a **topic** folder. Each topic in the [[List of Topics]] should have it's subtopics listed.
 
 ## Insight Content
 

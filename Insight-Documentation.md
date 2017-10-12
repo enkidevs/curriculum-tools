@@ -24,21 +24,141 @@ A **course** represents a more specific area of content. Every **course** folder
 
 The metadata at the top of every insight file is parsed using YAML. It's a human-readable, markdown-format data transport language. Below are some of the properties of an insight and what they're used for.
 
-## **Title [M]**
+#### **Title**
+Titles are Mandatory.
 
 The title should indicate to the user what the **Article** and **Questions* cover.
-It must be between `4` and `120` characters long.
+It must be between `4` and `120` characters long. The title can use `code blocks` inside it. 
 
-  *Note*: Keep in mind that the title of the insight is also shown with the **Revise Question**. That being said, you should take care when writing those such that the title doesn’t directly give away the answer.
+The title is specified at the top of the insight file preceded with an `#`
 
-The title can use `code blocks`  inside it. 
+*Note*: Keep in mind that the title of the insight is also shown with the **Revise Question**. That being said, you should take care when writing titles such that the title doesn’t directly give away the answer.  
 
-The title is specified at the top of the insight file preceded with an `#` :
+#### **Levels** (deprecated)
+
+The **levels** field indicates the target audience of an insight, experience-wise.
+
+The levels currently available for an insight are:
+
+- `beginner`
+- `basic`
+- `medium`
+- `advanced`
+
+This allows different recipes of level combinations such as:
+
+- `beginner` - fit for people with little to no knowledge on the subject
+- `medium` , `advanced` - fit for both confident and experts
+- `beginner` , `basic` , `medium` , `advanced`  - will be seen by all users, regardless of their level
+
+We've deprecated this field in favor of a Standards based approach to quantifying experience. Level now corresponds roughly to Section.
+
+#### **Type**
+
+Because games are fundamentally insights as well, this field is used to differentiate the type of game.
+
+For **insights**, this field should be set to `normal`.
+
+
+This field should look like:
+```
+    type: normal
+```
+
+#### Stub
+**Stubs** are insights that have questions but no accompanying text. Setting the `stub` flag to `true` will only show this insight (and it's entire containing workout) to people who have finished the last section of the course the workout is contained in. It will also show up in the [[List of Stubs]] for others to work on. If you've created a set of questions, create an insight for each question set (a PQ, an RQ, and a QQ) and set the `stub` boolean to `true`, like so:
+```
+    stub: true
+```
+
+
+
+#### **Category**
+
+The category field is a mandatory field.
+It is used to indicate the user the type of information they are presented with.
+
+The possible categories are:
+
+- `fundamental`
+  - the goal is to teach a core feature or fact of the **topic** or **subtopic** (e.g a core feature of `JavaScript` )
+  - a feature or fact should only be considered `fundamental` if it's an important characteristic of the topic/language (in other words: *it makes it special*)
+  - basic facts and features (expected and commonly found in other languages) should not be considered `fundamental`
+
+- `feature`
+  - the goal is to teach that something exists (a function, a method, etc..)
+  - the insight also need to explain briefly what it does / when you might use it
+  - it must be a non-trivial feature
+  - the title should be the name of the feature/function/method
+
+- `good practice`
+  - This is to establish Best Practices
+  - the **insight** should explain briefly why this is considered a "*good*" habit
+  - it should not be black and white, as in "you should always do X", but rather as "you would want to do X under these circumstances" 
+  - reviewers should not be too picky if they don't agree 100% with the recommendation (these types of insights will always sound a bit subjective)
+
+- `how to`
+  - the goal is to teach one way of doing something (typically by combining multiple functions and features)
+  - the name of the insight should the name of what we want to teach to do (and NOT the name of the function or method used to do it), eg "Scrape the web with Node.js"
+  - to be interesting, the insights must be teaching a particularly good way of doing something (either a short way, an efficient way, an elegant way, or an idiomatic way)
+
+- `pattern / idioms`  
+  - the goal is to teach a common pattern or topic-specific way of doing something
+  - the insight must explain briefly why this is commonly used
+  - the difference between `idiom` s and `how-to` s is sometimes subtle, but the presentation is typically different because an `idiom` insight should directly present a "pattern" (for the people who recognise to skip the rest of the insight), rather than presenting first a goal and then a way of achieving it
+  - unlike `how-to` s, `idioms` are not necessary a "good" way of doing something, just a common way (worth learning because you will probably encounter it in existing code and will need to understand it)
+
+- `caveats / gotchas`
+  - the goal is to warn users about common bugs and misconceptions, eg `NaN === NaN` returning `false` in JavaScript.
+
+The **category** field should look like:
+```
+    category: good practice
+```
+
+#### Tags
+Tags are for filtering and analysis, and quantifying learning.
+
+Tags specify what **Aspect** of a course an insight contains. Add one or more of the following to the Tags section:
+- Introduction: Contains parts of the course that you would show to someone if they were learning about it for the first time.
+- New: Updates to the topic or subtopic, recent features or changes to an API.
+- Workout: A chance to practice and simply improve your overall understanding of the entire topic.
+- Deep: An insight requiring the mastery of at least two former workouts. Insights that requires you to synthesize a lot of things in order to understand. 
+- Obscura: Details, stories, history, trivia
+
+Tags also specify what general area of content the insight belongs in, smaller than the course level. `functions` is a good example, `regex` is another. 
+
+#### **Notes**
+
+The notes field is the place where internal observations can be made on an insight.
+These are not shown to the user
+
+Simply add:
+
+    notes: 'here is my note'
+
+#### **Links**
+
+The Links field is where you can put additional resources. When a user bookmarks an insight, they are sent these links in an email so they can follow up in their learning. These links should:
+- When possible, link to **canonical documentation**
+- Link to a walkthrough or overview article that goes into depth
+- Link to a **free** course or book that covers the information in the insight
+
+
+To attach **links**, the following format must be used:
+```
+    links:
+
+      - >-
+        [facebook.github.io](https://facebook.github.io/react/tips/false-in-jsx.html){website}
+
+    //  - >-
+    //   [short-name](full-url){resource-type}
+```
 
 ## Insight Content
 
 ## Article
-
 
 Articles should be short and SEXI. 
 
@@ -49,6 +169,14 @@ SEXI is an acroynm for how explainations should be structured.
 - **E** Elaborate: Explain in more detail or qualify the concept. "Functions take an input and produce an output, and  can be composed together to control the flow of a program."
 - **X** Exemplify: Give an example of when you might use this, establish context. "Functions are useful when you need to perform a repeated action and you want to give that action a name." You can also visualize the abstract form here: `function ([arg1, arg2, args...]) {[function body]}`
 - **I** Illustrate: Show an example that is not abstract. `function add(a,b) { return a + b }`
+
+Within the article one can use:
+  - `code blocks`
+  - `footnotes`
+  - SVG Images
+
+The maximum permitted column width of the content is `44` chars long. That means no words (or lines within code snippets) should exceed `44` chars.
+If a line of your code is beyond `44` characters, please add a line break at a readable point and continue on the next line with a two-space indent to indicate continuation. This ensures the insight will be readable on a mobile screen.
 
 ## Questions
 

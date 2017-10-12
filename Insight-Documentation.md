@@ -20,6 +20,21 @@ In this GitHub repository, every directory in the first hierarchy level represen
 
 A **course** represents a more specific area of content. Every **course** folder is contained in a **topic** folder. Each topic in the [[List of Topics]] should have it's subtopics listed.
 
+## `yaml`-based Metadata
+
+The metadata at the top of every insight file is parsed using YAML. It's a human-readable, markdown-format data transport language. Below are some of the properties of an insight and what they're used for.
+
+## **Title [M]**
+
+The title should indicate to the user what the **Article** and **Questions* cover.
+It must be between `4` and `120` characters long.
+
+  *Note*: Keep in mind that the title of the insight is also shown with the **Revise Question**. That being said, you should take care when writing those such that the title doesn’t directly give away the answer.
+
+The title can use `code blocks`  inside it. 
+
+The title is specified at the top of the insight file preceded with an `#` :
+
 ## Insight Content
 
 ## Article

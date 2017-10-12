@@ -30,4 +30,8 @@ module.exports = class Topic extends ContentReader {
   addCourse(course) {
     this.courses[course.name] = course;
   }
+
+  render() {
+    // this should produce the readme file that represents the topic
+  }
 }

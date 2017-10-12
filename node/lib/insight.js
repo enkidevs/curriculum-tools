@@ -58,4 +58,8 @@ module.exports = class Insight extends ContentReader {
       }
     })
   }
+
+    render() {
+      // this should produce the text of the insight file
+    }
 }

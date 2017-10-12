@@ -10,4 +10,8 @@ module.exports = class Standard extends ContentReader {
   parse() {
     console.log("standard parse unimplemented")
   }
+
+  render() {
+    // this should produce the text of the standard file
+  }
 }

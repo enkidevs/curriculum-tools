@@ -2,7 +2,7 @@ let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
 
 module.exports = class Course extends ContentReader {
-  constructor (text) {
+  constructor (text, topic) {
     super(text)
 
     this.topic = null;
@@ -41,6 +41,22 @@ module.exports = class Course extends ContentReader {
     //  each workout title
     //    the filename of each insight in the workout under each workout
     //    link the filename in markdown to the content path on github
+    const [topicName, courseName] = this.contentPath.split('/').slice(-2);
+
+    const markdown = this.workouts.reduce((md, workout, ind) => {
+      const wSlug = workout.contentPath.split('/').pop();
+      const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
+
+      const repoLink = 'https://github.com/sagelabs/content/blob/master'
+      // #todo: detect current branch locally, link to that specific branch
+      const links = workout.insights.reduce((acc, insight) => {
+        const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
+        return acc + `- [${insight}](${link})\n`;
+      }, '');
+
+      return md + `${wTitle}\n${links}\n`;
+    }, `# ${courseName}\n\n`);
+    return markdown;
   }
 
   readCourseTree(text, map={}) {

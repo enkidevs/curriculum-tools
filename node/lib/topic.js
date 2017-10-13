@@ -1,4 +1,5 @@
 let ContentReader = require('./contentReader')
+let yaml = require('js-yaml')
 
 module.exports = class Topic extends ContentReader {
   constructor (text) {

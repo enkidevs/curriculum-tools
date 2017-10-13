@@ -13,16 +13,14 @@ module.exports = class Workout extends ContentReader {
     this.parent = null;
     this.slug = null;
     this.parse(text);
+  }
+
+  parse() {
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{
       for (var prop in doc) {
         this[prop] = doc[prop];
       }
     })
-  }
-
-  parse() {
-    console.log("workout parse unimplemented")
-    
   }
 
   addInsight() {

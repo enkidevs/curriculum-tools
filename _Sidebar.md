@@ -1,5 +1,5 @@
 [[Home]]  
-[[Getting Started]]  
+[[Getting Started Guide]]  
 [[Insight Documentation]]  
 [[List of Topics]]  
 [[Proposed Topics]]  

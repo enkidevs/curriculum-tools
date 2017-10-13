@@ -74,8 +74,8 @@ module.exports = class Curriculum {
                       fs.readdirSync(workoutPath).filter((entry) => {
                         return entry !== "README.md";
                       }).forEach((insightFile) => {
-                        let insightPath = `${workoutPath}/${insightFile}`
-                        let insight = new Insight(fs.readFileSync(insightPath));
+                        let insightPath = `${workoutPath}/${insightFile}`;
+                        let insight = new Insight(fs.readFileSync(insightPath, {encoding: 'utf8'}));
                         insight.setContentPath(`${workoutPath}/${insightFile}`);
 
                         workout.addInsight(insight);
@@ -86,7 +86,6 @@ module.exports = class Curriculum {
                     }
                   }
                 })
-
 
                 topic.addCourse(course);
               }

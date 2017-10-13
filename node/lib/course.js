@@ -48,6 +48,7 @@ module.exports = class Course extends ContentReader {
       const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
 
       const repoLink = 'https://github.com/sagelabs/content/blob/master'
+      // #todo: detect current branch locally, link to that specific branch
       const links = workout.insights.reduce((acc, insight) => {
         const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
         return acc + `- [${insight}](${link})\n`;

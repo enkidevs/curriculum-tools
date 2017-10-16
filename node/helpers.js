@@ -20,3 +20,7 @@ exports.capitalize = (string) => {
 exports.hasDash = (string) => {
   return exports.getIndentation(string) === string.indexOf('-');
 }
+
+exports.getGitBranch = (path, execSync) => {
+  return execSync(`git rev-parse --abbrev-ref HEAD`, {cwd: path, encoding: 'utf8'});
+}

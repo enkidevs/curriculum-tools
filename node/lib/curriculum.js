@@ -38,11 +38,11 @@ module.exports = class Curriculum {
 
           topic.setContentPath(topicPath);
           this.topics[topicFolder.toLowerCase()] = topic;
-
           console.info("courses");
           fs.readdirSync(topicPath).filter((entry) => {
             return fs.statSync(`${topicPath}/${entry}`).isDirectory() && entry !== ".git";
           }).forEach((courseFolder) => {
+
             let coursePath = `${topicPath}/${courseFolder}`;
             let readMePath = `${coursePath}/README.md`;
             if (fs.existsSync(readMePath)) {
@@ -80,7 +80,6 @@ module.exports = class Curriculum {
 
                         workout.addInsight(insight);
                       })
-
 
                       course.addWorkout(workout);
                     }

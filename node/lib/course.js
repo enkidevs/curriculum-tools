@@ -35,7 +35,8 @@ module.exports = class Course extends ContentReader {
     // this should produce the text for the readme file that defines this course
   }
 
-  renderCourse() {
+  renderCourse(branch) {
+    if (!branch) branch = 'master';
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
     //  each workout title
@@ -47,8 +48,7 @@ module.exports = class Course extends ContentReader {
       const wSlug = workout.contentPath.split('/').pop();
       const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
 
-      const repoLink = 'https://github.com/sagelabs/content/blob/master'
-      // #todo: detect current branch locally, link to that specific branch
+      const repoLink = `https://github.com/sagelabs/content/blob/${branch}`
       const links = workout.insights.reduce((acc, insight) => {
         const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
         return acc + `- [${insight}](${link})\n`;
@@ -72,6 +72,32 @@ module.exports = class Course extends ContentReader {
     // modifies the files to match the current structure in memory by traversing the course and moving files to their correct workouts
     // put removed insights into the .archived folder
     // add any metadata that doesn't currently
+  }
+
+  getStats() {
+    let stats = {
+      workouts: 0,
+      insights: 0,
+      practiceQuestions: 0,
+      revisionQuestions: 0,
+      quizQuestions: 0,
+      standards: 0,
+      stubs: 0,
+      placementTestReady: true
+    }
+    for (let workout of this.workouts) {
+      stats.workouts++;
+      let workoutStats = workout.getStats();
+
+      stats.insights += workoutStats.insights;
+      stats.practiceQuestions += workoutStats.practiceQuestions;
+      stats.revisionQuestions += workoutStats.revisionQuestions;
+      stats.quizQuestions += workoutStats.quizQuestions;
+      stats.standards += workoutStats.standards;
+      stats.stubs += workoutStats.stubs;
+      if (!workoutStats.placementTestReady) stats.placementTestReady = false;
+    }
+    return stats;
   }
 
 }

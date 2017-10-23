@@ -15,20 +15,25 @@ module.exports = class Insight extends ContentReader {
   }
 
   parse(text) {
+    this.title = text.substring(2, text.indexOf("\n"));
     this.content = (function(){
       let targetStr = "## Content";
-      let startIndex = text.indexOf(targetStr);
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.indexOf("---", startIndex)).trim();
-      return tempcontent;
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex);
+      return text.substring(startIndex, endIndex).trim();
     })();
 
     this.practiceQuestion = (function(){
-      let practiceQuestion = {};
+      let practiceQuestion = {
+        text: null,
+        answers: []
+      };
       let targetStr = "## Practice";
-      let startIndex = text.indexOf(targetStr);
+      let startIndex = text.indexOf(targetStr) + targetStr.length+1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
       // Insight does not have Pracitce Question! Exit, leaving empty object
-      if (startIndex === -1) return;
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.indexOf("---", startIndex)).trim();
+      if (startIndex === -1) return practiceQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
       practiceQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
       //Get array of every bullet, then throw out the text before.
       let answerArr = tempcontent.split("\n* ");
@@ -37,19 +42,42 @@ module.exports = class Insight extends ContentReader {
       return practiceQuestion;
     })();
 
-    this.reviewQuestion = (function(){
-      let revisionQuestion = {};
+    this.revisionQuestion = (function(){
+      let revisionQuestion = {
+        text: null,
+        answers: []
+      };
       let targetStr = "## Revision";
-      let startIndex = text.indexOf(targetStr);
-      // Insight does not have Review Question! Exit, leaving empty object
-      if (startIndex === -1) return;
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.length).trim();
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
+      // Insight does not have Review Question!
+      if (startIndex === -1) return revisionQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
       revisionQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
       //Get array of every bullet, then throw out the text before.
       let answerArr = tempcontent.split("\n* ");
-      answerArr.shift();
+      answerArr.filter(e => Boolean(e)); //sometimes there are empty answers
       revisionQuestion.answers = answerArr;
       return revisionQuestion;
+    })();
+
+    this.quizQuestion = (function(){
+      let quizQuestion = {
+        text: null,
+        answers: []
+      };
+      let targetStr = "## Quiz";
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
+      // Insight does not have Quiz Question!
+      if (startIndex === -1) return revisionQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
+      quizQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
+      //Get array of every bullet, then throw out the text before.
+      let answerArr = tempcontent.split("\n* ");
+      answerArr.filter(e => Boolean(e)); //sometimes there are empty answers
+      quizQuestion.answers = answerArr;
+      return quizQuestion;
     })();
 
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{

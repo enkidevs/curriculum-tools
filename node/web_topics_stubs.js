@@ -1,8 +1,9 @@
 const fs = require('fs');
+const slugify = require('slugify');
 const path = require('path');
 const emoji = require('node-emoji');
 const {getIndentation, containsLink,
-  slugify, capitalize, hasDash} = require('./helpers');
+  capitalize, hasDash} = require('./helpers');
 
 
 const tags = ['baby', 'muscle', 'squid', 'dragon', 'sparkle', 'octopus'];
@@ -49,7 +50,7 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
     if(indent === 0) {
       if(line[0] !== '-') {
         const wTitle = emoji.strip(line).replace(/\[.*\]/, '').trim();
-        const wSlug = line.match(/\[(.*)\]/) ? line.match(/\[(.*)\]/)[0] : slugify(wTitle);
+        const wSlug = line.match(/\[(.*)\]/) ? line.match(/\[(.*)\]/)[0] : slugify(wTitle, {remove: /[\&\(\)\,]/g, lower: true});
         const wTags = (emojiMatches || []).reduce((acc, em) => {
           if(dbTags[em]) acc.push(dbTags[em]);
           return acc;
@@ -65,7 +66,7 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
       } else {
         const exists = emoji.unemojify(line).indexOf(':x:') === -1;
         const iTitle = emoji.strip(line).substring(1).trim();
-        const iSlug = slugify(iTitle);
+        const iSlug = slugify(iTitle, {remove: /[\&\(\)\,]/g, lower: true});
         const iTags = (emojiMatches || []).reduce((acc, em) => {
           if(dbTags[em]) acc.push(dbTags[em]);
           return acc;
@@ -86,6 +87,7 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
       const lastWorkout = newCourseStructure[newCourseStructure.length - 1].insights;
       const tfMatcher = /\(?[tT]\/[fF]\)?\s*:?\s*/;
       const dashMatcher = /^\s*-\s*/;
+      console.log(line);
       const qsIndex = lastWorkout[lastWorkout.length - 1].qs.length - 1;
       if(line.match(tfMatcher)) {
         lastWorkout[lastWorkout.length - 1].qs.push({

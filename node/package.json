@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "node-emoji": "git+ssh://git@github.com:enkidevs/node-emoji.git"
+    "node-emoji": "git+ssh://git@github.com:enkidevs/node-emoji.git",
+    "slugify": "^1.2.1"
   }
 }

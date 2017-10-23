@@ -140,13 +140,22 @@ ${workout.insights.reduce((acc, insight) => {
       const insightPath = path.join(workoutPath, insight.slug + '.md');
       if(!fs.existsSync(insightPath)) {
         const insightContent = `# ${capitalize(insight.title)}\nauthor: mihaiberq\n\nlevels:\n  - beginner\n  - basic\n
-type: normal\n\ncategory: must-know\n\n\
+type: normal
+
+category: must-know
+
+stub: true
+
 tags:\n${workout.tags.concat(insight.tags).reduce((acc, tag) => {
   return acc + `  - ${tag}\n`;
 }, '')}
----\n## Content\n\n
+
+---
+## Content
+
 ${insight.exists ? `**A version of this insight already exists with the slug ${insight.title}, which should be updated!**` :
- 'New content to go here. The author must be updated to match a valid Enki account.'}\n\n\
+ 'New content to go here. The author must be updated to match a valid Enki account.'}
+
 ${parseQuestions(insight)}`;
         fs.writeFileSync(insightPath, insightContent);
       }

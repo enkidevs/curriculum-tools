@@ -1,9 +1,3 @@
-To Apply:
-
-Send an email to liz@enki.com with your cover letter and a link to something like a resume (linkedin counts, just make sure it gives me a good idea of who you are).
-
-Details about the Fellowship:
-
 Enki is dedicated to helping developers everywhere with their careers, and improve the average technical knowledge of everyone, and we need help with this mission!
 
 There are three levels of fellowship available. Each comes with mentorship in educational theory and planning by experts, weekly 1:1s, formative feedback on your work and promotion of your work at the end. All of the work you'll do will be open-source and accessible to the wider educational community. All are remote, with office locations in San Francisco and London.
@@ -46,3 +40,7 @@ You will learn:
 - How to scale personal educational efforts
 - How to quantify personal educational impact
 - A lot about whatever you thought you were an expert in
+
+## To Apply
+
+Send an email to liz@enki.com with your cover letter and a link to something like a resume (linkedin counts, just make sure it gives me a good idea of who you are).

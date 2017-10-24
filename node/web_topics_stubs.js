@@ -65,8 +65,13 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
         });
       } else {
         const exists = emoji.unemojify(line).indexOf(':x:') === -1;
-        const iTitle = emoji.strip(line).substring(1).trim();
-        const iSlug = slugify(iTitle, {remove: /[\&\(\)\,]/g, lower: true});
+        let iTitle = emoji.strip(line).substring(1).trim();
+        let iSlug = slugify(iTitle, {remove: /[\&\(\)\,]/g, lower: true});
+        if(iTitle.length < 5) {
+          iTitle = `Intro ${iTitle}`;
+          iSlug = `intro-${iSlug}`;
+        }
+
         const iTags = (emojiMatches || []).reduce((acc, em) => {
           if(dbTags[em]) acc.push(dbTags[em]);
           return acc;
@@ -116,10 +121,10 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
     // contains link
   } else {
     if(indent === 0) {
-      newCourseStructure[newCourseStructure.length - 1].links.push(line);
+      newCourseStructure[newCourseStructure.length - 1].links.push(line.trim());
     } else if(indent === 2) {
       newCourseStructure[newCourseStructure.length - 1]
-        .insights[newCourseStructure[newCourseStructure.length - 1].insights.length - 1].links.push(line);
+        .insights[newCourseStructure[newCourseStructure.length - 1].insights.length - 1].links.push(line.trim());
     }
   }
 });
@@ -147,7 +152,7 @@ type: normal
 category: must-know
 
 stub: true
-
+${insight.links.length > 0 ? `\nlinks:\n${insight.links.map(link => `  - '[Useful link](${link})'\n`)}` : ''}
 tags:\n${workout.tags.concat(insight.tags).reduce((acc, tag) => {
   return acc + `  - ${tag}\n`;
 }, '')}

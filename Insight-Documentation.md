@@ -193,7 +193,65 @@ ReactDOM.render(<div>{false}</div>,
 ## Questions
 
 ### Practice Question
+Practice questions are questions presented with the insight. All practice questions should take this into account- you can reference the text. Practice questions should include the most authentic possible practice opportunity- check the objective you're trying to meet and try to create a fill-in-the-blanks challenge that includes code.
+
+Practice questions are formatted like this:
+```
+## Practice
+
+Print "hello world" to the console:
+`???.???(???)`
+
+* `console`
+* `log`
+* `"hello world"`
+* `print`
+* `write`
+
+```
 
 ### Revise Question
+Revise questions are _assessment questions_. They are presented without the insight. Make sure they cover the same information as the practice question, and make sure it's not about trivia in the insight. They're used for placement tests, and to give points in a standard, and for other dynamic assessment. 
+Try to make these questions require as much _critical thought_ as possible- the user should _figure something out_, not just be relied upon to recall details (unless the objective is to memorize the details).
+
+Revision questions are formatted like:
+```
+## Revision
+
+Print "hello world" to the console:
+`???.???(???)`
+
+* `console`
+* `log`
+* `"hello world"`
+* `print`
+* `write`
+
+```
 
 ### Quiz Question
+
+Quiz Questions are _trivia_ or _gotcha_ questions, requiring either encyclopedic knowledge or the ability to evaluate a deceptive expression in code. Answering them correctly should make you feel smart, and answering them incorrectly should make you feel like you want to review the content.
+
+The **headline** is presented out of context of the question, and should be designed to ["nerd-snipe"](https://imgs.xkcd.com/comics/nerd_sniping.png) the reader. The headline is intended to feel like a challenge.
+The question is the actual question to be presented to the reader once the reader "accepts the challenge" of the headline.
+
+Answers are always multiple-choice, as these questions are often presented in interaction mediums that can only accept a single input (like the bot, or through email).
+
+```
+---
+## Quiz
+
+headline: How well do you understand the `++` operator?
+
+question: |
+  x = 1;
+  x++;
+  // what is the value of x
+
+answers:
+  - 2
+  - 3
+  - 4
+  - 1 
+```

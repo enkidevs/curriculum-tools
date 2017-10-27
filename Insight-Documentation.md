@@ -156,11 +156,11 @@ To attach **links**, the following format must be used:
     //   [short-name](full-url){resource-type}
 ```
 
-## Article
+## Content
 
-Articles should be short and SEXI. 
+Content should be short and SEXI. 
 
-Short means that they should cover the smallest possible topic in a non-exhaustive way. Typically less than 500 words, with an image or code example. Brevity is key, because these aren't meant to be a wall of text. **An Article is meant to cover only enough for the user to correctly answer the questions attached**.
+Short means that they should cover the smallest possible idea in a non-exhaustive way. Typically less than 500 words, with an image or code example. Brevity is key, because these aren't meant to be a wall of text. **An Article is meant to cover only enough for the user to correctly answer the questions attached**.
 
 SEXI is an acroynm for how explainations should be structured.
 - **S** State: State or define the concept. "Functions are a way to encapsulate and reuse code."
@@ -179,12 +179,12 @@ If a line of your code is beyond `44` characters, please add a line break at a r
 
 The **content** of the insight is specified like:
 ```
-    ---
-    ## Content
+---
+## Content
 
-    The usage of the `false` keyword in **JSX** and implicitly **React** is worth mentioning because of its volatile behaviour.
+The usage of the `false` keyword in **JSX** and implicitly **React** is worth mentioning because of its volatile behaviour.
 
-    First of all, `false` is widely used to specify that a **React** element has no child:
+First of all, `false` is widely used to specify that a **React** element has no child:
     
 ReactDOM.render(<div>{false}</div>,
                             myNode);

@@ -193,7 +193,7 @@ ReactDOM.render(<div>{false}</div>,
 ## Questions
 
 ### Practice Question
-Practice questions are questions presented with the insight. All practice questions should take this into account- you can reference the text. Practice questions should include the most authentic possible practice opportunity- check the objective you're trying to meet and try to create a fill-in-the-blanks challenge that includes code.
+Practice questions are questions presented with the insight. All practice questions should take this into account- you can reference the text. Practice questions should include the most authentic possible practice opportunity- check the objective you're trying to meet and try to create a fill-in-the-blanks challenge that includes code or terminal commands. You can ask them to choose the correct flags to append to a terminal program, for instance, because they can read what they flags are in the insight and pick the right ones.
 
 Practice questions are formatted like this:
 ```
@@ -212,7 +212,7 @@ Print "hello world" to the console:
 
 ### Revise Question
 Revise questions are _assessment questions_. They are presented without the insight. Make sure they cover the same information as the practice question, and make sure it's not about trivia in the insight. They're used for placement tests, and to give points in a standard, and for other dynamic assessment. 
-Try to make these questions require as much _critical thought_ as possible- the user should _figure something out_, not just be relied upon to recall details (unless the objective is to memorize the details).
+Try to make these questions require as much _critical thought_ as possible- the user should _figure something out_, not just be relied upon to recall details (unless the objective is to memorize the details). Don't include "remembering obscure terminal flags" in this kind of question, instead focus on what a person can be expected to recall before they've had their coffee.
 
 Revision questions are formatted like:
 ```

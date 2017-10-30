@@ -1,8 +1,10 @@
 let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
+const { execSync } = require('child_process');
+const { getGitBranch } = require('../helpers');
 
 module.exports = class Course extends ContentReader {
-  constructor (text, topic) {
+  constructor (text) {
     super(text)
 
     this.topic = null;
@@ -47,8 +49,9 @@ module.exports = class Course extends ContentReader {
       const wSlug = workout.contentPath.split('/').pop();
       const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
 
-      const repoLink = 'https://github.com/sagelabs/content/blob/master'
-      // #todo: detect current branch locally, link to that specific branch
+      const branch = getGitBranch(this.contentPath, execSync);
+      const repoLink = `https://github.com/sagelabs/content/blob/${branch}`;
+
       const links = workout.insights.reduce((acc, insight) => {
         const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
         return acc + `- [${insight}](${link})\n`;

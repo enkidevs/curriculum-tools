@@ -15,7 +15,7 @@ module.exports = class Workout extends ContentReader {
     this.parse(text);
   }
 
-  parse() {
+  parse(text) {
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{
       for (var prop in doc) {
         this[prop] = doc[prop];

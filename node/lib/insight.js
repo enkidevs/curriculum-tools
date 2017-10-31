@@ -15,6 +15,12 @@ module.exports = class Insight extends ContentReader {
   }
 
   parse(text) {
+    this.title = text.substring(2, text.indexOf("\n"));
+    yaml.safeLoadAll(text.split("---")[0], (doc)=>{
+      for (var prop in doc) {
+        this[prop] = doc[prop];
+      }
+    })
     this.content = (function(){
       let targetStr = "## Content";
       let startIndex = text.indexOf(targetStr);
@@ -37,12 +43,12 @@ module.exports = class Insight extends ContentReader {
       return practiceQuestion;
     })();
 
-    this.reviewQuestion = (function(){
+    this.revisionQuestion = (function(){
       let revisionQuestion = {};
       let targetStr = "## Revision";
       let startIndex = text.indexOf(targetStr);
       // Insight does not have Review Question! Exit, leaving empty object
-      if (startIndex === -1) return;
+      if (startIndex === -1) return {};
       let tempcontent = text.substring(startIndex+targetStr.length+1, text.length).trim();
       revisionQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
       //Get array of every bullet, then throw out the text before.
@@ -52,14 +58,76 @@ module.exports = class Insight extends ContentReader {
       return revisionQuestion;
     })();
 
-    yaml.safeLoadAll(text.split("---")[0], (doc)=>{
-      for (var prop in doc) {
-        this[prop] = doc[prop];
-      }
-    })
+    // Hotfix. Ensure that things that should be iterated over are in an array
+    if (this.tags != undefined && typeof(this.tags) == 'string') {
+      this.tags = new Array(this.tags);
+    }
+    if (this.standard != undefined && typeof(this.standard) == 'string') {
+      this.standard = new Array(this.standard);
+    }
   }
 
     render() {
+      var markdown = "";
+      // Title
+      markdown+= `# ${this.title}\n`;
+      // Author
+      if (this.author != undefined) markdown+= `author: ${this.author}\n\n`;
+      // Levels
+      if (this.levels != undefined){
+        markdown+= `levels:\n\n`;
+        for (let i in this.levels) {
+          markdown+= `  - ${this.levels[i]}\n\n`;
+        }
+      }
+
+      // Type
+      if (this.type != undefined) markdown+= `type: ${this.type}\n\n`;
+      // Category
+      if (this.category != undefined) markdown+= `category: ${this.category}\n\n`;
+      // Standards
+      if (this.standard != undefined) {
+        markdown+= `standards:\n\n`;
+        for (let i in this.standard) {
+          markdown+= `  - ${i}: ${this.standard[i]}\n\n`
+        }
+      }
+      // Tags
+      if (this.tags != undefined) {
+        markdown+= `tags:\n\n`;
+        for (let i in this.tags) {
+          markdown+= `  - ${this.tags[i]}\n\n`
+        }
+      }
+
+      // Links
+      if (this.links != undefined && this.links.length > 0) {
+        markdown+= `links:\n\n`
+        for (let i in this.links) {
+          markdown+= `  - >-\n    ${this.links[i]}\n\n`
+        }
+      }
+
+      // Content
+      markdown+= `---\n## Content\n\n${this.content}\n\n`
+
+      // Practice Question
+      if (this.practiceQuestion != undefined){
+        markdown+= `---\n## Practice\n\n${this.practiceQuestion.text}\n\n`
+        for (let i in this.practiceQuestion.answers) {
+          markdown+= `* ${this.practiceQuestion.answers[i]}\n`
+        }
+      }
+
+      // Review Question
+      if (this.revisionQuestion != undefined){
+        markdown+= `\n---\n## Revision\n\n${this.revisionQuestion.text}\n\n`
+        for (let i in this.revisionQuestion.answers) {
+          markdown+= `* ${this.revisionQuestion.answers[i]}\n`
+        }
+      }
+
       // this should produce the text of the insight file
+      return markdown;
     }
 }

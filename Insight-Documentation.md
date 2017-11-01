@@ -160,9 +160,9 @@ To attach **links**, the following format must be used:
 
 Content should be short and SEXI. 
 
-Short means that they should cover the smallest possible idea in a non-exhaustive way. Typically less than 500 words, with an image or code example. Brevity is key, because these aren't meant to be a wall of text. **An Article is meant to cover only enough for the user to correctly answer the questions attached**.
+Short means that they should cover the smallest possible idea in a non-exhaustive way. Typically less than 500 words, plus an image or code example. Brevity is key, because these aren't meant to be a wall of text. **An insight is meant to cover only enough for the user to correctly answer the questions attached**.
 
-SEXI is an acroynm for how explainations should be structured.
+SEXI is an acroynm for how explainations should be structured. This is a general guideline, not a rule.
 - **S** State: State or define the concept. "Functions are a way to encapsulate and reuse code."
 - **E** Elaborate: Explain in more detail or qualify the concept. "Functions take an input and produce an output, and  can be composed together to control the flow of a program."
 - **X** Exemplify: Give an example of when you might use this, establish context. "Functions are useful when you need to perform a repeated action and you want to give that action a name." You can also visualize the abstract form here: `function ([arg1, arg2, args...]) {[function body]}`
@@ -190,6 +190,18 @@ ReactDOM.render(<div>{false}</div>,
                             myNode);
     
 ```
+
+## How to add images
+1. Images on Enki are supported only in SVG format
+2. Use the https://enkidevs.github.io/svgomg/ tool to upload your SVG
+3. Once uploaded, navigate to ‘Enki Image Code’:
+
+![Preview](https://d2mxuefqeaa7sj.cloudfront.net/s_807FF94CFA7CEE44DBBA8A50F2F53E5F49DA9ACB203A2128D5EF02C3B09B4ECD_1481598513946_file.png)
+
+4. Paste the code displayed into your insight to insert your image.
+5. Preview the insight after submitting your pull request to check the image addition worked.
+
+
 ## Questions
 
 ### Practice Question

@@ -9,7 +9,7 @@ If you'd like to get started helping out, view the [[List of Stubs]]. Stubs are 
 
 If you'd like to pioneer content development (eg, write about new stuff that isn't in the list of stubs), you can check out the [[Proposed Topics]] section to propose a topic. If you want to add a subtopic under an existing topic, check out that section's proposed subtopics list. There's a [[List of Topics]] here, with planning and discussion boards, instructional design resources, and links to work in progress.
 
-Read the [[Creating a Course Guide]] and the [[Writing Standards and Assessments]] guide when you're thinking about writing a course on this platform, and get in contact with the head of content, liz at enki and the tld is com.
+Read the [[Creating a Course Guide]] and the [[Writing Standards and Assessments]] guide when you're thinking about writing a whole course on this platform, and get in contact with the head of content, liz@enki.com.
 
 
 If you _really_ like spending time on this, you could apply for the [[Open Source Curriculum Fellowship]]!

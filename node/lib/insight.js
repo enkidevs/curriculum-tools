@@ -4,14 +4,14 @@ let yaml = require("js-yaml");
 // Not meant to be the main parser, just meant to provide an abstraction for dealing with lots of curriculum.
 
 module.exports = class Insight extends ContentReader {
-  constructor(text) {
+  constructor(path) {
+    super(path);
     // Obligatory Getting-rid-of-Windows-line-ending.
-    text = text.replace(/\r\n/g, "\n")
+    this.rawText = this.rawText.replace(/\r\n/g, "\n")
     // Sometimes, answer lists are malformed. Ensure that list is propely formatted.
     .replace(/\n *\*\ */g, "\n* ");
 
-    super(text);
-    this.parse(text);
+    this.parse(this.rawText);
   }
 
   parse(text) {
@@ -59,75 +59,77 @@ module.exports = class Insight extends ContentReader {
     })();
 
     // Hotfix. Ensure that things that should be iterated over are in an array
-    if (this.tags != undefined && typeof(this.tags) == 'string') {
+    if (this.tags != null && typeof(this.tags) == 'string') {
       this.tags = new Array(this.tags);
     }
-    if (this.standard != undefined && typeof(this.standard) == 'string') {
-      this.standard = new Array(this.standard);
+    if (this.standards != null && typeof(this.standards) == 'string') {
+      this.standards = new Array(this.standards);
     }
   }
 
-    render() {
-      var markdown = "";
-      // Title
-      markdown+= `# ${this.title}\n`;
-      // Author
-      if (this.author != undefined) markdown+= `author: ${this.author}\n\n`;
-      // Levels
-      if (this.levels != undefined){
-        markdown+= `levels:\n\n`;
-        for (let i in this.levels) {
-          markdown+= `  - ${this.levels[i]}\n\n`;
-        }
+  render() {
+    var markdown = "";
+    // Title
+    markdown+= `# ${this.title}\n`;
+    // Author
+    if (this.author != null) markdown+= `author: ${this.author}\n\n`;
+    // Levels
+    if (this.levels != null){
+      markdown+= `levels:\n\n`;
+      for (let i in this.levels) {
+        markdown+= `  - ${this.levels[i]}\n\n`;
       }
-
-      // Type
-      if (this.type != undefined) markdown+= `type: ${this.type}\n\n`;
-      // Category
-      if (this.category != undefined) markdown+= `category: ${this.category}\n\n`;
-      // Standards
-      if (this.standard != undefined) {
-        markdown+= `standards:\n\n`;
-        for (let i in this.standard) {
-          markdown+= `  - ${i}: ${this.standard[i]}\n\n`
-        }
-      }
-      // Tags
-      if (this.tags != undefined) {
-        markdown+= `tags:\n\n`;
-        for (let i in this.tags) {
-          markdown+= `  - ${this.tags[i]}\n\n`
-        }
-      }
-
-      // Links
-      if (this.links != undefined && this.links.length > 0) {
-        markdown+= `links:\n\n`
-        for (let i in this.links) {
-          markdown+= `  - >-\n    ${this.links[i]}\n\n`
-        }
-      }
-
-      // Content
-      markdown+= `---\n## Content\n\n${this.content}\n\n`
-
-      // Practice Question
-      if (this.practiceQuestion != undefined){
-        markdown+= `---\n## Practice\n\n${this.practiceQuestion.text}\n\n`
-        for (let i in this.practiceQuestion.answers) {
-          markdown+= `* ${this.practiceQuestion.answers[i]}\n`
-        }
-      }
-
-      // Review Question
-      if (this.revisionQuestion != undefined){
-        markdown+= `\n---\n## Revision\n\n${this.revisionQuestion.text}\n\n`
-        for (let i in this.revisionQuestion.answers) {
-          markdown+= `* ${this.revisionQuestion.answers[i]}\n`
-        }
-      }
-
-      // this should produce the text of the insight file
-      return markdown;
     }
+
+    // Type
+    if (this.type != null) markdown+= `type: ${this.type}\n\n`;
+    // Category
+    if (this.category != null) markdown+= `category: ${this.category}\n\n`;
+    // Standards
+    if (this.standards != null) {
+      markdown+= `standards:\n\n`;
+      for (let i in this.standards) {
+        markdown+= `  - ${i}: ${this.standards[i]}\n\n`;
+      }
+    }
+    // Tags
+    if (this.tags != null) {
+      markdown+= `tags:\n\n`;
+      for (let i in this.tags) {
+        markdown+= `  - ${this.tags[i]}\n\n`;
+      }
+    }
+
+    // Links
+    if (this.links != null && this.links.length > 0) {
+      markdown+= `links:\n\n`;
+      for (let i in this.links) {
+        markdown+= `  - >-\n    ${this.links[i]}\n\n`;
+      }
+    }
+
+    // Content
+    markdown+= `---\n## Content\n\n${this.content}\n\n`;
+
+    // Practice Question
+    if (this.practiceQuestion != null){
+      markdown+= `---\n## Practice\n\n${this.practiceQuestion.text}\n\n`;
+      for (let i in this.practiceQuestion.answers) {
+        markdown+= `* ${this.practiceQuestion.answers[i]}\n`;
+      }
+      markdown+= `\n`;
+    }
+
+    // Review Question
+    if (this.revisionQuestion != null){
+      markdown+= `---\n## Revision\n\n${this.revisionQuestion.text}\n\n`;
+      for (let i in this.revisionQuestion.answers) {
+        markdown+= `* ${this.revisionQuestion.answers[i]}\n`;
+      }
+      markdown+= `\n`;
+    }
+
+    // this should produce the text of the insight file
+    return markdown;
+  }
 }

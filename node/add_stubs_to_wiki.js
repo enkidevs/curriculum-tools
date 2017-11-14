@@ -9,16 +9,23 @@ module.exports = {
   addStubsToWiki: function(curriculumPath) {
     console.log('Getting the active git branch in the curriculum repo.');
     const gitBranch = getGitBranch(curriculumPath, execSync);
-    const stubPaths = getListOfStubs(curriculumPath);
+    const actualStubPaths = getListOfStubs(curriculumPath);
     console.log('Done retrieving stubs.\n');
 
     const desktopPath = path.join(os.homedir(), 'Desktop');
     cloneWiki(desktopPath);
     console.log('Done cloning Wiki.\n');
 
-    const listOfStubsPath = path.join(desktopPath, 'curriculum.wiki', 'List-of-Stubs.md');
-    addListOfStubsToFile(listOfStubsPath, stubPaths);
+    console.log('Generating table of stubs.');
+    const table = parseListOfStubs(gitBranch, actualStubPaths);
+    const pathToListOfStubs = path.join(desktopPath, 'curriculum.wiki', 'List-of-Stubs.md');
 
+    if(!fs.existsSync(pathToListOfStubs)) {
+      fs.writeFileSync(pathToListOfStubs, `This is a list of stubs:\n\n${table}`);
+      console.log('Wrote to the file.');
+    }
+
+    updateWikiPage(desktopPath);
   }
 }
 
@@ -45,17 +52,47 @@ function cloneWiki(desktopPath) {
     execSync('git clone https://github.com/enkidevs/curriculum.wiki.git', { cwd: desktopPath });
   } else {
     console.log('Repository found. Fetching newest version.');
-    execSync('git fetch --all', { cwd: wikiPath });
+    // execSync('git fetch --all', { cwd: wikiPath });
   }
 }
 
-function addListOfStubsToFile(listPath, stubPaths) {
-  if(!fs.existsSync(listPath)) {
+function parseListOfStubs(gitBranch, stubPaths) {
+  let table = createTableBase();
+  table += stubPaths.map(path => {
+    const info = path.split('/curriculum/')[1].split('/');
+      let topic, course, workout, stub;
+      if(info.length === 3) {
+        [topic, course, stub] = info;
+        workout = '';
+      } else if(info.length === 4) {
+        [topic, course, workout, stub] = info;
+      }
+      return `[[${topic} Topic]] | ${course} | ${workout} | [${stub}](${getGitHubLink(gitBranch, path.split('/curriculum/')[1])})\
+       | ${gitBranch} |  | `;
+  }).join('\n');
+  return table;
+}
 
-  } else {
+function createTableBase() {
+  let table = '';
 
+  // Header
+  table += 'Topic | Course | Workout | Insight Slug | Branch | In Progress | Author\n';
+
+  // Margin
+  table += '---| --- | --- | --- | --- | --- | ---\n';
+  return table;
+}
+
+function updateWikiPage(desktopPath) {
+  const wikiPath = path.join(desktopPath, 'curriculum.wiki');
+  try {
+    execSync('git add . && git commit -m "Add more stubs to the wiki" && git push', { cwd: wikiPath });
+  } catch(e) {
+    console.log('No new stubs found, exiting.');
   }
 }
+
 
 const curriculumPath = process.argv[2];
 

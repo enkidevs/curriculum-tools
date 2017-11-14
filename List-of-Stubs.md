@@ -2,97 +2,50 @@ This is a list of stubs:
 
 Topic | Course | Workout | Insight Slug | Branch | In Progress | Author
 ---| --- | --- | --- | --- | --- | ---
-[[Web Topic]] | HTML | html-entities | [ampersand.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fampersand.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html-entities | [charset.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fcharset.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html-entities | [copyright.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fcopyright.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html-entities | [greater-and-less-than.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fgreater-and-less-than.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html-entities | [non-breaking-space.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fnon-breaking-space.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html-versions | [html4-xhtml-and-html5.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-versions%2Fhtml4-xhtml-and-html5.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [autocomplete.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fautocomplete.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [autofocus.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fautofocus.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [formaction.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformaction.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [formenctype.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformenctype.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [formmethod.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformmethod.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [formnovalidate-and-novalidate.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformnovalidate-and-novalidate.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [formtarget.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformtarget.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [height-and-width.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fheight-and-width.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [html-select.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fhtml-select.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [intro-list.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fintro-list.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [intro-step.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fintro-step.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [min-and-max.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fmin-and-max.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [multiple.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fmultiple.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [oninput.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Foninput.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [output.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Foutput.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [pattern-regexp.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fpattern-regexp.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [placeholder.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fplaceholder.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [range.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Frange.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | html5-input-form-attributes | [type-password.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Ftype-password.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [disabled.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fdisabled.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [fieldset.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Ffieldset.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [intro-size.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fintro-size.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [legend.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Flegend.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [maxlength.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fmaxlength.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [readonly.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Freadonly.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | input-form-attributes | [value.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fvalue.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [alt-with-images.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Falt-with-images.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [close-all-html-elements.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fclose-all-html-elements.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [doctype-always-first.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fdoctype-always-first.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [html-vs-htm.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fhtml-vs-htm.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [intro-bdi.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-bdi.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [intro-bdo.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-bdo.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [intro-ruby.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-ruby.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [lowercase-element-names.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Flowercase-element-names.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [quote-attribute-values.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fquote-attribute-values.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | international | [spaces-in-code.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fspaces-in-code.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | random | [conditional-comments-ie9.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fconditional-comments-ie9.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | random | [create-your-own-html5-tags.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fcreate-your-own-html5-tags.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | random | [html5shiv.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fhtml5shiv.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | random | [index-html-filename.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Findex-html-filename.md)       | html-course-2
- |  | 
-[[Web Topic]] | HTML | random | [minimized-files.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fminimized-files.md)       | html-course-2
- |  | 
+[[Web Topic]] | HTML | html-entities | [ampersand.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fampersand.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html-entities | [charset.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fcharset.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html-entities | [copyright.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fcopyright.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html-entities | [greater-and-less-than.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fgreater-and-less-than.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html-entities | [non-breaking-space.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-entities%2Fnon-breaking-space.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html-versions | [html4-xhtml-and-html5.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml-versions%2Fhtml4-xhtml-and-html5.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [autocomplete.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fautocomplete.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [autofocus.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fautofocus.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [formaction.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformaction.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [formenctype.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformenctype.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [formmethod.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformmethod.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [formnovalidate-and-novalidate.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformnovalidate-and-novalidate.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [formtarget.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fformtarget.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [height-and-width.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fheight-and-width.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [html-select.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fhtml-select.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [intro-list.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fintro-list.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [intro-step.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fintro-step.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [min-and-max.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fmin-and-max.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [multiple.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fmultiple.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [oninput.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Foninput.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [output.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Foutput.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [pattern-regexp.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fpattern-regexp.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [placeholder.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Fplaceholder.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [range.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Frange.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | html5-input-form-attributes | [type-password.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Fhtml5-input-form-attributes%2Ftype-password.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [disabled.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fdisabled.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [fieldset.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Ffieldset.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [intro-size.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fintro-size.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [legend.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Flegend.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [maxlength.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fmaxlength.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [readonly.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Freadonly.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | input-form-attributes | [value.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finput-form-attributes%2Fvalue.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [alt-with-images.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Falt-with-images.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [close-all-html-elements.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fclose-all-html-elements.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [doctype-always-first.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fdoctype-always-first.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [html-vs-htm.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fhtml-vs-htm.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [intro-bdi.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-bdi.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [intro-bdo.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-bdo.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [intro-ruby.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fintro-ruby.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [lowercase-element-names.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Flowercase-element-names.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [quote-attribute-values.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fquote-attribute-values.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | international | [spaces-in-code.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Finternational%2Fspaces-in-code.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | random | [conditional-comments-ie9.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fconditional-comments-ie9.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | random | [create-your-own-html5-tags.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fcreate-your-own-html5-tags.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | random | [html5shiv.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fhtml5shiv.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | random | [index-html-filename.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Findex-html-filename.md)       | html-course-2 |  | 
+[[Web Topic]] | HTML | random | [minimized-files.md](https://github.com/enkidevs/curriculum/blob/html-course-2/Web%2FHTML%2Frandom%2Fminimized-files.md)       | html-course-2 |  | 

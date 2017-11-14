@@ -1,3 +1,5 @@
+const { REPO_BASE_URL } = require('../constants');
+
 exports.getIndentation = (string) => {
   return string.search(/\S/);
 }
@@ -7,10 +9,15 @@ exports.containsLink = (string, linkMatcher) => {
 }
 
 exports.slugify = (string) => {
-  return string
-      .toLowerCase()
-      .replace(/\s/g,'-')
-      .replace(/[^\w-]+/g,'');
+ return (
+   string
+     .toLowerCase()
+     .replace(/\s+/g, '-')
+     .replace(/[^\w\-]+/g, '')
+     .replace(/\-\-+/g, '-')
+     .replace(/^-+/, '')
+     .replace(/-+$/, '')
+ );
 }
 
 exports.capitalize = (string) => {
@@ -23,4 +30,8 @@ exports.hasDash = (string) => {
 
 exports.getGitBranch = (path, execSync) => {
   return execSync(`git rev-parse --abbrev-ref HEAD`, {cwd: path, encoding: 'utf8'});
+}
+
+exports.getGitHubLink = (branch, insightPath) => {
+  return `${REPO_BASE_URL}/blob/${branch}/${encodeURIComponent(insightPath)}`;
 }

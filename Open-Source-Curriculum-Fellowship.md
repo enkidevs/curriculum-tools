@@ -43,4 +43,33 @@ You will learn:
 
 ## To Apply
 
-Send an email to liz@enki.com with your cover letter and a link to something like a resume (linkedin counts, just make sure it gives me a good idea of who you are).
+Send an email to liz@enki.com with your cover letter and a link to something like a resume (linkedin counts, just make sure it gives me a good idea of who you are and what you know how to do). 
+
+## The Application Process
+In the first interview, we'll talk over your background and what you'd be most interested in contributing to. Priority will be given to applicants writing about:
+- Android Development & Java
+- iOS Development & Swift
+- Information Security
+- Machine Learning
+
+We'll create some educational objectives together, and you'll write some questions based on those objectives. From those questions, you'll create insights. You'll be responsible for creating 1 Workout, consisting of 4-6 Insights, and one Game. 
+You will be expected to create a pull request to hold your workout as it's in progress. Draft work should be stored there, and may be commented on by the community. Get a few rounds of feedback from the community and lizTheDeveloper before you submit your work. While your workout is in progress, you are being evaluated on your working style, not your work itself. Curriculum is best written with mindshare, because it is about producing materials that transfer understanding, and you can't test the transfer of understanding alone. 
+
+Once you are finished, you'll receive a final review, where your finished workout will be evaluated and depending on the results of the evaluation, you'll either be given an offer to join the fellowship or you'll remain a community contributor. Fellowship members in good standing can continue for a second 3-month term or may be given a freelance rate to continue curriculum development.
+
+Complete Workouts will be evaluated on the following criteria:
+- Completeness of the coverage of the objective
+- Clarity of the writing and the examples
+- Accuracy of the questions and the content
+- Relevance to the objective of the questions and the content
+
+Your working style will be evaluated on the following criteria:
+- Openness to feedback and criticism (have a [growth mindset](https://www.youtube.com/watch?v=KUWn_TJTrnU))
+- Transparency and collaborative spirit (post draft work that's in progress and ask questions in the contributor's slack as you are thinking, seek mindshare)
+- Feedback loop count and length, and overall responsiveness (primarily looking at how long this cycle takes: post work and get feedback, incorporate changes, post changes)
+
+You are explicitly *not* evaluated on the following criteria:
+- Familiarity with git and github
+- Whether or not you've contributed to open-source projects before
+- How much help you need with formatting
+- Time spent waiting for a review (or waiting for anything from us)

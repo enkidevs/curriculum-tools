@@ -24,11 +24,24 @@ module.exports = class Topic extends ContentReader {
   }
 
   addStandard(standard) {
-    this.standards.push(standard)
+    this.standards.push(standard);
   }
 
   addCourse(course) {
-    this.courses[course.name] = course;
+    this.courses[course.title] = course;
+  }
+
+  getStubs() {
+    return Object.keys(this.courses).reduce((courses, course) => {
+      const courseStubs = this.courses[course].workouts.reduce((stubs, workout) => {
+        stubs = stubs.concat(workout.insights.filter(insight => insight.stub).map(insight => insight.contentPath));
+
+        return stubs;
+      }, []);
+
+      if(courseStubs.length) courses[course] = courseStubs;
+      return courses;
+    }, {});
   }
 
   render() {

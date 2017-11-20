@@ -2,7 +2,7 @@ const fs = require("fs")
 
 module.exports = class ContentReader {
   constructor(path) {
-    var text = fs.readFileSync(path).toString();
+    const text = fs.readFileSync(path, {encoding: 'utf8'});
     if (text.length === 0) throw new Error(`File ${path} empty`);
     this.rawText = text;
   }

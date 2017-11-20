@@ -16,13 +16,15 @@ module.exports = class Workout extends ContentReader {
   parse(text) {
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{
       for (var prop in doc) {
-        this[prop] = doc[prop];
+        if(prop !== 'insights') {
+          this[prop] = doc[prop];
+        }  
       }
     })
   }
 
-  addInsight() {
-
+  addInsight(insight) {
+    this.insights.push(insight);
   }
 
   render() {

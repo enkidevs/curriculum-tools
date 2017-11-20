@@ -11,7 +11,7 @@ module.exports = class Course extends ContentReader {
     this.workouts = [];
     this.standards = [];
     this.sections = {};
-    this.parse(text);
+    this.parse(this.rawText);
   }
 
   parse(text) {

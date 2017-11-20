@@ -33,11 +33,8 @@ module.exports = class Curriculum {
         let topicPath = `${this.contentPath}/${topicFolder}`;
         let readMePath = `${topicPath}/README.md`;
         if (fs.existsSync(readMePath)) {
-          let readme = fs.readFileSync(readMePath, {encoding: 'utf8'});
-          let topic = new Topic(readme);
+          let topic = new Topic(readMePath);
 
-          topic.setContentPath(topicPath);
-          this.topics[topicFolder.toLowerCase()] = topic;
           console.info("courses");
           fs.readdirSync(topicPath).filter((entry) => {
             return fs.statSync(`${topicPath}/${entry}`).isDirectory() && entry !== ".git";
@@ -47,49 +44,42 @@ module.exports = class Curriculum {
             let readMePath = `${coursePath}/README.md`;
             if (fs.existsSync(readMePath)) {
 
-              let readme = fs.readFileSync(readMePath, {encoding: 'utf8'});
+              let course = new Course(readMePath);
 
-              if (readme.length > 0) {
-                let course = new Course(readme);
+              course.setTitle(courseFolder);
 
-                topic.courses[courseFolder.toLowerCase()] = course;
-                course.setTitle(courseFolder);
-                course.setContentPath(coursePath);
+              console.info("workouts");
+              fs.readdirSync(coursePath).filter((entry) => {
+                return fs.statSync(`${coursePath}/${entry}`).isDirectory() && entry !== ".git";
+              }).forEach((workoutFolder) => {
+                let workoutPath = `${coursePath}/${workoutFolder}`;
+                let readMePath = `${workoutPath}/README.md`;
+                // if a workout doesn't have a readme, it's not valid
+                if (fs.existsSync(readMePath)) {
 
-                console.info("workouts");
-                fs.readdirSync(coursePath).filter((entry) => {
-                  return fs.statSync(`${coursePath}/${entry}`).isDirectory() && entry !== ".git";
-                }).forEach((workoutFolder) => {
-                  let workoutPath = `${coursePath}/${workoutFolder}`;
-                  let readMePath = `${workoutPath}/README.md`;
-                  // if a workout doesn't have a readme, it's not valid
-                  if (fs.existsSync(readMePath)) {
+                  let readme = fs.readFileSync(readMePath, {encoding: 'utf8'});
+                  if (readme.length > 0) {
+                    // if the workout's readme is empty it's a stub
+                    let workout = new Workout(readMePath);
+                    console.info("insights");
+                    fs.readdirSync(workoutPath).filter((entry) => {
+                      return entry !== "README.md";
+                    }).forEach((insightFile) => {
+                      let insightPath = `${workoutPath}/${insightFile}`;
+                      let insight = new Insight(insightPath);
+                      insight.setContentPath(insightPath);
 
-                    let readme = fs.readFileSync(readMePath, {encoding: 'utf8'});
-                    if (readme.length > 0) {
-                      // if the workout's readme is empty it's a stub
-                      let workout = new Workout(readme);
-                      workout.setContentPath(workoutPath);
-                      console.info("insights");
-                      fs.readdirSync(workoutPath).filter((entry) => {
-                        return entry !== "README.md";
-                      }).forEach((insightFile) => {
-                        let insightPath = `${workoutPath}/${insightFile}`;
-                        let insight = new Insight(fs.readFileSync(insightPath, {encoding: 'utf8'}));
-                        insight.setContentPath(`${workoutPath}/${insightFile}`);
+                      workout.addInsight(insight);
+                    })
 
-                        workout.addInsight(insight);
-                      })
-
-                      course.addWorkout(workout);
-                    }
+                    course.addWorkout(workout);
                   }
-                })
-
-                topic.addCourse(course);
-              }
+                }
+              })
+              topic.addCourse(course);
             }
           })
+          console.log(topic.getStubs());
         }
       })
     // standards

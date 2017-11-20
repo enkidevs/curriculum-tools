@@ -44,6 +44,14 @@ module.exports = class Topic extends ContentReader {
     }, {});
   }
 
+  renderCourses(filter) {
+    let markdown = '';
+    Object.keys(this.courses).forEach(courseName => {
+      markdown += this.courses[courseName].renderCourse(filter) + '\n\n';
+    });
+    return markdown;
+  }
+
   render() {
     // this should produce the readme file that represents the topic
   }

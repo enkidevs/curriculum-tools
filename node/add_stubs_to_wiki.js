@@ -16,16 +16,26 @@ module.exports = {
     cloneWiki(desktopPath);
     console.log('Done cloning Wiki.\n');
 
-    console.log('Generating table of stubs.');
-    const table = parseListOfStubs(gitBranch, actualStubPaths);
+
+    console.log('Filtering new stubs.');
     const pathToListOfStubs = path.join(desktopPath, 'curriculum.wiki', 'List-of-Stubs.md');
 
-    if(!fs.existsSync(pathToListOfStubs)) {
+    if(fs.existsSync(pathToListOfStubs)) {
+      const existingStubs =
+    }
+    const newStubs = actualStubPaths.filter(stub => isNewStub(stub));
+
+    console.log('Generating table of stubs.');
+    const table = parseListOfStubs(gitBranch, newStubs);
+
+
       fs.writeFileSync(pathToListOfStubs, `This is a list of stubs:\n\n${table}`);
       console.log('Wrote to the file.');
     }
 
-    updateWikiPage(desktopPath);
+    updateStubsPage()
+
+    pushToWiki(path.join(desktopPath, 'curriculum.wiki'));
   }
 }
 
@@ -68,7 +78,7 @@ function parseListOfStubs(gitBranch, stubPaths) {
         [topic, course, workout, stub] = info;
       }
       return `[[${topic} Topic]] | ${course} | ${workout} | [${stub}](${getGitHubLink(gitBranch, path.split('/curriculum/')[1])})\
-       | ${gitBranch} |  | `;
+       | ${gitBranch} | `;
   }).join('\n');
   return table;
 }
@@ -77,15 +87,14 @@ function createTableBase() {
   let table = '';
 
   // Header
-  table += 'Topic | Course | Workout | Insight Slug | Branch | In Progress | Author\n';
+  table += 'Topic | Course | Workout | Insight Slug | Branch | In Progress\n';
 
   // Margin
-  table += '---| --- | --- | --- | --- | --- | ---\n';
+  table += '---| --- | --- | --- | --- | ---\n';
   return table;
 }
 
-function updateWikiPage(desktopPath) {
-  const wikiPath = path.join(desktopPath, 'curriculum.wiki');
+function pushToWiki(wikiPath) {
   try {
     execSync('git add . && git commit -m "Add more stubs to the wiki" && git push', { cwd: wikiPath });
   } catch(e) {

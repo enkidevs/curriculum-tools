@@ -9,3 +9,4 @@ if (!standardsPath) standardsPath = `${os.homedir()}/src/standards`
 
 
 let curriculum = new Curriculum(contentPath, standardsPath);
+console.log(curriculum.topics.Web.courses.HTML.renderCourse(x => x.stub));

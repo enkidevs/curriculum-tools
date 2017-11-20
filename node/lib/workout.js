@@ -5,6 +5,7 @@ module.exports = class Workout extends ContentReader {
   constructor(path){
     super(path)
     this.insights = [];
+    this.insightsAsObj = [];
     this.section = null;
     this.course = null;
     this.topic = null;
@@ -16,15 +17,13 @@ module.exports = class Workout extends ContentReader {
   parse(text) {
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{
       for (var prop in doc) {
-        if(prop !== 'insights') {
           this[prop] = doc[prop];
-        }  
       }
-    })
+    });
   }
 
   addInsight(insight) {
-    this.insights.push(insight);
+    this.insightsAsObj.push(insight);
   }
 
   render() {

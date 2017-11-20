@@ -1,7 +1,8 @@
 let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
+let path = require('path');
 const { execSync } = require('child_process');
-const { getGitBranch } = require('../helpers');
+const { getGitBranch, getGitHubLink } = require('../helpers');
 
 module.exports = class Course extends ContentReader {
   constructor (text) {
@@ -37,29 +38,27 @@ module.exports = class Course extends ContentReader {
     // this should produce the text for the readme file that defines this course
   }
 
-  renderCourse() {
+  renderCourse(filter) {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
-    //  each workout title
-    //    the filename of each insight in the workout under each workout
-    //    link the filename in markdown to the content path on github
-    const [topicName, courseName] = this.contentPath.split('/').slice(-2);
+    //  table containing: Workout name | Insight slug (with link to location) | Status
+
+    const branch = getGitBranch(this.contentPath, execSync);
 
     const markdown = this.workouts.reduce((md, workout, ind) => {
-      const wSlug = workout.contentPath.split('/').pop();
-      const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
 
-      const branch = getGitBranch(this.contentPath, execSync);
-      const repoLink = `https://github.com/sagelabs/content/blob/${branch}`;
+      const wantedInsights = filter ? workout.insightsAsObj.filter(insight => filter(insight))
+        : workout.insightsAsObj;
 
-      const links = workout.insights.reduce((acc, insight) => {
-        const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
-        return acc + `- [${insight}](${link})\n`;
+      const links = wantedInsights.reduce((acc, insight) => {
+        const link = getGitHubLink(branch, insight.contentPath.split('curriculum')[1]);
+        return acc + `${workout.name} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
       }, '');
 
-      return md + `${wTitle}\n${links}\n`;
-    }, `# ${courseName}\n\n`);
-    return markdown;
+      return md + `${links}`;
+    }, '');
+    return `# ${this.title}\n\n${markdown.length ? `Workout | Insight | Status\n--- | --- | ---\n${markdown}`
+      : 'No insights found for this course.'}`;
   }
 
   readCourseTree(text, map={}) {

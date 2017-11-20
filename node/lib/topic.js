@@ -7,7 +7,7 @@ module.exports = class Topic extends ContentReader {
     this.courses = {};
     this.topicNamespace = null;
     this.standards = [];
-    this.parse(text);
+    this.parse(this.rawText);
   }
 
   parse(text) {
@@ -34,7 +34,7 @@ module.exports = class Topic extends ContentReader {
   getStubs() {
     return Object.keys(this.courses).reduce((courses, course) => {
       const courseStubs = this.courses[course].workouts.reduce((stubs, workout) => {
-        stubs = stubs.concat(workout.insights.filter(insight => insight.stub).map(insight => insight.contentPath));
+        stubs = stubs.concat(workout.insightsAsObj.filter(insight => insight.stub));
 
         return stubs;
       }, []);

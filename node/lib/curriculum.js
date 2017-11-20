@@ -34,6 +34,7 @@ module.exports = class Curriculum {
         let readMePath = `${topicPath}/README.md`;
         if (fs.existsSync(readMePath)) {
           let topic = new Topic(readMePath);
+          topic.setContentPath(topicPath);
 
           console.info("courses");
           fs.readdirSync(topicPath).filter((entry) => {
@@ -45,7 +46,7 @@ module.exports = class Curriculum {
             if (fs.existsSync(readMePath)) {
 
               let course = new Course(readMePath);
-
+              course.setContentPath(coursePath);
               course.setTitle(courseFolder);
 
               console.info("workouts");
@@ -61,6 +62,8 @@ module.exports = class Curriculum {
                   if (readme.length > 0) {
                     // if the workout's readme is empty it's a stub
                     let workout = new Workout(readMePath);
+                    workout.setContentPath(workoutPath);
+
                     console.info("insights");
                     fs.readdirSync(workoutPath).filter((entry) => {
                       return entry !== "README.md";
@@ -76,10 +79,11 @@ module.exports = class Curriculum {
                   }
                 }
               })
+
               topic.addCourse(course);
             }
           })
-          console.log(topic.getStubs());
+          this.topics[topicFolder] = topic;
         }
       })
     // standards

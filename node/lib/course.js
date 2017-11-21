@@ -1,8 +1,6 @@
 let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
 let path = require('path');
-const { execSync } = require('child_process');
-const { getGitBranch, getGitHubLink } = require('../helpers');
 
 module.exports = class Course extends ContentReader {
   constructor (text) {
@@ -42,8 +40,7 @@ module.exports = class Course extends ContentReader {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
     //  table containing: Workout name | Insight slug (with link to location) | Status
-
-    const branch = getGitBranch(this.contentPath, execSync);
+    const branch = this.git.getGitBranch();
 
     const markdown = this.workouts.reduce((md, workout, ind) => {
 
@@ -51,7 +48,7 @@ module.exports = class Course extends ContentReader {
         : workout.insightsAsObj;
 
       const links = wantedInsights.reduce((acc, insight) => {
-        const link = getGitHubLink(branch, insight.contentPath.split('curriculum')[1]);
+        const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum')[1]);
         return acc + `${workout.name} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
       }, '');
 
@@ -74,6 +71,10 @@ module.exports = class Course extends ContentReader {
     // modifies the files to match the current structure in memory by traversing the course and moving files to their correct workouts
     // put removed insights into the .archived folder
     // add any metadata that doesn't currently
+  }
+
+  setGit(git) {
+    this.git = git;
   }
 
 }

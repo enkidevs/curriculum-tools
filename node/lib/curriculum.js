@@ -8,13 +8,17 @@ let Workout = require('./workout')
 let Insight = require('./insight')
 
 module.exports = class Curriculum {
-  constructor(content, standards) {
+  constructor(git) {
     //todo error checking
-    this.contentPath = content;
-    this.standardsPath = standards;
+    this.git = git;
+    git.cloneRepos();
+
+    this.contentPath = git.getCurriculumPath();
+    this.standardsPath = git.getStandardsPath();
+    this.wikiPath = git.getWikiPath();
     this.topics = {};
-    if (!content || !standards) throw new Error("Need a file path to both content and standards");
-    this.read(content, standards);
+    if (!this.contentPath || !this.standardsPath || !this.wikiPath) throw new Error("Need a file path to content, standards and wiki");
+    this.read(this.contentPath, this.standardsPath);
   }
 
   read(content, standards) {
@@ -48,6 +52,7 @@ module.exports = class Curriculum {
               let course = new Course(readMePath);
               course.setContentPath(coursePath);
               course.setTitle(courseFolder);
+              course.setGit(this.git);
 
               console.info("workouts");
               fs.readdirSync(coursePath).filter((entry) => {

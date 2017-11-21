@@ -48,14 +48,13 @@ module.exports = class Course extends ContentReader {
         : workout.insightsAsObj;
 
       const links = wantedInsights.reduce((acc, insight) => {
-        const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum')[1]);
+        const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
         return acc + `${workout.name} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
       }, '');
 
       return md + `${links}`;
     }, '');
-    return `# ${this.title}\n\n${markdown.length ? `Workout | Insight | Status\n--- | --- | ---\n${markdown}`
-      : 'No insights found for this course.'}`;
+    return markdown.length ? `\n# ${this.title}\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}` : '';
   }
 
   readCourseTree(text, map={}) {

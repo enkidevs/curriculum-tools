@@ -47,7 +47,7 @@ module.exports = class Topic extends ContentReader {
   renderCourses(filter) {
     let markdown = '';
     Object.keys(this.courses).forEach(courseName => {
-      markdown += this.courses[courseName].renderCourse(filter) + '\n\n';
+      markdown += this.courses[courseName].renderCourse(filter);
     });
     return markdown;
   }

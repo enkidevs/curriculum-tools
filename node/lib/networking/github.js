@@ -56,6 +56,6 @@ module.exports = class GitHub {
   }
 
   getInsightURL(branch, insightPath) {
-    return `${CURRICULUM_BASE_URL}/blob/${branch.trim()}/${encodeURIComponent(insightPath)}`;
+    return `${CURRICULUM_BASE_URL}/blob/${branch}/${encodeURI(insightPath)}`;
   }
 }

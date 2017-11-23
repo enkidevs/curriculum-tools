@@ -7,6 +7,7 @@ module.exports = class Topic extends ContentReader {
     this.courses = {};
     this.topicNamespace = null;
     this.standards = [];
+    this.archived = [];
     this.parse(this.rawText);
   }
 
@@ -31,17 +32,11 @@ module.exports = class Topic extends ContentReader {
     this.courses[course.title] = course;
   }
 
-  getStubs() {
-    return Object.keys(this.courses).reduce((courses, course) => {
-      const courseStubs = this.courses[course].workouts.reduce((stubs, workout) => {
-        stubs = stubs.concat(workout.insightsAsObj.filter(insight => insight.stub));
-
-        return stubs;
-      }, []);
-
-      if(courseStubs.length) courses[course] = courseStubs;
-      return courses;
-    }, {});
+  getInsights(filter) {
+    return Object.keys(this.courses).reduce(
+      (courses, course) => courses.concat(this.courses[course].getInsights(filter)),
+      []
+    );
   }
 
   renderCourses(filter) {

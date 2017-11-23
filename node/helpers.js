@@ -1,3 +1,6 @@
+const path = require('path');
+const { statSync, readdirSync} = require('fs');
+
 exports.getIndentation = (string) => {
   return string.search(/\S/);
 }
@@ -24,4 +27,13 @@ exports.capitalize = (string) => {
 
 exports.hasDash = (string) => {
   return exports.getIndentation(string) === string.indexOf('-');
+}
+
+exports.getAllFilesRecursively = (dirPath) => {
+  return statSync(dirPath).isDirectory() ?
+    Array.prototype.concat(...readdirSync(dirPath)
+      .filter(file => !file.match(/README\.md/) && !file.match(/\.git/))
+      .map(file => getAllFilesRecursively(path.join(dirPath, file)))
+    )
+    : dirPath;
 }

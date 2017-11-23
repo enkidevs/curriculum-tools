@@ -26,7 +26,7 @@ module.exports = class Course extends ContentReader {
   }
 
   sectionAndOrderWorkouts() {
-    console.log("sectionAndOrderWorkouts not implemented")
+    // console.log("sectionAndOrderWorkouts not implemented")
     // loop through each workout and attach parents to children
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
@@ -36,25 +36,33 @@ module.exports = class Course extends ContentReader {
     // this should produce the text for the readme file that defines this course
   }
 
+  getInsights(filter) {
+    return this.workouts.reduce((files, workout) => {
+      return filter ?
+        files.concat(workout.insightsAsObj
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+          .filter(insight => filter(insight))
+        )
+        : files.concat(workout.insightsAsObj
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+        );
+    }, []);
+  }
+
   renderCourse(filter) {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
     //  table containing: Workout name | Insight slug (with link to location) | Status
     const branch = this.git.getGitBranch();
 
-    const markdown = this.workouts.reduce((md, workout, ind) => {
-
-      const wantedInsights = filter ? workout.insightsAsObj.filter(insight => filter(insight))
-        : workout.insightsAsObj;
-
-      const links = wantedInsights.reduce((acc, insight) => {
-        const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
-        return acc + `${workout.name} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
-      }, '');
-
-      return md + `${links}`;
+    const markdown = this.getInsights(filter).reduce((md, insight) => {
+      const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
+      return md + `${insight.workoutName} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
     }, '');
-    return markdown.length ? `\n# ${this.title}\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}` : '';
+
+    return markdown.length ?
+      `\n# ${this.title}\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}`
+      : '';
   }
 
   readCourseTree(text, map={}) {

@@ -6,6 +6,7 @@ let Topic = require('./topic')
 let Course = require('./course')
 let Workout = require('./workout')
 let Insight = require('./insight')
+let { getAllFilesRecursively } = require('../helpers')
 
 module.exports = class Curriculum {
   constructor(git) {
@@ -31,16 +32,18 @@ module.exports = class Curriculum {
       return fs.statSync(`${this.standardsPath}/${entry}`).isDirectory() && entry !== ".git";
     });
 
-    console.info("content");
-      console.info("topics");
+    // console.info("content");
+      // console.info("topics");
       contentDirectories.forEach((topicFolder) => {
+        console.log(topicFolder);
         let topicPath = `${this.contentPath}/${topicFolder}`;
         let readMePath = `${topicPath}/README.md`;
+
         if (fs.existsSync(readMePath)) {
           let topic = new Topic(readMePath);
           topic.setContentPath(topicPath);
 
-          console.info("courses");
+          // console.info("courses");
           fs.readdirSync(topicPath).filter((entry) => {
             return fs.statSync(`${topicPath}/${entry}`).isDirectory() && entry !== ".git";
           }).forEach((courseFolder) => {
@@ -54,7 +57,7 @@ module.exports = class Curriculum {
               course.setTitle(courseFolder);
               course.setGit(this.git);
 
-              console.info("workouts");
+              // console.info("workouts");
               fs.readdirSync(coursePath).filter((entry) => {
                 return fs.statSync(`${coursePath}/${entry}`).isDirectory() && entry !== ".git";
               }).forEach((workoutFolder) => {
@@ -69,7 +72,7 @@ module.exports = class Curriculum {
                     let workout = new Workout(readMePath);
                     workout.setContentPath(workoutPath);
 
-                    console.info("insights");
+                    // console.info("insights");
                     fs.readdirSync(workoutPath).filter((entry) => {
                       return entry !== "README.md";
                     }).forEach((insightFile) => {

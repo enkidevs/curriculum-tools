@@ -35,13 +35,27 @@ module.exports = class Curriculum {
     // console.info("content");
       // console.info("topics");
       contentDirectories.forEach((topicFolder) => {
-        console.log(topicFolder);
         let topicPath = `${this.contentPath}/${topicFolder}`;
         let readMePath = `${topicPath}/README.md`;
+
+
+        if(topicFolder === '.archived') {
+          this.archived = getAllFilesRecursively(topicPath).reduce((archivedTopic, insightPath) => {
+            const archivedTopicName = insightPath.split('.archived/')[1].split('/')[0];
+
+            if(!archivedTopic[archivedTopicName]) archivedTopic[archivedTopicName] = [];
+
+            const archivedInsight = new Insight(insightPath);
+            archivedInsight.setContentPath(insightPath);
+            archivedTopic[archivedTopicName].push(archivedInsight);
+            return archivedTopic;
+          }, {});
+        }
 
         if (fs.existsSync(readMePath)) {
           let topic = new Topic(readMePath);
           topic.setContentPath(topicPath);
+          topic.setGit(this.git);
 
           // console.info("courses");
           fs.readdirSync(topicPath).filter((entry) => {
@@ -55,7 +69,6 @@ module.exports = class Curriculum {
               let course = new Course(readMePath);
               course.setContentPath(coursePath);
               course.setTitle(courseFolder);
-              course.setGit(this.git);
 
               // console.info("workouts");
               fs.readdirSync(coursePath).filter((entry) => {
@@ -94,6 +107,8 @@ module.exports = class Curriculum {
           this.topics[topicFolder] = topic;
         }
       })
+
+      this.distributeArchivedInsightsToTopics();
     // standards
     // parse the course's standards
     // standardsDirectories.forEach((topicFolder) => {
@@ -124,5 +139,9 @@ module.exports = class Curriculum {
     //   })
     //   console.log(topicNamespace);
     // })
+  }
+
+  distributeArchivedInsightsToTopics() {
+    Object.keys(this.topics).forEach(topicName => this.topics[topicName].addArchivedInsights(this.archived[topicName]));
   }
 }

@@ -33,7 +33,7 @@ exports.getAllFilesRecursively = (dirPath) => {
   return statSync(dirPath).isDirectory() ?
     Array.prototype.concat(...readdirSync(dirPath)
       .filter(file => !file.match(/README\.md/) && !file.match(/\.git/))
-      .map(file => getAllFilesRecursively(path.join(dirPath, file)))
+      .map(file => exports.getAllFilesRecursively(path.join(dirPath, file)))
     )
     : dirPath;
 }

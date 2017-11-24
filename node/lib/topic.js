@@ -1,5 +1,7 @@
 let ContentReader = require('./contentReader')
+let Course = require('./course')
 let yaml = require('js-yaml')
+let path = require('path')
 
 module.exports = class Topic extends ContentReader {
   constructor (text) {
@@ -24,28 +26,55 @@ module.exports = class Topic extends ContentReader {
     this.topicNamespace = namespace;
   }
 
+  setGit(git) {
+    this.git = git;
+  }
+
   addStandard(standard) {
     this.standards.push(standard);
   }
 
   addCourse(course) {
     this.courses[course.title] = course;
+    this.courses[course.title].setGit(this.git);
   }
 
-  getInsights(filter) {
-    return Object.keys(this.courses).reduce(
-      (courses, course) => courses.concat(this.courses[course].getInsights(filter)),
-      []
+  addArchivedInsights(insights) {
+    this.archived = this.archived.concat(insights || []);
+  }
+
+  getInsights(filter,  { includeArchived = false } = {}) {
+    const insights = Object.keys(this.courses).reduce((courses, course) =>
+      courses.concat(this.courses[course].getInsights(filter)),
+      [],
     );
+    return includeArchived ?  insights.concat(filter ? this.archived.filter(insight => filter(insight)) : this.archived)
+      : insights;
   }
 
-  renderCourses(filter) {
+  renderArchived(filter) {
+    const branch = this.git.getGitBranch();
+
+    const wantedArchived = filter ? this.archived.filter(insight => filter(insight)) : this.archived;
+
+    const markdown = wantedArchived.reduce((md, insight) => {
+      const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
+      return md + `${insight.workoutName || 'N/A'} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
+    }, '');
+
+    return markdown.length ?
+      `\n# Archived\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}`
+      : '';
+  }
+
+  renderCourses(filter, { includeArchived = false } = {}) {
     let markdown = '';
     Object.keys(this.courses).forEach(courseName => {
       markdown += this.courses[courseName].renderCourse(filter);
     });
-    return markdown;
+    return includeArchived ? markdown + this.renderArchived(filter) : markdown;
   }
+
 
   render() {
     // this should produce the readme file that represents the topic

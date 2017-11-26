@@ -10,7 +10,7 @@ module.exports = class Insight extends ContentReader {
     this.rawText = this.rawText.replace(/\r\n/g, "\n")
     // Sometimes, answer lists are malformed. Ensure that list is propely formatted.
     .replace(/\n *\*\ */g, "\n* ");
-    
+
     this.parse(this.rawText);
   }
 
@@ -128,6 +128,7 @@ module.exports = class Insight extends ContentReader {
       }
       markdown+= `\n`;
     }
+
 
     // this should produce the text of the insight file
     return markdown;

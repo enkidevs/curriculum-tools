@@ -11,8 +11,6 @@ jobs:
       - image: circleci/node:8.9
 
     steps:
-      - checkout
-      - run: cd ./node
-      - run: npm install
+      - run: cd node; npm install
       # run tests!
-      - run: npm test
+      - run: cd node; npm test

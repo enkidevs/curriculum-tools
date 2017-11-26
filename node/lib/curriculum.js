@@ -54,7 +54,6 @@ module.exports = class Curriculum {
 
         if (fs.existsSync(readMePath)) {
           let topic = new Topic(readMePath);
-          topic.setContentPath(topicPath);
           topic.setGit(this.git);
 
           // console.info("courses");
@@ -67,7 +66,6 @@ module.exports = class Curriculum {
             if (fs.existsSync(readMePath)) {
 
               let course = new Course(readMePath);
-              course.setContentPath(coursePath);
               course.setTitle(courseFolder);
 
               // console.info("workouts");
@@ -83,7 +81,6 @@ module.exports = class Curriculum {
                   if (readme.length > 0) {
                     // if the workout's readme is empty it's a stub
                     let workout = new Workout(readMePath);
-                    workout.setContentPath(workoutPath);
 
                     // console.info("insights");
                     fs.readdirSync(workoutPath).filter((entry) => {
@@ -91,7 +88,6 @@ module.exports = class Curriculum {
                     }).forEach((insightFile) => {
                       let insightPath = `${workoutPath}/${insightFile}`;
                       let insight = new Insight(insightPath);
-                      insight.setContentPath(insightPath);
 
                       workout.addInsight(insight);
                     })

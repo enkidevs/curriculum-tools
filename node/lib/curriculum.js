@@ -46,7 +46,6 @@ module.exports = class Curriculum {
             if(!archivedTopic[archivedTopicName]) archivedTopic[archivedTopicName] = [];
 
             const archivedInsight = new Insight(insightPath);
-            archivedInsight.setContentPath(insightPath);
             archivedTopic[archivedTopicName].push(archivedInsight);
             return archivedTopic;
           }, {});

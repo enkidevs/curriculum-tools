@@ -1,3 +1,6 @@
+const path = require('path');
+const { statSync, readdirSync} = require('fs');
+
 exports.getIndentation = (string) => {
   return string.search(/\S/);
 }
@@ -7,10 +10,15 @@ exports.containsLink = (string, linkMatcher) => {
 }
 
 exports.slugify = (string) => {
-  return string
-      .toLowerCase()
-      .replace(/\s/g,'-')
-      .replace(/[^\w-]+/g,'');
+ return (
+   string
+     .toLowerCase()
+     .replace(/\s+/g, '-')
+     .replace(/[^\w\-]+/g, '')
+     .replace(/\-\-+/g, '-')
+     .replace(/^-+/, '')
+     .replace(/-+$/, '')
+ );
 }
 
 exports.capitalize = (string) => {
@@ -21,6 +29,11 @@ exports.hasDash = (string) => {
   return exports.getIndentation(string) === string.indexOf('-');
 }
 
-exports.getGitBranch = (path, execSync) => {
-  return execSync(`git rev-parse --abbrev-ref HEAD`, {cwd: path, encoding: 'utf8'});
+exports.getAllFilesRecursively = (dirPath) => {
+  return statSync(dirPath).isDirectory() ?
+    Array.prototype.concat(...readdirSync(dirPath)
+      .filter(file => !file.match(/README\.md/) && !file.match(/\.git/))
+      .map(file => exports.getAllFilesRecursively(path.join(dirPath, file)))
+    )
+    : dirPath;
 }

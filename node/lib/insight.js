@@ -129,6 +129,7 @@ module.exports = class Insight extends ContentReader {
       markdown+= `\n`;
     }
 
+
     // this should produce the text of the insight file
     return markdown;
   }

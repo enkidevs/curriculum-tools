@@ -1,7 +1,6 @@
 let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
-const { execSync } = require('child_process');
-const { getGitBranch } = require('../helpers');
+let path = require('path');
 
 module.exports = class Course extends ContentReader {
   constructor (text) {
@@ -11,7 +10,7 @@ module.exports = class Course extends ContentReader {
     this.workouts = [];
     this.standards = [];
     this.sections = {};
-    this.parse(text);
+    this.parse(this.rawText);
   }
 
   parse(text) {
@@ -27,7 +26,7 @@ module.exports = class Course extends ContentReader {
   }
 
   sectionAndOrderWorkouts() {
-    console.log("sectionAndOrderWorkouts not implemented")
+    // console.log("sectionAndOrderWorkouts not implemented")
     // loop through each workout and attach parents to children
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
@@ -37,29 +36,33 @@ module.exports = class Course extends ContentReader {
     // this should produce the text for the readme file that defines this course
   }
 
-  renderCourse() {
+  getInsights(filter) {
+    return this.workouts.reduce((files, workout) => {
+      return filter ?
+        files.concat(workout.insightsAsObj
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+          .filter(insight => filter(insight))
+        )
+        : files.concat(workout.insightsAsObj
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+        );
+    }, []);
+  }
+
+  renderCourse(filter) {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
-    //  each workout title
-    //    the filename of each insight in the workout under each workout
-    //    link the filename in markdown to the content path on github
-    const [topicName, courseName] = this.contentPath.split('/').slice(-2);
+    //  table containing: Workout name | Insight slug (with link to location) | Status
+    const branch = this.git.getGitBranch();
 
-    const markdown = this.workouts.reduce((md, workout, ind) => {
-      const wSlug = workout.contentPath.split('/').pop();
-      const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
+    const markdown = this.getInsights(filter).reduce((md, insight) => {
+      const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
+      return md + `${insight.workoutName} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
+    }, '');
 
-      const branch = getGitBranch(this.contentPath, execSync);
-      const repoLink = `https://github.com/sagelabs/content/blob/${branch}`;
-
-      const links = workout.insights.reduce((acc, insight) => {
-        const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
-        return acc + `- [${insight}](${link})\n`;
-      }, '');
-
-      return md + `${wTitle}\n${links}\n`;
-    }, `# ${courseName}\n\n`);
-    return markdown;
+    return markdown.length ?
+      `\n# ${this.title}\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}`
+      : '';
   }
 
   readCourseTree(text, map={}) {
@@ -75,6 +78,10 @@ module.exports = class Course extends ContentReader {
     // modifies the files to match the current structure in memory by traversing the course and moving files to their correct workouts
     // put removed insights into the .archived folder
     // add any metadata that doesn't currently
+  }
+
+  setGit(git) {
+    this.git = git;
   }
 
 }

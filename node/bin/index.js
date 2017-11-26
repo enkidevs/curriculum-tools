@@ -1,11 +1,9 @@
 #! usr/bin/node
 
-let os = require('os');
-let Curriculum = require('../lib/curriculum.js')
+const Curriculum = require('../lib/curriculum');
+const GitHub = require('../lib/networking/github');
 
-let [contentPath, standardsPath] = [process.argv[2], process.argv[3]];
-if (!contentPath) contentPath = `${os.homedir()}/src/content`
-if (!standardsPath) standardsPath = `${os.homedir()}/src/standards`
+const basePath = process.argv[2];
 
-
-let curriculum = new Curriculum(contentPath, standardsPath);
+const git = new GitHub(basePath);
+const curriculum = new Curriculum(git);

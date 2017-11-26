@@ -5,31 +5,14 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/curriculum-tools
+
     docker:
-      # specify the version you desire here
-      - image: circleci/node:8.9.1
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/curriculum-tools/node
+      - image: circleci/node:8.9
 
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-
+      - run: cd ./node
       - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
       # run tests!
       - run: npm test

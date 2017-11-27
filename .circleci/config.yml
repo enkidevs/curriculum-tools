@@ -8,13 +8,14 @@ jobs:
     working_directory: ~/curriculum-tools
 
     docker:
-      - image: circleci/node:6.10.3
+      - image: circleci/node:8.9
 
     steps:
+      - checkout
       - run:
           name: install npm
-          command: npm install
+          command: cd node && npm install
       # run tests!
       - run:
           name: test npm
-          command: npm test
+          command: cd node && npm test

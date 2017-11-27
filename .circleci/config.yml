@@ -13,7 +13,7 @@ jobs:
     steps:
       - run:
           name: install npm
-          command: pwd && ls && cd ~/curriculum-tools/node && npm install
+          command: cd node && npm install
       # run tests!
       - run:
           name: test npm

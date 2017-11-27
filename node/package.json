@@ -12,5 +12,11 @@
     "js-yaml": "^3.10.0",
     "node-emoji": "git+ssh://git@github.com:enkidevs/node-emoji.git",
     "slugify": "^1.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-string": "^1.4.0",
+    "mocha": "^4.0.1",
+    "mock-fs": "^4.4.2"
   }
 }

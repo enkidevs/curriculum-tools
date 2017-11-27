@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/curriculum-tools
 
     docker:
-      - image: circleci/node:8.9
+      - image: circleci/node:6.10.3
 
     steps:
       - run:

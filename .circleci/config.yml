@@ -5,13 +5,16 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/curriculum-tools/node
+    working_directory: ~/curriculum-tools
 
     docker:
       - image: circleci/node:8.9
 
     steps:
-      - run: npm install -g npm@5.5
-      - run: npm install
+      - run:
+          name: install npm
+          command: cd ~/curriculum-tools/node && npm install
       # run tests!
-      - run: npm test
+      - run:
+          name: test npm
+          command: cd ~/curriculum-tools/node && npm test

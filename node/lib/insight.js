@@ -58,12 +58,23 @@ module.exports = class Insight extends ContentReader {
       return revisionQuestion;
     })();
 
+
     // Hotfix. Ensure that things that should be iterated over are in an array
     if (this.tags != null && typeof(this.tags) == 'string') {
       this.tags = new Array(this.tags);
     }
     if (this.standards != null && typeof(this.standards) == 'string') {
       this.standards = new Array(this.standards);
+
+    try {
+      yaml.safeLoadAll(text.split("---")[0], (doc)=>{
+        for (var prop in doc) {
+          this[prop] = doc[prop];
+        }
+      })
+
+    } catch (e) {
+      console.error(e, this.contentPath);
     }
   }
 

@@ -22,12 +22,44 @@ module.exports = class Course extends ContentReader {
 
   addWorkout(workout) {
     this.workouts.push(workout);
-    this.sectionAndOrderWorkouts();
   }
 
   sectionAndOrderWorkouts() {
-    // console.log("sectionAndOrderWorkouts not implemented")
+    let sections = {};
+    for (let w in this.workouts) {
+      let workout = this.workouts[w];
+      if(sections[workout.section]) {
+        sections[workout.section][workout.slug] = workout;
+      } else {
+        sections[workout.section] = { [workout.slug] : workout}
+      }
+    }
+
     // loop through each workout and attach parents to children
+    for (let s in sections) {
+      let section = sections[s];
+      for (let w in section) {
+        let workout = section[w];
+        console.log(workout)
+        if (!workout.parent) {
+          this.sections[workout.section].head = workout;
+        } else {
+          workout.parent = sections[workout.section][workout.parent];
+          workout.parent.child = workout;
+        }
+      }
+    }
+
+    for (let section in this.sections) {
+      let head = this.sections[section].head;
+      this.sections[section] = [head];
+      while (head) {
+        this.sections[section].push(head.child);
+        head = head.child;
+      }
+    }
+
+    console.log(this.sections)
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
   }
@@ -80,8 +112,13 @@ module.exports = class Course extends ContentReader {
     // add any metadata that doesn't currently
   }
 
+
   setGit(git) {
     this.git = git;
+  }
+  producePlacementTest(sections) {
+
+
   }
 
 }

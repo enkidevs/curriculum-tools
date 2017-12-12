@@ -95,7 +95,7 @@ module.exports = class Curriculum {
                   }
                 }
               })
-
+              course.sectionAndOrderWorkouts();
               topic.addCourse(course);
             }
           })

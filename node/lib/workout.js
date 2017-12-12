@@ -10,7 +10,6 @@ module.exports = class Workout extends ContentReader {
     this.course = null;
     this.topic = null;
     this.parent = null;
-    this.slug = null;
     this.parse(this.rawText);
   }
 

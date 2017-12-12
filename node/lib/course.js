@@ -22,14 +22,36 @@ module.exports = class Course extends ContentReader {
 
   addWorkout(workout) {
     this.workouts.push(workout);
-    this.sectionAndOrderWorkouts();
   }
 
-  sectionAndOrderWorkouts() {
-    // console.log("sectionAndOrderWorkouts not implemented")
+  sectionAndOrderWorkouts(section) {
     // loop through each workout and attach parents to children
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
+    const orderSection = (_section) => {
+      const workoutsInSection = this.workouts.filter(w => w.section == _section);
+      const sortedWorkouts = workoutsInSection.filter(w => !w.parent);
+      let workoutsToSort = workoutsInSection.filter(w => w.parent);
+
+      while(sortedWorkouts.length < workoutsInSection.length - 1) {
+        const prevWorkout = sortedWorkouts[sortedWorkouts.length - 1];
+
+        if(typeof(prevWorkout) === 'undefined') {
+          console.log(`No initial parent for ${this.name ? this.name : this.slug}, section ${_section}`);
+        }
+
+        const nextWorkout = workoutsToSort.find(w => prevWorkout.slug === w.parent);
+        sortedWorkouts.push(nextWorkout);
+      }
+      return sortedWorkouts;
+    };
+
+    if(typeof(section) === 'undefined') {
+      Object.keys(this.sections).forEach(sectionKey => this.sections[sectionKey] = orderSection(sectionKey));
+    } else {
+      this.sections[section] = orderSection(section);
+    }
+
   }
 
   render() {

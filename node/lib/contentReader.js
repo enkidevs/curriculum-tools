@@ -1,4 +1,5 @@
-const fs = require("fs")
+const fs = require('fs')
+const pathNode = require('path')
 
 module.exports = class ContentReader {
   constructor(path) {
@@ -17,7 +18,14 @@ module.exports = class ContentReader {
   }
 
   setContentPath(contentPath) {
-    this.contentPath = contentPath;
+
+    // make contentPath point to directory instead of README file
+    if(contentPath.endsWith('README.md')) {
+      this.contentPath = contentPath.replace(`${pathNode.sep}README.md`,'');
+    } else {
+      this.contentPath = contentPath;
+    }
+    this.slug = this.contentPath.split(pathNode.sep).slice(-1).pop();
   }
 
   // parse(text) {

@@ -1,6 +1,7 @@
 [[Home]]  
 [[Getting Started Guide]]  
 [[Insight Documentation]]  
+[[Workout Documentation]]
 [[List of Topics]]  
 [[Proposed Topics]]  
 [[List of Stubs]]  

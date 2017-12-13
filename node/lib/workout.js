@@ -2,25 +2,23 @@ let ContentReader = require('./contentReader');
 let yaml = require("js-yaml");
 
 module.exports = class Workout extends ContentReader {
-  constructor(text){
-    super(text)
+  constructor(path){
+    super(path)
     this.insights = [];
     this.section = null;
     this.course = null;
     this.topic = null;
-    this.practiceQuestions = [];
-    this.revisionQuestions = [];
     this.parent = null;
-    this.slug = null;
-    this.parse(text);
+    this.slug = this.contentPath.split("/").slice(-2)[0];
+    this.parse(this.rawText);
   }
 
   parse(text) {
     yaml.safeLoadAll(text.split("---")[0], (doc)=>{
       for (var prop in doc) {
-        this[prop] = doc[prop];
+          this[prop] = doc[prop];
       }
-    })
+    });
   }
 
   addInsight(insight) {
@@ -30,7 +28,32 @@ module.exports = class Workout extends ContentReader {
   }
 
   render() {
-    //this should produce the readme.md file that defines the workout
+    var markdown = "";
+    // Name
+    if (this.name != null) markdown+= `name: ${this.name}\n\n`
+
+    // Type
+    if (this.type != null) markdown+= `type: ${this.type}\n\n`
+
+    // Description
+    if (this.description != null) markdown+= `description: ${this.description}\n\n`
+
+    // Section
+    if (this.section != null) markdown+= `section: ${this.section}\n\n`
+
+    // Parent
+    if (this.parent != null) markdown+= `parent: ${this.parent}\n\n`
+
+    // Insight List
+    if (this.insights != null && this.insights.length > 0) {
+      markdown+= `insights:\n`
+      for (var i in this.insights) {
+        markdown += ` - ${this.insights[i]}\n`
+      }
+      markdown+= "\n"
+    }
+
+    return markdown;
   }
 
   getStats() {

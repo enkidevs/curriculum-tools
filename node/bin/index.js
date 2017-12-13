@@ -1,24 +1,30 @@
 #! usr/bin/node
 
-let os = require('os');
-let Curriculum = require('../lib/curriculum.js')
+const Curriculum = require('../lib/curriculum');
+const GitHub = require('../lib/networking/github');
 
-let [contentPath, standardsPath] = [process.argv[2], process.argv[3]];
-if (!contentPath) contentPath = `${os.homedir()}/src/content`
-if (!standardsPath) standardsPath = `${os.homedir()}/src/standards`
+const basePath = process.argv[2];
 
-
-let curriculum = new Curriculum(contentPath, standardsPath);
-
+const git = new GitHub(basePath);
+const curriculum = new Curriculum(git);
 let curriculumStats = curriculum.getStats();
-console.log(curriculumStats)
 
-console.log("Not placementTestReady")
+
+for (let t in curriculum.topics) {
+  let topic = curriculum.topics[t];
+  if (topic.courses) {
+    for (let c in topic.courses) {
+      let course = topic.courses[c];
+      course.sectionAndOrderWorkouts();
+
+    }
+  }
+}
 
 for (let topicString in curriculumStats) {
   let topic = curriculumStats[topicString]
     for (let key in topic) {
-    if (key=="courses" or !key) continue;
+    if (key=="courses" || !key) continue;
     if (!topic[key].placementTestReady) {
       let missing = (topic.workouts * 2) - topic.revisionQuestions;
       console.log(`${key} is missing ${missing} Revision Questions`)

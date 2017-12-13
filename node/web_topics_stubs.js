@@ -1,8 +1,9 @@
 const fs = require('fs');
+const slugify = require('slugify');
 const path = require('path');
 const emoji = require('node-emoji');
 const {getIndentation, containsLink,
-  slugify, capitalize, hasDash} = require('./helpers');
+  capitalize, hasDash} = require('./helpers');
 
 
 const tags = ['baby', 'muscle', 'squid', 'dragon', 'sparkle', 'octopus'];
@@ -49,7 +50,7 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
     if(indent === 0) {
       if(line[0] !== '-') {
         const wTitle = emoji.strip(line).replace(/\[.*\]/, '').trim();
-        const wSlug = line.match(/\[(.*)\]/) ? line.match(/\[(.*)\]/)[0] : slugify(wTitle);
+        const wSlug = line.match(/\[(.*)\]/) ? line.match(/\[(.*)\]/)[0] : slugify(wTitle, {remove: /[\&\(\)\,]/g, lower: true});
         const wTags = (emojiMatches || []).reduce((acc, em) => {
           if(dbTags[em]) acc.push(dbTags[em]);
           return acc;
@@ -64,8 +65,13 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
         });
       } else {
         const exists = emoji.unemojify(line).indexOf(':x:') === -1;
-        const iTitle = emoji.strip(line).substring(1).trim();
-        const iSlug = slugify(iTitle);
+        let iTitle = emoji.strip(line).substring(1).trim();
+        let iSlug = slugify(iTitle, {remove: /[\&\(\)\,]/g, lower: true});
+        if(iTitle.length < 5) {
+          iTitle = `Intro ${iTitle}`;
+          iSlug = `intro-${iSlug}`;
+        }
+
         const iTags = (emojiMatches || []).reduce((acc, em) => {
           if(dbTags[em]) acc.push(dbTags[em]);
           return acc;
@@ -86,6 +92,7 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
       const lastWorkout = newCourseStructure[newCourseStructure.length - 1].insights;
       const tfMatcher = /\(?[tT]\/[fF]\)?\s*:?\s*/;
       const dashMatcher = /^\s*-\s*/;
+      console.log(line);
       const qsIndex = lastWorkout[lastWorkout.length - 1].qs.length - 1;
       if(line.match(tfMatcher)) {
         lastWorkout[lastWorkout.length - 1].qs.push({
@@ -114,10 +121,10 @@ fs.readFileSync(STRUCTURE_FILE, 'utf8').split('\n').forEach(line => {
     // contains link
   } else {
     if(indent === 0) {
-      newCourseStructure[newCourseStructure.length - 1].links.push(line);
+      newCourseStructure[newCourseStructure.length - 1].links.push(line.trim());
     } else if(indent === 2) {
       newCourseStructure[newCourseStructure.length - 1]
-        .insights[newCourseStructure[newCourseStructure.length - 1].insights.length - 1].links.push(line);
+        .insights[newCourseStructure[newCourseStructure.length - 1].insights.length - 1].links.push(line.trim());
     }
   }
 });
@@ -140,13 +147,22 @@ ${workout.insights.reduce((acc, insight) => {
       const insightPath = path.join(workoutPath, insight.slug + '.md');
       if(!fs.existsSync(insightPath)) {
         const insightContent = `# ${capitalize(insight.title)}\nauthor: mihaiberq\n\nlevels:\n  - beginner\n  - basic\n
-type: normal\n\ncategory: must-know\n\n\
+type: normal
+
+category: must-know
+
+stub: true
+${insight.links.length > 0 ? `\nlinks:\n${insight.links.map(link => `  - '[Useful link](${link})'\n`)}` : ''}
 tags:\n${workout.tags.concat(insight.tags).reduce((acc, tag) => {
   return acc + `  - ${tag}\n`;
 }, '')}
----\n## Content\n\n
+
+---
+## Content
+
 ${insight.exists ? `**A version of this insight already exists with the slug ${insight.title}, which should be updated!**` :
- 'New content to go here. The author must be updated to match a valid Enki account.'}\n\n\
+ 'New content to go here. The author must be updated to match a valid Enki account.'}
+
 ${parseQuestions(insight)}`;
         fs.writeFileSync(insightPath, insightContent);
       }

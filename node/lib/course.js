@@ -1,15 +1,16 @@
 let ContentReader = require('./contentReader');
 let yaml = require('js-yaml');
+let path = require('path');
 
 module.exports = class Course extends ContentReader {
-  constructor (text, topic) {
+  constructor (text) {
     super(text)
 
     this.topic = null;
     this.workouts = [];
     this.standards = [];
     this.sections = {};
-    this.parse(text);
+    this.parse(this.rawText);
   }
 
   parse(text) {
@@ -21,12 +22,44 @@ module.exports = class Course extends ContentReader {
 
   addWorkout(workout) {
     this.workouts.push(workout);
-    this.sectionAndOrderWorkouts();
   }
 
   sectionAndOrderWorkouts() {
-    console.log("sectionAndOrderWorkouts not implemented")
+    let sections = {};
+    for (let w in this.workouts) {
+      let workout = this.workouts[w];
+      if(sections[workout.section]) {
+        sections[workout.section][workout.slug] = workout;
+      } else {
+        sections[workout.section] = { [workout.slug] : workout}
+        console.log("new section", sections[workout.section])
+      }
+    }
+
     // loop through each workout and attach parents to children
+    for (let s in sections) {
+      let section = sections[s];
+      for (let w in section) {
+        let workout = section[w];
+        if (!workout.parent) {
+          this.sections[workout.section].head = workout;
+        } else {
+          workout.parent = this.workouts.find((w) => {return w.slug === workout.parent});
+          workout.parent.child = workout;
+        }
+      }
+    }
+
+    for (let section in this.sections) {
+      let head = this.sections[section].head;
+      this.sections[section] = [head];
+      while (head) {
+        this.sections[section].push(head.child);
+        head = head.child;
+      }
+    }
+
+    console.log(this.sections)
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
   }
@@ -35,28 +68,35 @@ module.exports = class Course extends ContentReader {
     // this should produce the text for the readme file that defines this course
   }
 
-  renderCourse(branch) {
-    if (!branch) branch = 'master';
+
+  getInsights(filter) {
+    return this.workouts.reduce((files, workout) => {
+      return filter ?
+        files.concat(workout.insights
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+          .filter(insight => filter(insight))
+        )
+        : files.concat(workout.insights
+          .map(insight => Object.assign({}, insight, {workoutName: workout.name}))
+        );
+    }, []);
+  }
+
+  renderCourse(filter) {
     // @mihai, write a function that traverses the course in memory and returns as a markdown-formatted string:
     //  The course title as an H1
-    //  each workout title
-    //    the filename of each insight in the workout under each workout
-    //    link the filename in markdown to the content path on github
-    const [topicName, courseName] = this.contentPath.split('/').slice(-2);
+    //  table containing: Workout name | Insight slug (with link to location) | Status
+    const branch = this.git.getGitBranch();
 
-    const markdown = this.workouts.reduce((md, workout, ind) => {
-      const wSlug = workout.contentPath.split('/').pop();
-      const wTitle = `**${ind+1}. ${workout.name}** [${wSlug}]`;
+    const markdown = this.getInsights(filter).reduce((md, insight) => {
+      const link = this.git.getInsightURL(branch, insight.contentPath.split('curriculum/')[1]);
+      return md + `${insight.workoutName} | [${path.basename(insight.contentPath)}](${link}) | ${insight.stub ? 'stub' : 'live'}\n`;
+    }, '');
 
-      const repoLink = `https://github.com/sagelabs/content/blob/${branch}`
-      const links = workout.insights.reduce((acc, insight) => {
-        const link = `${repoLink}/${encodeURIComponent(topicName)}/${encodeURIComponent(courseName)}/${wSlug}/${insight}.md`;
-        return acc + `- [${insight}](${link})\n`;
-      }, '');
+    return markdown.length ?
+      `\n# ${this.title}\n\nWorkout | Insight | Status\n--- | --- | ---\n${markdown}`
+      : '';
 
-      return md + `${wTitle}\n${links}\n`;
-    }, `# ${courseName}\n\n`);
-    return markdown;
   }
 
   readCourseTree(text, map={}) {
@@ -73,6 +113,7 @@ module.exports = class Course extends ContentReader {
     // put removed insights into the .archived folder
     // add any metadata that doesn't currently
   }
+
 
   getStats() {
     let stats = {
@@ -98,6 +139,15 @@ module.exports = class Course extends ContentReader {
       if (!workoutStats.placementTestReady) stats.placementTestReady = false;
     }
     return stats;
+  }
+
+  setGit(git) {
+    this.git = git;
+  }
+  producePlacementTest(sections) {
+
+
+
   }
 
 }

@@ -1,6 +1,7 @@
 ### What's an Insight?
 An **Insight** is a short article covering a small, well-defined objective. It features metadata for analysis purposes, a practice opportunity, a question designed to test your memory, and a multiple-choice quiz-style question. If you're going to fill in an insight, check out the [[Filling in Stubs]] article for the process.
 
+[Here is an example insight](https://github.com/enkidevs/curriculum/blob/master/linux/system-and-package-management/system-monitoring-ii/finding-open-files-with-lsof.md), [here's how it looks on Enki](https://insights.enki.com/insight/5767a0cb47bdc6a758158cd8), and [here is a generator](https://github.com/enkidevs/generator-enki) that will help you create an insight.
 
 # Insight Metadata
 

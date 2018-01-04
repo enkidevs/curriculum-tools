@@ -18,6 +18,7 @@ module.exports = class ContentReader {
 
   setContentPath(contentPath) {
     this.contentPath = contentPath;
+    this.slug = contentPath.split("/").pop().replace(".md", ""); //last folder or filename is slug
   }
 
   // parse(text) {

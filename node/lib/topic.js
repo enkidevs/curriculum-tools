@@ -46,7 +46,7 @@ module.exports = class Topic extends ContentReader {
   getInsights(filter,  { includeArchived = false } = {}) {
     const insights = Object.keys(this.courses).reduce((courses, course) =>
       courses.concat(this.courses[course].getInsights(filter)),
-      [],
+      []
     );
     return includeArchived ?  insights.concat(filter ? this.archived.filter(insight => filter(insight)) : this.archived)
       : insights;
@@ -78,5 +78,19 @@ module.exports = class Topic extends ContentReader {
 
   render() {
     // this should produce the readme file that represents the topic
+  }
+
+  getStats(verbose) {
+    let stats = {
+      courses: 0
+    };
+    for (let key in this.courses) {
+      console.log("Topic Get Stats: ", key)
+      let courseStats = this.courses[key].getStats(verbose);
+      if (!verbose && courseStats.workouts == 0) continue;
+      stats.courses++;
+      stats[key] = courseStats;
+    }
+    return stats;
   }
 }

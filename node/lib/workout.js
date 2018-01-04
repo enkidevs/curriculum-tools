@@ -5,12 +5,11 @@ module.exports = class Workout extends ContentReader {
   constructor(path){
     super(path)
     this.insights = [];
-    this.insightsAsObj = [];
     this.section = null;
     this.course = null;
     this.topic = null;
     this.parent = null;
-    this.slug = null;
+    this.slug = this.contentPath.split("/").slice(-2)[0];
     this.parse(this.rawText);
   }
 
@@ -23,7 +22,9 @@ module.exports = class Workout extends ContentReader {
   }
 
   addInsight(insight) {
-    this.insightsAsObj.push(insight);
+    //replaces the insight in the array of slugs
+    let idx = this.insights.indexOf(insight.slug)
+    this.insights[idx] = insight;
   }
 
   render() {
@@ -53,5 +54,30 @@ module.exports = class Workout extends ContentReader {
     }
 
     return markdown;
+  }
+
+  getStats() {
+    let stats = {
+      practiceQuestions: 0,
+      revisionQuestions: 0,
+      quizQuestions: 0,
+      stubs: 0,
+      insights: 0,
+      standards: 0
+    }
+    for (let insight of this.insights) {
+      stats.insights++;
+      if (!insight.content || insight.stub) stats.stubs++
+      if (!insight.practiceQuestion || !insight.revisionQuestion) {
+        console.log("found unparsed insight");
+        continue;
+      }
+      if (insight.practiceQuestion.text) stats.practiceQuestions++;
+      if (insight.revisionQuestion.text) stats.revisionQuestions++;
+    }
+
+    if (stats.revisionQuestions > 1) stats.placementTestReady = true;
+
+    return stats;
   }
 }

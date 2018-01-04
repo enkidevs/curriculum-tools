@@ -12,29 +12,30 @@ module.exports = class Insight extends ContentReader {
     .replace(/\n *\*\ */g, "\n* ");
 
     this.parse(this.rawText);
+    this.slug = this.contentPath.split("/").pop().replace(".md", "");
   }
 
   parse(text) {
     this.title = text.substring(2, text.indexOf("\n"));
-    yaml.safeLoadAll(text.split("---")[0], (doc)=>{
-      for (var prop in doc) {
-        this[prop] = doc[prop];
-      }
-    })
+
     this.content = (function(){
       let targetStr = "## Content";
-      let startIndex = text.indexOf(targetStr);
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.indexOf("---", startIndex)).trim();
-      return tempcontent;
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex);
+      return text.substring(startIndex, endIndex).trim();
     })();
 
     this.practiceQuestion = (function(){
-      let practiceQuestion = {};
+      let practiceQuestion = {
+        text: null,
+        answers: []
+      };
       let targetStr = "## Practice";
-      let startIndex = text.indexOf(targetStr);
+      let startIndex = text.indexOf(targetStr) + targetStr.length+1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
       // Insight does not have Pracitce Question! Exit, leaving empty object
-      if (startIndex === -1) return;
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.indexOf("---", startIndex)).trim();
+      if (startIndex === -1) return practiceQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
       practiceQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
       //Get array of every bullet, then throw out the text before.
       let answerArr = tempcontent.split("\n* ");
@@ -44,27 +45,61 @@ module.exports = class Insight extends ContentReader {
     })();
 
     this.revisionQuestion = (function(){
-      let revisionQuestion = {};
+      let revisionQuestion = {
+        text: null,
+        answers: []
+      };
       let targetStr = "## Revision";
-      let startIndex = text.indexOf(targetStr);
-      // Insight does not have Review Question! Exit, leaving empty object
-      if (startIndex === -1) return {};
-      let tempcontent = text.substring(startIndex+targetStr.length+1, text.length).trim();
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
+      // Insight does not have Review Question!
+      if (startIndex === -1) return revisionQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
       revisionQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
       //Get array of every bullet, then throw out the text before.
       let answerArr = tempcontent.split("\n* ");
-      answerArr.shift();
+      answerArr.filter(e => Boolean(e)); //sometimes there are empty answers
       revisionQuestion.answers = answerArr;
       return revisionQuestion;
     })();
 
-    // Hotfix. Ensure that things that should be iterated over are in an array
+    this.quizQuestion = (function(){
+      let quizQuestion = {
+        text: null,
+        answers: []
+      };
+      let targetStr = "## Quiz";
+      let startIndex = text.indexOf(targetStr) + targetStr.length + 1;
+      let endIndex = text.indexOf("---", startIndex) == -1 ? text.length : text.indexOf("---", startIndex);
+      // Insight does not have Quiz Question!
+      if (startIndex === -1) return revisionQuestion;
+      let tempcontent = text.substring(startIndex, endIndex).trim();
+      quizQuestion.text = tempcontent.substring(0,tempcontent.indexOf("\n* ")).trim();
+      //Get array of every bullet, then throw out the text before.
+      let answerArr = tempcontent.split("\n* ");
+      answerArr.filter(e => Boolean(e)); //sometimes there are empty answers
+      quizQuestion.answers = answerArr;
+      return quizQuestion;
+    })();
+
     if (this.tags != null && typeof(this.tags) == 'string') {
       this.tags = new Array(this.tags);
     }
     if (this.standards != null && typeof(this.standards) == 'string') {
       this.standards = new Array(this.standards);
     }
+
+    try {
+      yaml.safeLoadAll(text.split("---")[0], (doc)=>{
+        for (var prop in doc) {
+          this[prop] = doc[prop];
+        }
+      })
+
+    } catch (e) {
+      console.error(e, this.contentPath);
+    }
+
   }
 
   render() {

@@ -1,8 +1,8 @@
-let ContentReader = require('./contentReader');
+let ContentWriter = require('./contentWriter');
 let yaml = require('js-yaml');
 let path = require('path');
 
-module.exports = class Course extends ContentReader {
+module.exports = class Course extends ContentWriter {
   constructor (text) {
     super(text)
 
@@ -16,23 +16,28 @@ module.exports = class Course extends ContentReader {
   parse(text) {
     if (text.length == 0) throw new Error("Passed in empty readme text");
     let parsed = yaml.safeLoad(text);
-    if (parsed.sections) parsed.sections.forEach((s) => {this.sections[s] = []});
+    if (parsed.sections) {
+      parsed.sections.forEach((s) => {this.sections[s] = []});
+      if (parsed.sections.workouts) parsed.sections.forEach((s) => {s.workouts.forEach((w) => {this.sections[s].push(w)})})
+    }
     this.description = parsed.description || "";
   }
 
   addWorkout(workout) {
+    if (!workout) throw new Error("Passed undefined to addWorkout");
     this.workouts.push(workout);
+    if (workout.section) this.sections[workout.section].push(workout);
   }
 
   sectionAndOrderWorkouts() {
     let sections = {};
+    //put workouts in sections
     for (let w in this.workouts) {
       let workout = this.workouts[w];
       if(sections[workout.section]) {
         sections[workout.section][workout.slug] = workout;
       } else {
         sections[workout.section] = { [workout.slug] : workout}
-        console.log("new section", sections[workout.section])
       }
     }
 
@@ -44,28 +49,45 @@ module.exports = class Course extends ContentReader {
         if (!workout.parent) {
           this.sections[workout.section].head = workout;
         } else {
-          workout.parent = this.workouts.find((w) => {return w.slug === workout.parent});
+          let parent = workout.parent;
+          if (typeof parent == "string") {
+            parent = this.workouts.find((w) => {return w.slug === workout.parent});
+          }
+          if (parent == undefined) throw new Error("Missing parent: ", parent)
+          workout.parent = parent;
           workout.parent.child = workout;
         }
       }
     }
 
+    //order them as they would be in a linked list
     for (let section in this.sections) {
-      let head = this.sections[section].head;
-      this.sections[section] = [head];
-      while (head) {
-        this.sections[section].push(head.child);
-        head = head.child;
+      let node = this.sections[section].head;
+      sections[section] = [];
+      while (node) {
+        sections[section].push(node);
+        node = node.child;
       }
     }
 
-    console.log(this.sections)
+    this.sections = sections;
     // Assign the workout with no parent as this.sections[i].head
     // traverse the linked-list and put all the workouts in order in this.sections[i].workouts
   }
 
   render() {
+    this.sectionAndOrderWorkouts()
     // this should produce the text for the readme file that defines this course
+    let sectionList = {};
+    Object.keys(this.sections).forEach((section) => {
+      sectionList[section] = this.sections[section].map((w) => {return w.slug})
+    })
+    let output = {
+      description: this.description,
+      sections: sectionList
+    }
+
+    return yaml.safeDump(output)
   }
 
 

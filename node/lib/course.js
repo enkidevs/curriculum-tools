@@ -47,7 +47,13 @@ module.exports = class Course extends ContentWriter {
       for (let w in section) {
         let workout = section[w];
         if (!workout.parent) {
-          this.sections[workout.section].head = workout;
+          // make sure we didn't find a parent before already
+          if (!this.sections[workout.section].head) {
+            this.sections[workout.section].head = workout;
+            this.sections[workout.section].detachedHeads = [];
+          } else {
+            this.sections[workout.section].detachedHeads.push(workout)
+          }
         } else {
           let parent = workout.parent;
           if (typeof parent == "string") {
@@ -67,6 +73,14 @@ module.exports = class Course extends ContentWriter {
       while (node) {
         sections[section].push(node);
         node = node.child;
+      }
+      //append detached heads and any children naievely
+      while (this.sections[section].detachedHeads.length > 0) {
+        let node = this.sections[section].detachedHeads.shift();
+        while (node) {
+          sections[section].push(node);
+          node = node.child;
+        }
       }
     }
 

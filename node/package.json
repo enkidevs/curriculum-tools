@@ -1,16 +1,17 @@
 {
-  "name": "curriculum-tools",
+  "name": "content-scripting",
   "version": "1.0.0",
   "description": "",
-  "main": "./bin/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "js-yaml": "^3.10.0",
-    "node-emoji": "git+ssh://git@github.com:enkidevs/node-emoji.git",
-    "slugify": "^1.2.1"
+    "js-yaml": "^3.10.0"
+  },
+  "bin" : {
+    "standards" : "/bin/index.js"
   }
 }

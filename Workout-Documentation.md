@@ -1,4 +1,11 @@
-A workout is an ordered collection of [[Insights|Insight Documentation]]. 
+A workout is an ordered collection of [[Insights|Insight Documentation]].  
+Workouts should...  
+
+- Cover 1 objective (the insights should "go together")
+- Consist of at least 4 insights
+
+If you need help, try filing a pull request, and we'll comment with the necessary changes.
+
 Currently, workouts are defined by their _location in the repository_, and a **README.md** file that lists their contents and metadata. Each workout has a **slug**, which is a human-friendly stable moniker that can be referred to. The slug is derived from the workout's folder's name, so the folder should be lower-cased and kebab-seperated.  
 
 Examples:

@@ -15,5 +15,5 @@ You can also help extend and write the curriculum! There are a few ways to contr
 ### Add a Workout: [[Workout Documentation]]
 ### Add an Insight: [[Insight Documentation]]
 ### Write what you know: [[Filling in Stubs]]
-### Plan a course: [[Planning a Course]]
+### Plan a course: [[Creating a Course Guide]]
 ### Add a tip: [[Tips and Tricks]]

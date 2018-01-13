@@ -1,4 +1,4 @@
-A workout is an ordered collection of [[Insights|Insight Documentation]].  
+A workout is an ordered collection of [[Insights|Insight Documentation]] that lives inside of a Course or Subtopic.  
 Workouts should...  
 
 - Cover 1 objective (the insights should "go together")

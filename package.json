@@ -1,5 +1,5 @@
 {
-  "name": "content-scripting",
+  "name": "curriculum-tools",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,9 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "js-yaml": "^3.10.0"
+    "js-yaml": "^3.10.0",
+    "monk": "^6.0.5"
   },
-  "bin" : {
-    "standards" : "/bin/index.js"
+  "bin": {
+    "standards": "/bin/index.js"
   }
 }

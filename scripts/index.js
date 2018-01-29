@@ -12,3 +12,5 @@ const curriculum = new Curriculum(git);
 const fs = require('fs');
 const path = require('path');
 let curriculumStats = curriculum.getStats();
+
+console.log(curriculumStats)

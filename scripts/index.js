@@ -11,6 +11,10 @@ const git = new GitHub(basePath);
 const curriculum = new Curriculum(git);
 const fs = require('fs');
 const path = require('path');
-let curriculumStats = curriculum.getStats();
+// let curriculumStats = curriculum.getStats();
 
-console.log(curriculumStats)
+// console.log(curriculum.topics.blockchain.courses.fundamentals)
+
+curriculum.readCourseFile({topic: 'Blockchain', path: '/home/mihai/Desktop/blockchain.md'});
+
+console.log(curriculum.topics['blockchain'].courses['blockchain-fundamentals']);

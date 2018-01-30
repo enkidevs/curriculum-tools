@@ -12,6 +12,3 @@ const curriculum = new Curriculum(git);
 const fs = require('fs');
 const path = require('path');
 let curriculumStats = curriculum.getStats();
-
-curriculum.readCourseFile({'topic': 'blockchain', 'path': '/home/mihai/Desktop/blockchain.md'});
-curriculum.createMissingFiles();

@@ -12,9 +12,6 @@
     "js-yaml": "^3.10.0",
     "monk": "^6.0.5"
   },
-  "bin": {
-    "standards": "/bin/index.js"
-  },
   "directories": {
     "lib": "lib"
   },

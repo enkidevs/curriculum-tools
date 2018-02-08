@@ -1,9 +1,16 @@
-const CONSTANTS = require("./constants");
-const helpers = require("./helpers");
-const content = require("./lib");
+const CONSTANTS = require('./lib/constants');
+const helpers = require('./lib/helpers');
+const Workout = require('./lib/workout');
+const Insight = require('./lib/insight');
+const Course = require('./lib/course');
+const Topic = require('./lib/topic');
 
 module.exports = {
   ...CONSTANTS,
   ...helpers,
-  content
-}
+  Workout,
+  Insight,
+  Course,
+  Topic
+};
+

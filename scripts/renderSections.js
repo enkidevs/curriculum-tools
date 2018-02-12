@@ -11,6 +11,10 @@ const git = new GitHub(basePath);
 const curriculum = new Curriculum(git);
 
 
-console.log(curriculum.topics.javascript.courses.core.render())
+for (let topicSlug in curriculum.topics) {
+    for (let courseSlug in curriculum.topics[topicSlug].courses) {
+        let course = curriculum.topics[topicSlug].courses[courseSlug]
+        course.render()
+    }
+}
 
-console.log(curriculum.topics.javascript.courses.core.workouts.forEach((w) => {console.log(w.slug)}))

@@ -10,4 +10,4 @@ const git = new GitHub(basePath);
 
 const curriculum = new Curriculum(git);
 
-// from here you can script changes to the curriculum.
+// from here you can script changes to the curriculum.cl

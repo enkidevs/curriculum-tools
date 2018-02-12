@@ -13,4 +13,4 @@ const curriculum = new Curriculum(git);
 
 console.log(curriculum.topics.javascript.courses.core.render())
 
-console.log(curriculum.topics.javascript.courses.core.workouts.forEach((w) => {console.log(w)}))
+console.log(curriculum.topics.javascript.courses.core.workouts.forEach((w) => {console.log(w.slug)}))

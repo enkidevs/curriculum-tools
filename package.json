@@ -1,6 +1,6 @@
 {
   "name": "curriculum-tools",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Hacky scripts for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {

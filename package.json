@@ -1,0 +1,34 @@
+{
+  "name": "@teamenki/curriculum-tools",
+  "version": "0.0.6",
+  "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Loopiezlol",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.10.0",
+    "lodash.pickby": "^4.6.0",
+    "monk": "^6.0.5"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enkidevs/curriculum-tools.git"
+  },
+  "keywords": [
+    "curriculum",
+    "parser",
+    "tools",
+    "enki",
+    "content"
+  ],
+  "bugs": {
+    "url": "https://github.com/enkidevs/curriculum-tools/issues"
+  },
+  "homepage": "https://github.com/enkidevs/curriculum-tools#readme"
+}

@@ -12,9 +12,11 @@ const curriculum = new Curriculum(git);
 
 
 for (let topicSlug in curriculum.topics) {
+    console.log(`## ${topicSlug}`)
     for (let courseSlug in curriculum.topics[topicSlug].courses) {
+        console.log(`### ${courseSlug}`)
         let course = curriculum.topics[topicSlug].courses[courseSlug]
-        course.render()
+        console.log(course.render())
     }
 }
 

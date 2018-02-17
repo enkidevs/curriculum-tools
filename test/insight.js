@@ -51,4 +51,17 @@ describe('Insight', () => {
       'immediately-invoked-function-expression-iife'
     ]);
   })
+  xit("parses the content section")
+  xit("parses the content section when it contains an image")
+  xit("parses the practice question")
+  xit("parses the revision question")
+  xit("parses the quiz question")
+  xit("captures all fields defined in the yaml section")
+  xit("re-renders all fields defined in the yaml section")
+  xit("renders the content section")
+  xit("renders the practice question")
+  xit("renders the revision question")
+  xit("renders the quiz question")
+  xit("renders footnotes")
+
 });

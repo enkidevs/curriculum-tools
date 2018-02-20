@@ -1,7 +1,7 @@
 {
-  "name": "curriculum-tools",
-  "version": "0.0.2",
-  "description": "Hacky scripts for organizing, analysing, and reformatting curriculum programmatically. GPL3",
+  "name": "@teamenki/curriculum-tools",
+  "version": "0.0.7",
+  "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^3.10.0",
+    "lodash.pickby": "^4.6.0",
     "monk": "^6.0.5"
   },
   "directories": {
@@ -17,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sagelabs/curriculum-tools.git"
+    "url": "git+https://github.com/enkidevs/curriculum-tools.git"
   },
   "keywords": [
     "curriculum",
@@ -27,7 +28,7 @@
     "content"
   ],
   "bugs": {
-    "url": "https://github.com/sagelabs/curriculum-tools/issues"
+    "url": "https://github.com/enkidevs/curriculum-tools/issues"
   },
-  "homepage": "https://github.com/sagelabs/curriculum-tools#readme"
+  "homepage": "https://github.com/enkidevs/curriculum-tools#readme"
 }

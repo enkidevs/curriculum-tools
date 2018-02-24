@@ -1,9 +1,10 @@
-const CONSTANTS = require("./constants");
-const helpers = require("./helpers");
-const content = require("./lib");
+const CONSTANTS = require('./lib/constants');
+const helpers = require('./lib/helpers');
+const lib = require('./lib');
 
 module.exports = {
   ...CONSTANTS,
   ...helpers,
-  content
-}
+  ...lib
+};
+

@@ -10,4 +10,13 @@ const git = new GitHub(basePath);
 
 const curriculum = new Curriculum(git);
 
-// from here you can script changes to the curriculum.cl
+
+for (let topicSlug in curriculum.topics) {
+    console.log(`## ${topicSlug}`)
+    for (let courseSlug in curriculum.topics[topicSlug].courses) {
+        console.log(`### ${courseSlug}`)
+        let course = curriculum.topics[topicSlug].courses[courseSlug]
+        console.log(course.render())
+    }
+}
+

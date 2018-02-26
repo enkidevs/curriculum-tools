@@ -1,10 +1,10 @@
-const Insight = require("../lib").Insight;
-const fs = require("fs");
-const path = require("path");
+const Insight = require('../lib').Insight;
+const fs = require('fs');
+const path = require('path');
 
-const insightsPath = "fixtures/insights"
+const insightsPath = 'fixtures/insights';
 
-const testInsights = [];
+let testInsights = [];
 
 // Preflight
 for (let file of fs.readdirSync(path.join(__dirname, insightsPath))) {

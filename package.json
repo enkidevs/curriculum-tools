@@ -4,7 +4,7 @@
   "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {
-    "analyse" : "node scripts/index.js",
+    "analyse": "node scripts/index.js",
     "test": "mocha"
   },
   "author": "Loopiezlol",

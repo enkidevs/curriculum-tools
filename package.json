@@ -4,15 +4,13 @@
   "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "jest"
   },
   "author": "Loopiezlol",
   "license": "ISC",
   "dependencies": {
-    "chai": "^4.1.2",
     "js-yaml": "^3.10.0",
     "lodash.pickby": "^4.6.0",
-    "mocha": "^5.0.1",
     "monk": "^6.0.5"
   },
   "directories": {
@@ -32,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/enkidevs/curriculum-tools/issues"
   },
-  "homepage": "https://github.com/enkidevs/curriculum-tools#readme"
+  "homepage": "https://github.com/enkidevs/curriculum-tools#readme",
+  "devDependencies": {
+    "jest": "^22.4.2"
+  }
 }

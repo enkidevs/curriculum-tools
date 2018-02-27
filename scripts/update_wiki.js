@@ -1,10 +1,11 @@
 #! usr/bin/env node
 
 // Includes snippets for updating the curriculum wiki
-const Curriculum = require('../lib/curriculum');
-const GitHub = require('../lib/networking/github');
+const Curriculum = require('../index').Curriculum;
+const GitHub = require('../index').Networking;
+const os = require('os');
 
-const basePath = process.argv[2];
+const basePath = process.argv[2] || `${os.homedir()}/src`;
 
 const remote = "https://github.com/enkidevs/curriculum/tree/master/";
 
@@ -40,4 +41,5 @@ function updateTopicsTable() {
   console.info("List-Of-Topics updated");
 }
 
+writeTopicPages();
 updateTopicsTable();

@@ -12,7 +12,7 @@ for (let file of fs.readdirSync(path.join(__dirname, gamesPath))) {
     let body = fs.readFileSync(contentPath, 'utf8');
     testGames.push(new Game({ body, path : contentPath }));
 }
-// console.log(testGames[0])
+
 for (let game of testGames) {
     test(`Game: ${game.title}`, function() {
         expect(game).toHaveProperty("rawText");

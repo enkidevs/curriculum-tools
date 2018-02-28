@@ -14,7 +14,7 @@ describe('Insight', () => {
             let body = fs.readFileSync(contentPath, 'utf8');
             testInsights.push(new Insight({body , path : contentPath}));
         }
-    })
+    });
 
 
     test('parses the title from the raw insight text', () => {
@@ -34,7 +34,7 @@ describe('Insight', () => {
         ]));
     });
     
-    test("parses the slug from the filename", () => {
+    test('parses the slug from the filename', () => {
         testInsights.forEach((insight) => {
           expect(insight).toHaveProperty('slug')
         });
@@ -51,7 +51,7 @@ describe('Insight', () => {
         ]));
     });
 
-    test("parses the content section from the raw insight text", () => {
+    test('parses the content section from the raw insight text', () => {
         testInsights.forEach((insight) => {
           expect(insight).toHaveProperty('content')
         });
@@ -72,7 +72,6 @@ describe('Insight', () => {
         ]));
     });
 
-
     test('parses the content section from the raw insight text with image', () => {
         testInsights.forEach((insight) => {
             expect(insight).toHaveProperty('content')
@@ -85,8 +84,6 @@ describe('Insight', () => {
             'The `LEFT JOIN`, or `LEFT OUTER JOIN`, is a type of join whose result contains **all** rows in the first table, regardless of whether there\'s a match with the right-hand table. Conversely, the `RIGHT JOIN`, or `RIGHT OUTER JOIN`, returns all rows in the second table. The keyword here is *outer*, which means "preserve the whole table".\n\nIn case of a `LEFT JOIN`, if the joined field has no match in the second table, the right-hand table columns values are defaulted to `NULL`. The same rule applies for the `RIGHT JOIN`\'s unmatched rows.\n\nA `LEFT JOIN` is performed like this:\n```SQL\nSELECT move.id, move.name,\n  type.id, type.name AS type_name\nFROM move\nLEFT OUTER JOIN type ON\nmove.type_id = type.id;\n```\nBelow, there\'s a visual representation of what the output of the command should contain:\n\n![leftjoin](%3Csvg%20width%3D%22100%25%22%20height%3D%22auto%22%20viewBox%3D%220%200%20276%20202%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EGroup%204%3C%2Ftitle%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20transform%3D%22translate%2843%201%29%22%20stroke-width%3D%222%22%20stroke%3D%22%23FFF%22%3E%3Ccircle%20cx%3D%2260.5%22%20cy%3D%2260.5%22%20r%3D%2260.5%22%20fill%3D%22currentColor%22%2F%3E%3Ccircle%20cx%3D%22130.5%22%20cy%3D%2260.5%22%20r%3D%2260.5%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M138.5%2012.146C153.932%2023.109%20164%2041.129%20164%2061.5s-10.068%2038.39-25.5%2049.354C123.068%2099.891%20113%2081.871%20113%2061.5s10.068-38.39%2025.5-49.354z%22%20stroke%3D%22%23FFF%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%2274%22%20y%3D%2269%22%3EA%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%22131%22%20y%3D%2269%22%3EC%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%22190%22%20y%3D%2269%22%3EB%3C%2Ftspan%3E%3C%2Ftext%3E%3Cg%20fill%3D%22%23FFF%22%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2219%22%3E%3A%20move%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2275%22%3E%3A%20move.type_id%20%3D%20type.id%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2247%22%3E%3A%20type%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2222%22%3EA%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2278%22%3EC%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2250%22%3EB%3C%2Ftspan%3E%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E)\n\nThe first row of the 640 rows result:\n```\nid | name  | id | type_name   \n===+=======+====+==========\n1  | pound | 1  | normal\n```\nThe equivalent `RIGHT OUTER JOIN`:\n```SQL\nSELECT move.id, move.name,\n  type.id, type.name AS type_name\nFROM move\nRIGHT OUTER JOIN type ON\nmove.type_id = type.id;\n```\nYields the same first row (of 640 rows):\n```\nid | name  | id | type_name   \n===+=======+====+===========\n1  | pound | 1  | normal\n```\nConversely, the `RIGHT JOIN` representation is this:\n\n![rightjoin](%3Csvg%20width%3D%22100%25%22%20height%3D%22auto%22%20viewBox%3D%220%200%20276%20202%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EGroup%204%3C%2Ftitle%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20transform%3D%22translate%2843%201%29%22%20stroke-width%3D%222%22%20stroke%3D%22%23FFF%22%3E%3Ccircle%20cx%3D%2260.5%22%20cy%3D%2260.5%22%20r%3D%2260.5%22%2F%3E%3Ccircle%20cx%3D%22130.5%22%20cy%3D%2260.5%22%20r%3D%2260.5%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M138.5%2012.146C153.932%2023.109%20164%2041.129%20164%2061.5s-10.068%2038.39-25.5%2049.354C123.068%2099.891%20113%2081.871%20113%2061.5s10.068-38.39%2025.5-49.354z%22%20stroke%3D%22%23FFF%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%2274%22%20y%3D%2269%22%3EA%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%22131%22%20y%3D%2269%22%3EC%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20fill%3D%22%23FFF%22%20transform%3D%22translate%280%201%29%22%3E%3Ctspan%20x%3D%22190%22%20y%3D%2269%22%3EB%3C%2Ftspan%3E%3C%2Ftext%3E%3Cg%20fill%3D%22%23FFF%22%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2219%22%3E%3A%20move%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2275%22%3E%3A%20move.type_id%20%3D%20type.id%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Light%2C%20Roboto%22%20font-size%3D%2215.5%22%20font-weight%3D%22300%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%2219%22%20y%3D%2247%22%3E%3A%20type%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2222%22%3EA%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2278%22%3EC%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20font-family%3D%22Roboto-Regular%2C%20Roboto%22%20font-size%3D%2224%22%20transform%3D%22translate%280%20123%29%22%3E%3Ctspan%20x%3D%220%22%20y%3D%2250%22%3EB%3C%2Ftspan%3E%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E)\n\n\nThere shouldn\'t be any difference between the two outputs as every Pokémon, move, type or item is already in the game and `NULL` entries would probably break everything. However, if there was a move without a type in the DB (for the left join) or a type for which there are no moves (for the right join), the output would look like this:\n```\n# Left Join\nid  |        name       | id | type_name\n====+===================+====+===========\n1234| coolest-move-ever | NULL  | NULL\n\n# Right Join\nid    | name | id  | type_name   \n======+======+=====+============\nNULL  | NULL | 19  | wood\n```'
         ]));
     });
-
-
 
     test('parses the Practice Question question', () => {
         testInsights.forEach((insight) => {
@@ -140,7 +137,6 @@ describe('Insight', () => {
                 '`*`' ]
         ]))
     })
-
 
     test('parses the Revision Question question', () => {
         testInsights.forEach((insight) => {
@@ -227,7 +223,9 @@ describe('Insight', () => {
             expect(insight).toHaveProperty('quizQuestion')
         })
 
-        let quizHeadlineArr = testInsights.map((insight) => {return (insight.quizQuestion != null ? insight.quizQuestion.headline : "" )});
+        let quizHeadlineArr = testInsights
+            .filter(insight => insight.quizQuestion != null)
+            .map((insight) => { return insight.quizQuestion.headline });
 
         expect(quizHeadlineArr).toEqual(expect.arrayContaining([
             'What is the OSI 7 Layer Model?',
@@ -242,7 +240,9 @@ describe('Insight', () => {
             expect(insight).toHaveProperty('quizQuestion')
         })
 
-        let quizQuestionArr = testInsights.map((insight) => {return (insight.quizQuestion != null ? insight.quizQuestion.question : "" )});
+        let quizQuestionArr = testInsights
+            .filter(insight => insight.quizQuestion != null)
+            .map((insight) => { return insight.quizQuestion.question });
         
         expect(quizQuestionArr).toEqual(expect.arrayContaining([
             'What is the OSI 7 Layer Model?',
@@ -250,8 +250,20 @@ describe('Insight', () => {
             'Given the tables called `pokedex`, `version_group` and `pokedex_version_group`:\n\nid | is_main_series | region_id |       name'
         ]));
         
-    })
+    });
 
+    test('parses the insight footnotes', () => {
+        testInsights.forEach((insight) => {
+            expect(insight).toHaveProperty('footnotes')
+        })
+
+        let footnotesArr = testInsights.filter(insight => insight.footnotes != null).map(insight => {return insight.footnotes});
+        
+        expect(footnotesArr).toEqual(expect.arrayContaining([
+            '[1:User Agents]\nApplications that are acting on behalf of the user. One category of user agents includes web browsers.\n\nA user agent sends information to the server about the web browser, operating system and device (whether the desktop or mobile version of the website should be fetched).'
+        ]));
+        
+    })
 
     test('captures all fields defined in the yaml section', () => {
         testInsights.forEach((insight) => {
@@ -264,10 +276,12 @@ describe('Insight', () => {
             expect(insight).toHaveProperty("parent");
             expect(insight).toHaveProperty("links");
             expect(insight).toHaveProperty("content");
-        })
+        });
     });
-
-})
+    for (var insight in testInsights) {
+        console.log(insight.toJSON())
+    }
+});
 
 
 
@@ -285,3 +299,4 @@ describe('Insight', () => {
 //   xit("renders footnotes")
 
 // });
+

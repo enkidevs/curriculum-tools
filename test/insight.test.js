@@ -244,11 +244,13 @@ describe('Insight', () => {
             .filter(insight => insight.quizQuestion != null)
             .map((insight) => { return insight.quizQuestion.question });
         
-        expect(quizQuestionArr).toEqual(expect.arrayContaining([
-            'What is the OSI 7 Layer Model?',
-            'Given the tables called `location_area` and `location`:\n\nid  | game_index | location_id |       name',
-            'Given the tables called `pokedex`, `version_group` and `pokedex_version_group`:\n\nid | is_main_series | region_id |       name'
-        ]));
+        expect(quizQuestionArr).toEqual(
+            expect.arrayContaining([
+                'What is the OSI 7 Layer Model?',
+                'Given the tables called `location_area` and `location`:\n\nid  | game_index | location_id |       name',
+                'Given the tables called `pokedex`, `version_group` and `pokedex_version_group`:\n\nid | is_main_series | region_id |       name'
+            ])
+        );
         
     });
 
@@ -257,7 +259,9 @@ describe('Insight', () => {
             expect(insight).toHaveProperty('footnotes')
         })
 
-        let footnotesArr = testInsights.filter(insight => insight.footnotes != null).map(insight => {return insight.footnotes});
+        let footnotesArr = testInsights
+            .filter(insight => insight.footnotes != null)
+            .map(insight => {return insight.footnotes});
         
         expect(footnotesArr).toEqual(expect.arrayContaining([
             '[1:User Agents]\nApplications that are acting on behalf of the user. One category of user agents includes web browsers.\n\nA user agent sends information to the server about the web browser, operating system and device (whether the desktop or mobile version of the website should be fetched).'
@@ -275,12 +279,14 @@ describe('Insight', () => {
             expect(insight).toHaveProperty("title");
             expect(insight).toHaveProperty("parent");
             expect(insight).toHaveProperty("links");
-            expect(insight).toHaveProperty("content");
         });
     });
-    for (var insight in testInsights) {
-        console.log(insight.toJSON())
-    }
+
+    test('renders properly', () => {
+        testInsights.forEach((insight)=> {
+            expect(insight.render()).toEqual(fs.readFileSync(insight.contentPath, 'utf8'));
+        })
+    })
 });
 
 

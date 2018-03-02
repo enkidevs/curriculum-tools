@@ -1,7 +1,7 @@
 const Insight = require('../lib').Insight;
 const fs = require('fs');
 const path = require('path');
-const ast = require('enki-content');
+const ast = require('enki-content').parse;
 
 const insightsPath = 'fixtures/insights';
 
@@ -70,7 +70,7 @@ describe('Insight', () => {
             'Virtually every Unix system comes with the `curl` command pre-installed.  `curl` allows us to simulate any HTTP request, although most commonly it\'s used to download files and webpages from the command-line.\n\nHere\'s a quick example:\n\n```console\n$ curl http://google.com\n<HTML><HEAD>\n<TITLE>301 Moved</TITLE></HEAD><BODY>\n<H1>301 Moved</H1>\nThe document has moved\n<A HREF="http://www.google.com/">here</A>.\n</BODY></HTML>\n$\n```\n\nHere, `curl` is fetching the contents of `http://google.com` and printing out whatever we receive in response.  In this case, we receive an HTML document telling us go to `http://www.google.com` instead.  A normal browser would follow this redirect automatically, so as a user we\'d never see this page.\n\nIf we ask `curl` to fetch something other than text it will still try to print out its contents to the console, resulting in gibberish.\n\n### Saving Output From `curl`\n\nThere are two main ways to save the output from curl: using `>` redirection or using the `-o` option.\n\n```console\n$ curl http://foo.com/bar.mp3 > song.mp3\n$ curl -o song.mp3 http://foo.com/bar.mp3\n```\n\nBoth of these will result in `curl` downloading `bar.mp3` and writing it to the `song.mp3` file in the current directory.',
             'The `ping` command will continuously send a tiny bit of internet traffic to a remote address and report the amount of time it took to receive a response.  It will also report if the traffic was dropped, which is indicative of a bad network connection or a misconfigured network. The `ping` command one of the most basic and essential tools for diagnosing network problems.\n\nHere is an example:\n\n```console\n$ ping google.com\nPING google.com (172.217.0.238)\n  56(84) bytes of data.\n64 bytes from 172.217.0.238:\n  icmp_seq=1 ttl=56 time=0.849 ms\n64 bytes from 172.217.0.238:\n  icmp_seq=2 ttl=56 time=0.822 ms\n64 bytes from 172.217.0.238:\n  icmp_seq=3 ttl=56 time=0.905 ms\n64 bytes from 172.217.0.238:\n  icmp_seq=4 ttl=56 time=0.894 ms\n64 bytes from 172.217.0.238:\n  icmp_seq=5 ttl=56 time=0.888 ms\n=== google.com ping statistics ===\n5 packets transmitted, 5 received,\n  0% packet loss, time 4001ms\nrtt min/avg/max/mdev =\n  0.822/0.871/0.905/0.044 ms\n$\n```\n\nThe `ping` command will continue to do this until it is stopped.  The `time=` field is the most important.  This particular machine is getting a response back from `google.com` in about 1 millisecond, which is very fast.  `ping` will also give an overall summary of the "ping session", which includes the number of ping packets sent, the percentage of packets lost, and various statistics about the round trip time (`rtt`).\n\nKeep in mind that latency has to do with both the quality of your connection and the physical distance between the machine on which you issue the `ping` command and the machine being pinged.\n\nFor example, if I ping `www.duma.ru`, the website for the Russian State Parliament (Duma), we get much higher ping times:\n\n```console\n$ ping duma.ru\nPING duma.ru (212.11.128.31)\n  56(84) bytes of data.\n64 bytes from duma.ru (212.11.128.31):\n  icmp_seq=1 ttl=113 time=149 ms\n64 bytes from duma.ru (212.11.128.31):\n  icmp_seq=2 ttl=113 time=149 ms\n64 bytes from duma.ru (212.11.128.31):\n  icmp_seq=3 ttl=113 time=149 ms\n64 bytes from duma.ru (212.11.128.31):\n  icmp_seq=4 ttl=113 time=149 ms\n=== duma.ru ping statistics ===\n5 packets transmitted, 4 received,\n  20% packet loss, time 4005ms\nrtt min/avg/max/mdev =\n  149.660/149.811/149.946/0.484 ms\n$\n```',
             'In git you can tag a certain point in history as being important. You can use this to mark a new **version**.\n\nYou can create an **annotated** tag by:\n```\n$ git tag -a v1.0.1 -m "Version 1.0.1"\n```\nAnnotated tags contain useful information: the current commit checksum, your name and email, the date and the tagging message.\n\nYou can also create a **lightweight** tag which acts just as a pointer to the current commit:\n```\n$ git tag v1.0.l\n```\nYou can add a tag to an **older** commit by specifying part of its commit checksum, for example:\n```\n$ git tag -a v.1.0.0 4682c32\n```\n\nYou can list all the tags you have made in **alphabetical** order:\n```\n$ git tag\nv0.1\nv0.9\nv1.5\n```\nIf your project has hundreds of tags, you can also search for **specific** tags, for example those of version `v1.0`:\n```\ngit tag -l "v1.0*"\nv1.0.0\nv1.0.1\nv1.0.2\nv1.0.3\n```' ]
-    ));
+        ));
     });
 
     test('parses the content section from the raw insight text with image', () => {
@@ -137,7 +137,7 @@ describe('Insight', () => {
                 '`OUTER JOIN`',
                 '`*`' ]
         ]))
-    })
+    });
 
     test('parses the Revision Question question', () => {
         testInsights.forEach((insight) => {
@@ -266,7 +266,7 @@ describe('Insight', () => {
             '[1:User Agents]\nApplications that are acting on behalf of the user. One category of user agents includes web browsers.\n\nA user agent sends information to the server about the web browser, operating system and device (whether the desktop or mobile version of the website should be fetched).'
         ]));
         
-    })
+    });
 
     test('captures all fields defined in the yaml section', () => {
         testInsights.forEach((insight) => {
@@ -284,81 +284,59 @@ describe('Insight', () => {
     test('renders content properly', () => {
         testInsights.forEach((insight)=> {
             // Render as AST and compare values
-            let astInsight = ast.parse(insight.render());
-            let astContent;
-            while (astContent == undefined || astInsight.nodes.length > 0) {
-                if (astInsight.nodes[0].name === "content") astContent = astInsight.nodes[0].value;
-                astInsight.nodes.shift();
-            }
-            if (astContent == null) return;
+            let astInsight = ast(insight.render());
+            let astContent = astInsight.nodes.find(node => node.name === 'content');
+            if (astContent == null || astContent.value == null) return;
             expect(astContent
+                .value
                 .replace(/\n\n*/g, "\n")
             ).toBe(insight.content
                 .replace(/\n\n*/g, "\n")
             );
         })
-    })
+    });
 
     test('renders practice question properly', () => {
         testInsights.forEach((insight)=> {
             // Render as AST and compare values
-            let astInsight = ast.parse(insight.render());
-            let astPracticeQuestion;
-            while (astPracticeQuestion == undefined && astInsight.nodes.length > 0) {
-                if (astInsight.nodes[0].name === "practiceQuestion"){
-                    astPracticeQuestion = astInsight.nodes[0].value;
-                } 
-                astInsight.nodes.shift();
-            }
-            if (astPracticeQuestion == null) return;
+            let astInsight = ast(insight.render());
+            let astPracticeQuestion = astInsight.nodes.find(node => node.name === 'practiceQuestion');
+            if (astPracticeQuestion == null || astPracticeQuestion.value == null) return;
             expect(astPracticeQuestion
+                .value
                 .replace(/\n\n*/g, "\n")
             ).toBe(insight.practiceQuestion.rawText
                 .replace(/\n\n*/g, "\n")
             );
         })
-    })
+    });
 
     test('renders revision question properly', () => {
         testInsights.forEach((insight)=> {
             // Render as AST and compare values
-            let astInsight = ast.parse(insight.render());
-            let astRevisionQuestion;
-            while (astRevisionQuestion == undefined && astInsight.nodes.length > 0) {
-                if (astInsight.nodes[0].name === "revisionQuestion"){
-                    astRevisionQuestion = astInsight.nodes[0].value;
-                } 
-                astInsight.nodes.shift();
-            }
-            if (astRevisionQuestion == null) return;
+            let astInsight = ast(insight.render());
+            let astRevisionQuestion = astInsight.nodes.find(node => node.name === 'revisionQuestion');
+            if (astRevisionQuestion == null || astRevisionQuestion.value == null) return;
             expect(astRevisionQuestion
+                .value
                 .replace(/\n\n*/g, "\n")
             ).toBe(insight.revisionQuestion.rawText
                 .replace(/\n\n*/g, "\n")
             );
         })
-    })
+    });
 
     // *** This is a can of worms. Open at your own risk ***
     // test('renders quiz question properly', () => {
     //     testInsights.forEach((insight)=> {
     //         // Render as AST and compare values
-    //         let astInsight = ast.parse(insight.render());
-    //         let astQuizQuestion;
-    //         while (astQuizQuestion == undefined && astInsight.nodes.length > 0) {
-    //             if (astInsight.nodes[0].name === "quiz"){
-    //                 astQuizQuestion = astInsight.nodes[0].value;
-    //                 console.log(astQuizQuestion)
-    //             } 
-    //             astInsight.nodes.shift();
-    //         }
-    //         if (astQuizQuestion == null) return;
+    //         let astInsight = ast(insight.render());
+    //         let astQuizQuestion = astInsight.nodes.find(node => node.name === 'quiz');
+    //         if (astQuizQuestion == null || astQuizQuestion.value == null) return;
     //         expect(astQuizQuestion
     //             .replace(/\n\n*/g, "\n")
-    //             .replace(/\ \ */g, " ")
     //         ).toBe(insight.quizQuestion.rawText
     //             .replace(/\n\n*/g, "\n")
-    //             .replace(/\ \ */g, " ")
     //         );
     //     })
     // })
@@ -366,19 +344,11 @@ describe('Insight', () => {
     test('renders footnotes properly', () => {
         testInsights.forEach((insight)=> {
             // Render as AST and compare values
-            let astInsight = ast.parse(insight.render());
-            let astFootnotes;
-
-            while (astFootnotes == undefined && astInsight.nodes.length > 0) {
-                // console.log(astInsight.nodes[0].name)
-                if (astInsight.nodes[0].name === "footnotes"){
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAA")
-                    astFootnotes = astInsight.nodes[0].value;
-                } 
-                astInsight.nodes.shift();
-            }
-            if (astFootnotes == null) return;
+            let astInsight = ast(insight.render());
+            let astFootnotes = astInsight.nodes.find(node => node.name === 'footnotes');
+            if (astFootnotes == null || astFootnotes.value == null) return;
             expect(astFootnotes
+                .value
                 .replace(/\n\n*/g, "\n")
             ).toBe(insight.footnotes
                 .replace(/\n\n*/g, "\n")

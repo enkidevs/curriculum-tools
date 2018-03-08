@@ -58,15 +58,3 @@ objectives.forEach((objective) => {
 })
 
 console.log(uncoveredObjectives)
-
-
-// content to change
-// move titles to first line of content section
-// quiz
-// treat exercises as insights, add to workouts as exercises: 
-    // exercises:
-    // - my-exercise
-
-
-// in the tools
-// - add a question-answer shuffler

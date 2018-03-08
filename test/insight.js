@@ -30,7 +30,8 @@ describe('Insight', () => {
       'Multiple JOINs',
       'UNION',
       'Using `curl` To Make HTTP Requests',
-      'Using `ping` To Measure Network Latency'
+      'Using `ping` To Measure Network Latency',
+      'Some common terminology'
     ]);
   })
 
@@ -47,6 +48,9 @@ describe('Insight', () => {
       'union',
       'using-curl-to-make-http-requests',
       'using-ping-to-measure-network-latency',
+      'declaring-functions',
+      'immediately-invoked-function-expression-iife',
+      'some-common-terminology',
       'declaring-functions',
       'immediately-invoked-function-expression-iife'
     ]);

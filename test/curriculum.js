@@ -28,7 +28,6 @@ describe("Curriculum", () => {
             "course",
             "javascript:core"
         );
-        console.log(jsCore)
         expect(jsCore).to.haveOwnProperty("workouts")
         expect(jsCore.workouts.length).to.be.gt(0)
     })

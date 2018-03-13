@@ -59,6 +59,7 @@ function mult(x, y){
 console.log(mult(2,3));
 ???
 ```
+
 *`undefined`
 *`4`
 *`9`
@@ -77,7 +78,9 @@ function add(x, y){
 console.log(add(2,3));
 ???
 ```
+
 *`undefined`
 *`5`
 *`false`
 *`error`
+

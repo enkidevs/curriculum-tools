@@ -1,4 +1,4 @@
-# Using `ping` To Measure Network Latency
+---
 author: jfarmer
 
 levels:
@@ -12,6 +12,10 @@ type: normal
 inAlgoPool: false
 
 category: must-know
+
+---
+
+# Using `ping` To Measure Network Latency
 
 ---
 ## Content

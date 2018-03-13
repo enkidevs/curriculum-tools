@@ -1,4 +1,4 @@
-# Declaring Functions
+---
 author: alexjmackey
 
 levels:
@@ -10,6 +10,10 @@ type: normal
 inAlgoPool: false
 
 category: must-know
+
+---
+
+# Declaring Functions
 
 ---
 ## Content

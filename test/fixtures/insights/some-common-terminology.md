@@ -1,4 +1,4 @@
-# Some common terminology
+---
 author: catalin
 
 levels:
@@ -13,8 +13,11 @@ category: must-know
 
 links:
 
-  - >-
-    [help.github.com](https://help.github.com/articles/github-glossary/){website}
+  - '[help.github.com](https://help.github.com/articles/github-glossary/){website}'
+
+---
+
+# Some common terminology
 
 ---
 ## Content

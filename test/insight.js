@@ -1,19 +1,19 @@
 const expect = require('chai').expect;
 const Insight = require("../lib").Insight;
 const fs = require("fs");
+const vfile = require('to-vfile')
 
 const testInsights = [];
 
 describe('Insight', () => {
   let fixtures = [];
   before(function() {
-    let files = fs.readdirSync("test/fixtures/insights");
-    for (let filePath of files) {
-      fixtures.push(`test/fixtures/insights/${filePath}`);
-    }
+    let fixtures = fs.readdirSync('test/fixtures/insights');
     for (let i in fixtures) {
-      let body = fs.readFileSync(fixtures[i]).toString();
-      testInsights.push(new Insight({body, path: fixtures[i]}))
+      let path = `test/fixtures/insights/${fixtures[i]}` 
+      let body = vfile.readSync(path, 'utf8')
+      console.log(path)
+      testInsights.push(new Insight({body, path}))
     }
   })
   it("Parses the title from the raw insight text", function(){

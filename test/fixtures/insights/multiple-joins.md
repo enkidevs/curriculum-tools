@@ -1,4 +1,4 @@
-# Multiple JOINs
+---
 author: mihaiberq
 
 levels:
@@ -18,6 +18,9 @@ category: must-know
 tags:
    - workout
    - deep
+---
+
+# Multiple JOINs
 
 ---
 ## Content

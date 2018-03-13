@@ -1,4 +1,4 @@
-# Using `curl` To Make HTTP Requests
+---
 author: jfarmer
 
 levels:
@@ -18,6 +18,9 @@ links:
   - >-
     [More use
     cases](http://www.thegeekstuff.com/2012/04/curl-examples/){website}
+---
+
+# Using `curl` To Make HTTP Requests
 
 ---
 ## Content

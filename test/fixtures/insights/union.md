@@ -1,4 +1,4 @@
-# UNION
+---
 author: mihaiberq
 
 levels:
@@ -20,6 +20,9 @@ inAlgoPool: false
 tags:
   - workout
   - deep
+---
+
+# UNION
 
 ---
 ## Content

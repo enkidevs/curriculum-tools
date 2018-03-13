@@ -5,7 +5,7 @@ let Networking = CurriculumTools.Networking;
 // here's where the mock goes, for now we're just gonna do it for real.
 let curriculum = new Curriculum(new Networking())
 
-describe("Curriculum", () => {
+xdescribe("Curriculum", () => {
     // some notes on testing curriculum:
     // Curriculum is a class that does curriculum-wide operations, such as reading the folder structure and organizing the curriculum according to the folder structure.
     // as such, it doesn't really make sense to test it with anything other than a specific branch of the curriculum.

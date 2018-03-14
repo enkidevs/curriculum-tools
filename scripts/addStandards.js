@@ -22,7 +22,7 @@ let standardsJSON = []
 let standardsBySlug = {}
 async function getModelBySlug (Model, query) {
   let modelBySlug = {}
-  let models = await Model.find(query, {_id: 1, slug: 1}).lean().exec()
+  let models = await Model.find(query, '_id slug')
   models.map((topic) => {
     modelBySlug[topic.slug] = topic._id
   })
@@ -30,16 +30,16 @@ async function getModelBySlug (Model, query) {
 }
 async function associate () {
   let topicsBySlug = await getModelBySlug(Topic, { published: true })
-  let subtopicsBySlug = await getModelBySlug(SubTopic)
+  let subtopicsBySlug = await getModelBySlug(SubTopic, {})
   Object.values(curriculum.topics).forEach(async function (topic) {
     Object.values(topic.courses).forEach(async function (course) {
       course.standards.forEach(async function (standard) {
         standardsBySlug[standard.slug] = standard
         let input = standard.toJSON()
+        if (!input.objectives.length) return;
         input.topic = topicsBySlug[topic.slug]
         input.subtopic = subtopicsBySlug[course.slug]
         standardsJSON.push(input)
-        console.log(input)
       })
     })
   })
@@ -47,9 +47,9 @@ async function associate () {
 }
 async function create () {
   standardsJSON.forEach(async function (standard) {
-    console.log(standard)
-    await Standard.create(standard)
+    await Standard.insert(standard)
   })
+  console.log("creation done")
 }
 
 associate()

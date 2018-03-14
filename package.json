@@ -18,7 +18,8 @@
     "mocha": "^5.0.1",
     "mongoose": "^5.0.9",
     "monk": "^6.0.5",
-    "to-vfile": "^2.2.0"
+    "to-vfile": "^2.2.0",
+    "unist-util-find": "^1.0.1"
   },
   "directories": {
     "lib": "lib"

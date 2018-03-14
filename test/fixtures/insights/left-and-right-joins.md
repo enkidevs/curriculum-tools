@@ -1,4 +1,4 @@
-# LEFT And RIGHT JOINs
+---
 author: mihaiberq
 
 levels:
@@ -23,6 +23,10 @@ tags:
    - introduction
    - workout
 
+
+---
+
+# LEFT And RIGHT JOINs
 
 ---
 ## Content

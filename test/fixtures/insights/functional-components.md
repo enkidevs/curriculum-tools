@@ -1,4 +1,4 @@
-# Functional components
+---
 author: catalin
 
 levels:
@@ -22,6 +22,10 @@ links:
 
  - >-
    [facebook.github.io](https://facebook.github.io/react/docs/components-and-props.html){website}
+
+---
+
+# Functional components
 
 ---
 ## Content

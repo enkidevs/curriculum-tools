@@ -1,4 +1,4 @@
-# Successful status codes
+---
 author: SebaRaba
 
 levels:
@@ -16,6 +16,10 @@ type: normal
 category: must-know
 
 parent: informational-status-codes
+
+---
+
+# Successful status codes
 
 ---
 ## Content

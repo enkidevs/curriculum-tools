@@ -11,7 +11,8 @@
   "dependencies": {
     "js-yaml": "^3.10.0",
     "lodash.pickby": "^4.6.0",
-    "monk": "^6.0.5"
+    "monk": "^6.0.5",
+    "request": "^2.85.0"
   },
   "directories": {
     "lib": "lib"

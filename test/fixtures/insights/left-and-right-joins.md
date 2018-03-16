@@ -108,6 +108,7 @@ SELECT *
 ??? type_efficacy ???
 type.id = type_efficacy.target_type_id;
 ```
+
 * `FROM`
 * `RIGHT JOIN`
 * `ON`

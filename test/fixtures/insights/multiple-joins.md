@@ -119,6 +119,7 @@ Is the following statement true or false?
 In order to join multiple tables together, subqueries must be used.
 
 ???
+
 * false
 * true
 

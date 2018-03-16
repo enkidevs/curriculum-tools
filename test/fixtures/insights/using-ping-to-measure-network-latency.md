@@ -78,6 +78,7 @@ $
 `ping` will send ??? and count the time until the
 
 ???.
+
 *data
 *server’s response
 *connection fails
@@ -89,6 +90,7 @@ $
 Based on the distance, which server would respond to pings faster?
 
 ???
+
 *a close one
 *a distant one
 *the distance isn’t relevant

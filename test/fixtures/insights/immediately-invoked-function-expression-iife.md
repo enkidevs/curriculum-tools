@@ -51,8 +51,9 @@ The syntax for declaring an IIFE function is:
  // code
 })???;
 ```
-*`function()`
-*`()`
-*`functionName()`
-*`{}`
-*`apply`
+
+* `function()`
+* `()`
+* `functionName()`
+* `{}`
+* `apply`

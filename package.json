@@ -22,7 +22,8 @@
     "monk": "^6.0.5",
     "to-vfile": "^2.2.0",
     "unist-util-find": "^1.0.1",
-    "unist-util-map": "^1.0.3"
+    "unist-util-map": "^1.0.3",
+    "request": "^2.85.0"
   },
   "directories": {
     "lib": "lib"

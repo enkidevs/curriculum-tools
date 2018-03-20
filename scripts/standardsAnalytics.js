@@ -56,7 +56,7 @@ objectives.forEach((objective) => {
   }
 })
 
-console.log("Covered Objectives")
+console.log('Covered Objectives')
 console.log(coveredObjectives)
-console.log("Uncovered Objectives")
+console.log('Uncovered Objectives')
 console.log(uncoveredObjectives)

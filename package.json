@@ -35,6 +35,8 @@
   "devDependencies": {
     "enki-content": "^0.6.0",
     "jest": "^22.4.2",
-    "standard": "^11.0.0"
+    "standard": "^11.0.0",
+    "@enkidevs/curriculum-helpers": "^1.1.1",
+    "@enkidevs/curriculum-parser": "^1.1.1"
   }
 }

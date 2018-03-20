@@ -13,7 +13,8 @@ const curriculum = new Curriculum(git);
 
 // from here you can script changes to the curriculum
 
-let allInsights = curriculum.getAllInsights().filter((insight) => { if (insight.contentPath) return insight.contentPath.indexOf("getting-started/some-common-terminology.md") !== -1} )
+let allInsights = curriculum.getAllInsights()
+.filter((insight) => { if (insight.contentPath) return insight.contentPath.indexOf("python/") !== -1} )
 
 allInsights.forEach((insight) => {
     fs.writeFileSync(insight.contentPath, insight.render())

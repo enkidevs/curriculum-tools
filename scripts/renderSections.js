@@ -15,7 +15,7 @@ const { Insight } = require('../lib')
 // const Curriculum = require('../lib/curriculum')
 // const GitHub = require('../lib/networking/github')
 
-const topic = 'linux'
+const topic = 'web'
 
 const basePath = path.join(os.homedir(), `src/curriculum/${topic}`)
 
@@ -24,7 +24,8 @@ process.chdir(basePath)
 const filePathList = execSync(`find -name '*md'`)
   .toString()
   .split('\n')
-  .filter(x => x.endsWith('.md') && !x.toLowerCase().endsWith('readme.md'))
+  .filter(filePath => filePath.endsWith('.md') && !filePath.toLowerCase().endsWith('readme.md'))
+  .filter(filePath => filePath.split('/').length === 4)
   .map(x => path.join(basePath, x))
 
 // console.log(filePathList)
@@ -32,7 +33,8 @@ const filePathList = execSync(`find -name '*md'`)
 for (let filePath of filePathList) {
   const body = fs.readFileSync(filePath, 'utf8')
   if (body.startsWith('#') && body.indexOf('type: normal') > 0) {
-    const data = new Insight({ body, path: filePath }).render().toString()
+    const data = new Insight({ body, path: filePath }).render()
+    // console.log(data)
     fs.writeFileSync(filePath, data)
   }
 }

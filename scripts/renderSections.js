@@ -1,22 +1,38 @@
-#! usr/bin/env node
+#!usr/bin/env node
 
-const Curriculum = require('../lib/curriculum');
-const GitHub = require('../lib/networking/github');
+// Looks for insights of the old format
+// Parses them as an insight
+// And then writes them in place as the new format
+// -Miles
 
-const basePath = process.argv[2];
+const os = require('os')
+const path = require('path')
+const fs = require('fs')
+const { execSync } = require('child_process')
 
-const remote = "https://github.com/enkidevs/curriculum/tree/master/";
-const git = new GitHub(basePath);
+const { Insight } = require('../lib')
 
-const curriculum = new Curriculum(git);
+// const Curriculum = require('../lib/curriculum')
+// const GitHub = require('../lib/networking/github')
 
+const topic = 'linux'
 
-for (let topicSlug in curriculum.topics) {
-    console.log(`## ${topicSlug}`)
-    for (let courseSlug in curriculum.topics[topicSlug].courses) {
-        console.log(`### ${courseSlug}`)
-        let course = curriculum.topics[topicSlug].courses[courseSlug]
-        console.log(course.render())
-    }
+const basePath = path.join(os.homedir(), `src/curriculum/${topic}`)
+
+process.chdir(basePath)
+
+const filePathList = execSync(`find -name '*md'`)
+  .toString()
+  .split('\n')
+  .filter(x => x.endsWith('.md') && !x.toLowerCase().endsWith('readme.md'))
+  .map(x => path.join(basePath, x))
+
+// console.log(filePathList)
+
+for (let filePath of filePathList) {
+  const body = fs.readFileSync(filePath, 'utf8')
+  if (body.startsWith('#') && body.indexOf('type: normal') > 0) {
+    const data = new Insight({ body, path: filePath }).render().toString()
+    fs.writeFileSync(filePath, data)
+  }
 }
-

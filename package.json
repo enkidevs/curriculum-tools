@@ -1,6 +1,6 @@
 {
   "name": "@teamenki/curriculum-tools",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,9 @@
   "author": "Loopiezlol",
   "license": "ISC",
   "dependencies": {
-    "@enkidevs/curriculum-compiler-string": "1.1.1",
-    "@enkidevs/curriculum-helpers": "1.1.1",
-    "@enkidevs/curriculum-parser": "1.1.1",
+    "@enkidevs/curriculum-compiler-string": "1.6.0",
+    "@enkidevs/curriculum-helpers": "1.6.0",
+    "@enkidevs/curriculum-parser": "1.7.0",
     "chai": "^4.1.2",
     "js-yaml": "^3.10.0",
     "lodash.pickby": "^4.6.0",

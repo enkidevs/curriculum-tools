@@ -42,9 +42,34 @@ async function run () {
   const curriculum = new Curriculum(git)
 
   const topicPages = generateProgressionPages(curriculum)
+  const progressionWikiPath = path.join(
+    basePath,
+    'curriculum.wiki',
+    'progression'
+  )
+  if (!fs.existsSync(progressionWikiPath)) {
+    // create src file
+    fs.mkdirSync(progressionWikiPath)
+    console.log(`Created folder ${progressionWikiPath}`)
+  }
+
   topicPages.forEach(({ name, page }) => {
-    fs.writeFileSync(path.join(basePath, name), page)
+    fs.writeFileSync(path.join(progressionWikiPath, name), page)
   })
+
+  const sidebarWikiPath = path.join(basePath, 'curriculum.wiki', `_Sidebar.md`)
+  const sidebarLines = fs.readFileSync(sidebarWikiPath, 'utf-8').split('\n')
+
+  const progressionIndex = sidebarLines.indexOf('Content progression:')
+  let newSidebarString = progressionIndex === -1 ? sidebarLines.join('\n') : sidebarLines.slice(0, progressionIndex).join('\n')
+
+  if (topicPages.length > 0) {
+    newSidebarString += '\n\nContent progression:\n'
+    topicPages.forEach(topicPage => {
+      newSidebarString += `- [[${topicPage.name.replace('.md', '')}]]\n`
+    })
+  }
+  fs.writeFileSync(sidebarWikiPath, newSidebarString)
 }
 
 run()
@@ -58,12 +83,10 @@ run()
   })
 
 function generateProgressionPages (curriculum) {
-  return Object.values(curriculum.topics)
-    .filter(topic => topic.slug === 'sql')
-    .map(topic => ({
-      name: `${topic.name}-progression.md`,
-      page: generateTopicPage(topic)
-    }))
+  return Object.values(curriculum.topics).map(topic => ({
+    name: `${topic.slug}-progression.md`,
+    page: generateTopicPage(topic)
+  }))
 }
 
 function generateTopicPage (topic) {
@@ -106,7 +129,7 @@ function generateProgressionByAspect (topic) {
         .concat(workout.game)
         .filter(Boolean)
         .forEach(insight => {
-          insight.metadata.tags.forEach(tag => {
+          ;(insight.metadata.tags || []).forEach(tag => {
             const currentAspectObject = aspects.get(tag)
             if (currentAspectObject) {
               if (!currentAspectObject.courses[course.slug]) {
@@ -141,14 +164,16 @@ function generateProgressionByAspect (topic) {
           section += `#### ${header}\n`
           if (insights.length > 0) {
             section += '- Insights:\n'
-            insights.forEach(insight => {
-              section += `  - [${insight.slug}](${insight.getExternalLink()})\n`
+            insights.forEach((insight, index) => {
+              section += `  ${index + 1}. [${
+                insight.slug
+              }](${insight.getExternalLink()})\n`
             })
           }
           if (exercises.length > 0) {
             section += '- Exercises:\n'
-            exercises.forEach(exercise => {
-              section += `  - [${
+            exercises.forEach((exercise, index) => {
+              section += `  ${index + 1}. [${
                 exercise.slug
               }](${exercise.getExternalLink()})\n`
             })
@@ -263,10 +288,12 @@ function generateTableRow (insight, index) {
 }
 
 function getAspectEmojis (tags) {
-  return tags
-    .filter(tag => Object.keys(aspectsMap).includes(tag))
-    .map(tag => aspectsMap[tag].emoji)
-    .join(' ')
+  return (tags || []).length > 0
+    ? tags
+      .filter(tag => Object.keys(aspectsMap).includes(tag))
+      .map(tag => aspectsMap[tag].emoji)
+      .join(' ')
+    : ''
 }
 
 function getInsightType (type) {

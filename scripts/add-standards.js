@@ -15,7 +15,6 @@ async function run () {
 
   const git = new GitHub(basePath)
   const curriculum = new Curriculum(git)
-  curriculum.read()
 
   const curriculumCourses = Object.values(curriculum.topics).reduce(
     (courses, topic) => {

@@ -37,7 +37,8 @@ function migrateAspectsFromTags () {
             aspects.includes(tag))
           if (insightAspects.length > 0 && !insightAspects.includes('Deprecation') && !insightAspects.includes('Bullet')) {
             insight.metadata.aspects = insightAspects
-            // console.log(`THESE ARE ASPECTS: ${insight.metadata.aspects}`)
+            console.log(`For insight: ${insight.slug}`)
+            console.log(`These are the aspects: ${insight.metadata.aspects}`)
             insight.metadata.tags = insight.metadata.tags.filter(
               tag => !aspects.includes(tag)
             )

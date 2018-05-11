@@ -46,7 +46,7 @@ function migrateAspectsFromTags () {
             // However, the .render() method returns undefined
 
             const newInsightFile = insight.render()
-            // console.log(typeof (newInsightFile))
+            console.log(typeof (newInsightFile))
             // fs.writeFileSync(insightPath, newInsightFile)
           }
         }

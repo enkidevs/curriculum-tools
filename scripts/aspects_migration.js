@@ -2,53 +2,43 @@
 // utility for reading in the entire curriculum from a file path
 const fs = require('fs')
 const Insight = require('../lib/insight')
-const childProcess = require('child_process').execSync
-
-let curriculumPath
-let topic
+const execSync = require('child_process').execSync
 let curriculum
-
 const aspects = ['new', 'workout', 'deep', 'introduction', 'obscura']
 
 function loadCurriculumFromLocalPath () {
-  process.argv.forEach((val, index) => {
-    if (index === 2) {
-      console.log(`${index}: ${val}`)
-      curriculumPath = val
-    } else if (index === 3) {
-      console.log(`${index}:${val}`)
-      topic = val
-    }
-  })
-  curriculum = childProcess(`find ${curriculumPath}/${topic} -name "*.md"`).toString('utf-8')
-  curriculum = curriculum.split('\n')
-  console.log(typeof (curriculum))
+  const [, , curriculumPath, topicName] = process.argv
+  if (!fs.existsSync(curriculumPath)) {
+    throw new Error('Invalid curriculum path')
+  }
+  const insightAndExercisesPaths = [curriculumPath, topicName].join('/')
+  if (!fs.existsSync(insightAndExercisesPaths)) {
+    throw new Error('Invalid topic path')
+  }
+  console.log(insightAndExercisesPaths)
+  curriculum = execSync(`find ${insightAndExercisesPaths} -name "*.md"`).toString('utf-8').split('\n')
+    .filter(insightPath => {
+      return (!insightPath.includes('README.md') &&
+      !insightPath.includes('LICENSE.md') && fs.existsSync(insightPath))
+    })
   return curriculum
 }
-
 function migrateAspectsFromTags () {
   loadCurriculumFromLocalPath()
     .forEach(insightPath => {
-      if (!insightPath.includes('README.md') && !insightPath.includes('LICENSE.md') && fs.existsSync(insightPath)) {
-        const insightFile = fs.readFileSync(insightPath, 'utf-8')
-        const insight = new Insight({ body: insightFile, path: insightPath })
-        if (insight.metadata.tags !== undefined) {
-          const insightAspects = insight.metadata.tags.filter(tag =>
-            aspects.includes(tag))
-          if (insightAspects.length > 0 && !insightAspects.includes('Deprecation') && !insightAspects.includes('Bullet')) {
-            insight.metadata.aspects = insightAspects
-            console.log(`For insight: ${insight.slug}`)
-            console.log(`These are the aspects: ${insight.metadata.aspects}`)
-            insight.metadata.tags = insight.metadata.tags.filter(
-              tag => !aspects.includes(tag)
-            )
-            // I used console.log() on the modified insight and it works as expected
-            // However, the .render() method returns undefined
-
-            const newInsightFile = insight.render()
-            console.log(typeof (newInsightFile))
-            // fs.writeFileSync(insightPath, newInsightFile)
-          }
+      const insightFile = fs.readFileSync(insightPath, 'utf-8')
+      const insight = new Insight({ body: insightFile, path: insightPath })
+      const { metadata: {tags} } = insight
+      if (tags !== undefined) {
+        const insightAspects = tags.filter(tag =>
+          aspects.includes(tag))
+        if (insightAspects.length > 0 && !insightAspects.includes('Deprecation') && !insightAspects.includes('Bullet')) {
+          insight.metadata.aspects = insightAspects
+          insight.metadata.tags = tags.filter(
+            tag => !aspects.includes(tag)
+          )
+          const newInsightFile = insight.render()
+          fs.writeFileSync(insightPath, newInsightFile)
         }
       }
     })

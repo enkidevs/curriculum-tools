@@ -1,6 +1,6 @@
 {
   "name": "@teamenki/curriculum-tools",
-  "version": "0.7.18",
+  "version": "0.7.19",
   "description": "Scripts and parsers for organizing, analysing, and reformatting curriculum programmatically. GPL3",
   "main": "index.js",
   "scripts": {

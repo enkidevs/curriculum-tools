@@ -5,7 +5,7 @@ const fs = require('fs')
 
 const GitHub = require('../lib/networking/github')
 const Curriculum = require('../lib/curriculum')
-const git = new GitHub()
+const git = new GitHub('./test-data/')
 
 const branchName = process.argv[2] || 'master'
 
@@ -40,10 +40,12 @@ doc.addParagraph(
   )
 )
 doc.createParagraph('\n')
+doc.addParagraph(createHeading('Lessons'))
 doc.createParagraph('\n')
-doc.addParagraph(createHeading('Sequencing'))
+doc.createParagraph(
+  'The following lessons will be served in the order of their appearance'
+)
 doc.createParagraph('\n')
-
 Topic.getOrderedCourses().forEach(course => {
   const boldText = new TextRun(`${course.name}: `).bold()
   const courseNameParagraph = new Paragraph()
@@ -53,17 +55,10 @@ Topic.getOrderedCourses().forEach(course => {
     doc.addParagraph(new Paragraph(workout.name).bullet())
   })
 })
-
-doc.createParagraph('\n')
-doc.addParagraph(createHeading('Lessons'))
-doc.createParagraph('\n')
-doc.createParagraph(
-  'The following lessons will be served in the order of their appearance'
-)
 doc.createParagraph('\n')
 
-workouts.forEach(workout => {
-  const workoutTitle = new TextRun(workout.name).underline()
+workouts.forEach((workout, i) => {
+  const workoutTitle = new TextRun(`Lesson ${i}: ${workout.name}`).underline()
   const workoutParagraph = new Paragraph()
   workoutParagraph.addRun(workoutTitle)
   workoutParagraph.heading3()
@@ -81,29 +76,36 @@ workouts.forEach(workout => {
     doc.addParagraph(insightTitleParagraph)
     doc.createParagraph('\n').leftTabStop()
 
-    doc.addParagraph(createBoldParagraph('    First Question:'))
-    doc.createParagraph('\n')
-
-    const pqParagraphs = convertMarkdownToParagraphs(
-      get(insight, 'practiceQuestion.rawText', 'none')
-    )
-    pqParagraphs.forEach(paragraph => {
-      doc.addParagraph(paragraph)
-    })
-    doc.createParagraph('\n')
-
-    doc.addParagraph(createBoldParagraph('    Explanation:'))
+    doc.addParagraph(createBoldParagraph('Content:').indent({ left: 300 }))
     doc.createParagraph('\n')
 
     const explanationParagraphs = convertMarkdownToParagraphs(
       get(insight, 'content', 'none')
     )
     explanationParagraphs.forEach(paragraph => {
+      paragraph.indent({ left: 300 })
       doc.addParagraph(paragraph)
     })
     doc.createParagraph('\n')
 
-    doc.addParagraph(createBoldParagraph('   Second question:'))
+    doc.addParagraph(
+      createBoldParagraph('Practice Question:').indent({ left: 300 })
+    )
+    doc.createParagraph('\n')
+
+    const pqParagraphs = convertMarkdownToParagraphs(
+      get(insight, 'practiceQuestion.rawText', 'none')
+    )
+    pqParagraphs.forEach(paragraph => {
+      paragraph.indent({ left: 300 })
+
+      doc.addParagraph(paragraph)
+    })
+    doc.createParagraph('\n')
+
+    doc.addParagraph(
+      createBoldParagraph('Revision question:').indent({ left: 300 })
+    )
     doc.createParagraph('\n')
 
     const rqParagraphs = convertMarkdownToParagraphs(
@@ -111,7 +113,7 @@ workouts.forEach(workout => {
     )
     doc.createParagraph('\n \t')
     rqParagraphs.forEach(paragraph => {
-      paragraph.indent(200, 1000)
+      paragraph.indent({ left: 300 })
       doc.addParagraph(paragraph)
     })
     doc.createParagraph('\n')
@@ -120,7 +122,7 @@ workouts.forEach(workout => {
 
 const packer = new Packer()
 packer.toBuffer(doc).then(buffer => {
-  fs.writeFileSync('blockchain.docx', buffer)
+  fs.writeFileSync('blockchain.doc', buffer)
   console.log('done')
   process.exit(0)
 })
@@ -148,10 +150,10 @@ function createHeading (value) {
     .underline()
   const paragraph = new Paragraph()
   paragraph.addRun(textRun)
-  paragraph.heading2()
+  paragraph.heading1()
   return paragraph
 }
 
 function convertMarkdownToParagraphs (markdownText) {
-  return markdownText.split('\n').map(x => new Paragraph(`   ${x}`))
+  return markdownText.split('\n').map(x => new Paragraph(x))
 }

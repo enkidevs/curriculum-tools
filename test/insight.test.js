@@ -174,10 +174,10 @@ describe('Insight', () => {
     })
 
     revisionQuestionHavingInsights.forEach((insight) => {
-        expect(insight).toHaveProperty('revisionQuestion')
+      expect(insight).toHaveProperty('revisionQuestion')
     })
 
-    //let revisionQuestionArr = revisionQuestionHavingInsights.map((insight) => { return insight.revisionQuestion.answers })
+    // let revisionQuestionArr = revisionQuestionHavingInsights.map((insight) => { return insight.revisionQuestion.answers })
 
     // expect(revisionQuestionArr).toEqual(expect.arrayContaining([
     //   [ '`undefined`',
@@ -228,7 +228,6 @@ describe('Insight', () => {
     //     '`-m`' ]
     // ]))
   })
-
 
   test('captures all fields defined in the yaml section', () => {
     testInsights.forEach((insight) => {

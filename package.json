@@ -11,6 +11,7 @@
   "author": "Loopiezlol",
   "license": "ISC",
   "dependencies": {
+    "@enkidevs/curriculum-compiler-json": "^2.3.2",
     "@enkidevs/curriculum-compiler-string": "^2.1.5",
     "@enkidevs/curriculum-helpers": "^1.6.0",
     "@enkidevs/curriculum-parser": "^2.1.0",

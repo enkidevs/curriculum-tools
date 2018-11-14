@@ -6,4 +6,4 @@ const insightData = fs.readFileSync(insightDataPath, 'utf8')
 
 const insight = new Insight({body: insightData, path: insightDataPath})
 
-console.log(insight.getContent())
+console.log(insight.getPracticeQuestion())

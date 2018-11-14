@@ -27,6 +27,7 @@
     "monk": "^6.0.5",
     "request": "^2.85.0",
     "to-vfile": "^2.2.0",
+    "unified": "^7.0.1",
     "unist-util-find": "^1.0.1",
     "unist-util-map": "^1.0.3"
   },

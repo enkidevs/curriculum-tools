@@ -79,10 +79,10 @@ $
 
 ???.
 
-*data
-*server’s response
-*connection fails
-*your public key
+* data
+* server’s response
+* connection fails
+* your public key
 
 ---
 ## Revision
@@ -91,6 +91,6 @@ Based on the distance, which server would respond to pings faster?
 
 ???
 
-*a close one
-*a distant one
-*the distance isn’t relevant
+* a close one
+* a distant one
+* the distance isn’t relevant

@@ -25,7 +25,7 @@ links:
 
 ---
 
-# Functional components
+# Functional Components
 
 ---
 ## Content

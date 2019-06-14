@@ -17,7 +17,7 @@
     "chai": "^4.1.2",
     "chalk": "^2.3.2",
     "docx": "^4.1.0",
-    "js-yaml": "^3.10.0",
+    "js-yaml": "^3.13.1",
     "lodash.flatten": "^4.4.0",
     "lodash.get": "^4.4.2",
     "lodash.pickby": "^4.6.0",

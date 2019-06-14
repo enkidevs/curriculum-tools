@@ -13,7 +13,7 @@
   "dependencies": {
     "@enkidevs/curriculum-compiler-string": "^2.1.5",
     "@enkidevs/curriculum-helpers": "^1.6.0",
-    "@enkidevs/curriculum-parser": "^2.1.0",
+    "@enkidevs/curriculum-parser": "^2.1.1",
     "chai": "^4.1.2",
     "chalk": "^2.3.2",
     "docx": "^4.1.0",

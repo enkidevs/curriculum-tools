@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@enkidevs/curriculum-compiler-string": "^2.1.5",
-    "@enkidevs/curriculum-helpers": "^1.6.0",
+    "@enkidevs/curriculum-helpers": "^3.0.0",
     "@enkidevs/curriculum-parser": "^2.1.0",
     "chai": "^4.1.2",
     "chalk": "^2.3.2",

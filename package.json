@@ -27,7 +27,7 @@
     "request": "^2.85.0",
     "to-vfile": "^2.2.0",
     "unist-util-find": "^1.0.1",
-    "unist-util-map": "^1.0.3"
+    "unist-util-map": "^1.0.5"
   },
   "directories": {
     "lib": "lib"

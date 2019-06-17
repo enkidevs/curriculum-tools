@@ -14,7 +14,7 @@
     "@enkidevs/curriculum-compiler-string": "^2.1.5",
     "@enkidevs/curriculum-helpers": "^1.6.0",
     "@enkidevs/curriculum-parser": "^2.1.0",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chalk": "^2.3.2",
     "docx": "^4.1.0",
     "js-yaml": "^3.10.0",

@@ -11,21 +11,21 @@
   "author": "Loopiezlol",
   "license": "ISC",
   "dependencies": {
-    "@enkidevs/curriculum-compiler-string": "^2.1.5",
-    "@enkidevs/curriculum-helpers": "^1.6.0",
-    "@enkidevs/curriculum-parser": "^2.1.0",
-    "chai": "^4.1.2",
+    "@enkidevs/curriculum-compiler-json": "^2.3.2",
+    "@enkidevs/curriculum-compiler-string": "^2.2.1",
+    "@enkidevs/curriculum-helpers": "^2.2.1",
+    "@enkidevs/curriculum-parser": "^2.1.1",
     "chalk": "^2.3.2",
     "docx": "^4.1.0",
     "js-yaml": "^3.10.0",
     "lodash.flatten": "^4.4.0",
     "lodash.get": "^4.4.2",
     "lodash.pickby": "^4.6.0",
-    "mocha": "^5.0.1",
     "mongoose": "^5.0.9",
     "monk": "^6.0.5",
-    "request": "^2.85.0",
+    "request": "^2.88.0",
     "to-vfile": "^2.2.0",
+    "unified": "^7.0.1",
     "unist-util-find": "^1.0.1",
     "unist-util-map": "^1.0.3"
   },
@@ -56,6 +56,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "jest": "^22.4.2"
+    "jest": "^23.6.0",
+    "jest-extended": "^0.11.0"
   }
 }

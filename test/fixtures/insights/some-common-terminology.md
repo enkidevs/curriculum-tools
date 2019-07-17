@@ -61,10 +61,10 @@ What other name does the **staging area** have?
 
 ???
 
-*index
-*HEAD
-*tag
-*stage
+* index
+* HEAD
+* tag
+* stage
 
 ---
 ## Revision

@@ -23,7 +23,7 @@
     "lodash.pickby": "^4.6.0",
     "mocha": "^5.0.1",
     "mongoose": "^5.0.9",
-    "monk": "^6.0.5",
+    "monk": "^7.1.0",
     "request": "^2.85.0",
     "to-vfile": "^2.2.0",
     "unist-util-find": "^1.0.1",

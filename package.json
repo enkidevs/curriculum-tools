@@ -15,7 +15,7 @@
     "@enkidevs/curriculum-helpers": "^1.6.0",
     "@enkidevs/curriculum-parser": "^2.1.0",
     "chai": "^4.1.2",
-    "chalk": "^2.3.2",
+    "chalk": "^3.0.0",
     "docx": "^4.1.0",
     "js-yaml": "^3.10.0",
     "lodash.flatten": "^4.4.0",

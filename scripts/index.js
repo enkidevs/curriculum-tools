@@ -3,9 +3,8 @@
 const Curriculum = require('../lib/curriculum')
 const GitHub = require('../lib/networking/github')
 
-const basePath = process.argv[2]
+const basePath = './'
 
-const remote = 'https://github.com/enkidevs/curriculum/tree/master/'
 const git = new GitHub(basePath, { pullFromBranch: false })
 
 const curriculum = new Curriculum(git)
